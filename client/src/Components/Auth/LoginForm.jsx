@@ -40,7 +40,7 @@ export default function LoginForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      {/* <Container component="main" maxWidth="xs"> */}
         <CssBaseline />
         <Box
           sx={{
@@ -104,7 +104,7 @@ export default function LoginForm() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
+      {/* </Container> */}
     </ThemeProvider>
   );
 }

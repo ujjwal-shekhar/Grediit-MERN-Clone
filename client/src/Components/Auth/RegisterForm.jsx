@@ -40,7 +40,7 @@ export default function RegisterForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      {/* <Container component="main" maxWidth="xs"> */}
         <CssBaseline />
         <Box
           sx={{
@@ -125,7 +125,7 @@ export default function RegisterForm() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
-      </Container>
+      {/* </Container> */}
     </ThemeProvider>
   );
 }

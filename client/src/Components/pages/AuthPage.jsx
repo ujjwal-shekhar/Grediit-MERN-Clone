@@ -4,17 +4,9 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";   
 
-// Login Form component
-import LoginForm from './LoginForm';
-
-// Register Form component
-import RegisterForm from './RegisterForm';
+// LoginRegister Form Component
+import LoginRegisterForm from '../Auth/LoginRegisterForm.jsx';
 
 function Copyright(props) {
     return (
@@ -65,8 +57,9 @@ export default function AuthPage() {
                         backgroundPosition: 'center',
                     }}
                 />
-                
+                <LoginRegisterForm />    
             </Grid>
+            
         </ThemeProvider>
     );
 }

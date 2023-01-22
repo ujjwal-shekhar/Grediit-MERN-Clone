@@ -1,7 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from "@mui/material/Box";
@@ -29,8 +29,6 @@ function Copyright(props) {
     );
 }
 
-const theme = createTheme();
-
 export default function LoginRegisterForm() {
 
     const [value, setValue] = React.useState("1");
@@ -38,17 +36,8 @@ export default function LoginRegisterForm() {
         setValue(newValue);
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
-
     return (
-        <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
             <TabContext value={value}>
                 <Box sx={{
                     borderBottom: 1,
@@ -68,6 +57,26 @@ export default function LoginRegisterForm() {
                     <RegisterForm />
                 </TabPanel>
             </TabContext>
-        </ThemeProvider>
+        </Container>
+        // <LoginForm />
+        // <TabContext value={value}>
+        //     <Box sx={{
+        //         borderBottom: 1,
+        //         borderColor: "divider"
+        //     }}>
+        //         <TabList onChange={handleChange}>
+        //             <Tab
+        //                 label="Log In" value="1" />
+        //             <Tab
+        //                 label="Sign Up" value="2" />
+        //         </TabList>
+        //     </Box>
+        //     <TabPanel value="1">
+        //         <LoginForm />
+        //     </TabPanel>
+        //     <TabPanel value="2">
+        //         <RegisterForm />
+        //     </TabPanel>
+        // </TabContext>
     );
 }
