@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import FormInput from './FormInput';
-import FormButton from './FormButton';
+import FormInput from '../common/FormInput';
+import FormButton from '../common/FormButton';
 
 const contactNumberRegex = /^(?:(?:\+|0{0,2})91(\s*|[\-])?|[0]?)?([6789]\d{2}([ -]?)\d{3}([ -]?)\d{4})$/;
 
@@ -77,7 +77,7 @@ const RegisterForm = ({ onSubmit }) => {
       setContactNumberError('Contact Number is invalid');
       hasError = true;
     } else {
-      const extractedNumber = phoneNumber.match(/\d+/g).join('').slice(-10);
+      const extractedNumber = contactNumber.match(/\d+/g).join('').slice(-10);
       setContactNumber(extractedNumber);
       setContactNumberError('');
     }

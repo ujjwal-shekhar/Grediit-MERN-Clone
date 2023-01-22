@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import FormInput from './FormInput';
-import FormButton from './FormButton';
+import FormInput from '../common/FormInput.jsx';
+import FormButton from '../common/FormButton.jsx';
 
 const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
