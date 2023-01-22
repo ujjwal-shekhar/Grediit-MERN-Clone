@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tabs from '../common/Tabs';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
 const LoginRegisterForm = () => {
-  const [activeTab, setActiveTab] = useState('login');
+  const [activeTab, setActiveTab] = useState('Login');
+  useEffect(() => {
+    setActiveTab('Login');
+  }, []);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
