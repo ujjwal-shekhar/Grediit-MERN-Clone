@@ -8,22 +8,26 @@ const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
   if (!user) {
     return <Navigate to={redirectPath} replace />;
   }
-
   return children ? children : <Outlet />;
 };
 
 const App = () => {
   const [user, setUser] = useState(null);
-
+  const handleTestingButton = () => {
+    console.log('user', user);
+  }
   return (
+      <>
+      <button onClick={handleTestingButton}>Test</button>
       <Routes>
         <Route index element={<AuthPage setUser={setUser}/>} />
-        <Route path="login" element={<AuthPage />} />
+        <Route path="login" element={<AuthPage setUser={setUser}/>} />
         <Route element={<ProtectedRoute user={user} />}>
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<p>There's nothing here: 404!</p>} />
       </Routes>
+      </>
     // <AuthPage />
   );
 }

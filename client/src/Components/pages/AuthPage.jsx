@@ -27,6 +27,7 @@ const AuthPage = ({ setUser }) => {
                     }}
                 />
                 <LoginRegisterForm setUser={setUser}/>    
+                
             </Grid>
         </ThemeProvider>
     );

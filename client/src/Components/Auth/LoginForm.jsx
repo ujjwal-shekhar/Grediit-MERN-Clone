@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useNavigate } from "react-router-dom";
+
 const Copyright = (props) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -28,6 +30,8 @@ const Copyright = (props) => {
 const theme = createTheme();
 
 const LoginForm = ({ setUser }) => {
+  const navigate = useNavigate();
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -36,6 +40,8 @@ const LoginForm = ({ setUser }) => {
     const password = data.get('password');
 
     if (username === 'admin' && password === 'admin') {
+      console.log(setUser)
+      navigate("/profile")
       setUser({
         username: data.get('username'),
         password: data.get('password'),
