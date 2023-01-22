@@ -1,6 +1,6 @@
 import { Route, Navigate } from 'react-router-dom';
 
-export default PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -17,3 +17,5 @@ export default PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
+
+export default PrivateRoute;
