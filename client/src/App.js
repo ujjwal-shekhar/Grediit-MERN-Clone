@@ -2,12 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 
 // Login Register Component
-import LoginRegisterComponent from './Components/Auth/LoginRegisterForm.jsx';
+import AuthPage from './Components/pages/AuthPage';
 
 function App() {
   return (
     <div className="App">
-      <LoginRegisterComponent />
+      <AuthPage />
     </div>
   );
 }

@@ -1,184 +1,132 @@
-import React, { useState } from 'react';
-import FormInput from '../common/FormInput';
-import FormButton from '../common/FormButton';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const contactNumberRegex = /^(?:(?:\+|0{0,2})91(\s*|[\-])?|[0]?)?([6789]\d{2}([ -]?)\d{3}([ -]?)\d{4})$/;
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
-const RegisterForm = ({ onSubmit }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [age, setAge] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
+const theme = createTheme();
 
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [usernameError, setUsernameError] = useState('');
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
-  const [ageError, setAgeError] = useState('');
-  const [contactNumberError, setContactNumberError] = useState('');
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    setEmailError('');
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    setPasswordError('');
-  };
-
-  const handleContactNumberChange = (event) => {
-    setContactNumber(event.target.value);
-    setContactNumberError('');
-  }
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-    setUsernameError('');
-  }
-
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-    setFirstNameError('');
-  }
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-    setLastNameError('');
-  }
-
-  const handleAgeChange = (event) => {
-    setAge(event.target.value);
-    setAgeError('');
-  }
-
+export default function RegisterForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    let hasError = false;
-
-    if (!email) {
-      setEmailError('Email is required');
-      hasError = true;
-    }
-
-    if (!password) {
-      setPasswordError('Password is required');
-      hasError = true;
-    }
-
-    if (!contactNumber) {
-      setContactNumberError('Contact Number is required');
-      hasError = true;
-    } else if (!contactNumberRegex.test(contactNumber)) {
-      setContactNumberError('Contact Number is invalid');
-      hasError = true;
-    } else {
-      const extractedNumber = contactNumber.match(/\d+/g).join('').slice(-10);
-      setContactNumber(extractedNumber);
-      setContactNumberError('');
-    }
-
-    if (!username) {
-        setUsernameError('Username is required');
-        hasError = true;
-    }
-
-    if (!firstName) {
-        setFirstNameError('First Name is required');
-        hasError = true;
-    }
-
-    if (!lastName) {
-        setLastNameError('Last Name is required');
-        hasError = true;
-    }
-
-    if (!age) {
-        setAgeError('Age is required');
-        hasError = true;
-    } else if (age < 13) {
-        setAgeError('Must be atleast 13 years of age.');
-        hasError = true;
-    }
-
-    if (!hasError) {
-      onSubmit({ email, password });
-    }
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-        <FormInput 
-        label="First Name"
-        type="text"
-        value={firstName}
-        onChange={handleFirstNameChange}
-        name="firstName"
-        error={firstNameError}
-        placeholder="Enter your first name"
-      />
-      <FormInput 
-        label="Last Name"
-        type="text"
-        value={lastName}
-        onChange={handleLastNameChange}
-        name="lastName"
-        error={lastNameError}
-        placeholder="Enter your last name"
-      />
-      <FormInput
-        label="Email"
-        type="email"
-        value={email}
-        onChange={handleEmailChange}
-        name="email"
-        error={emailError}
-        placeholder="Enter your email"
-      />
-      <FormInput 
-        label="Username"
-        type="text"
-        value={username}
-        onChange={handleUsernameChange}
-        name="username"
-        error={usernameError}
-        placeholder="Enter your username"
-      />
-      <FormInput
-        label="Password"
-        type="password"
-        value={password}
-        onChange={handlePasswordChange}
-        name="password"
-        error={passwordError}
-        placeholder="Enter your password"
-      />
-      <FormInput 
-        label="Contact Number"
-        type="text"
-        value={contactNumber}
-        onChange={handleContactNumberChange}
-        name="contactNumber"
-        error={contactNumberError}
-        placeholder="Enter your contact number"
-      />
-
-      <FormInput 
-        label="Age"
-        type="number"
-        value={age}
-        onChange={handleAgeChange}
-        name="age"
-        error={ageError}
-        placeholder="Enter your age"
-      />
-      <FormButton text="Register" type="submit" />
-    </form>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
   );
-};
+}
 
-export default RegisterForm;
