@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import ProfileCard from '../Dashboard/Profile/ProfileCard.jsx';
 
-export default function Profile() {
+const Profile = () => {
     const user = {
         name: 'John Doe',
         email: 'johndoe@example.com',
@@ -19,3 +19,4 @@ export default function Profile() {
         </Grid>
     );
 } 
+export default Profile;

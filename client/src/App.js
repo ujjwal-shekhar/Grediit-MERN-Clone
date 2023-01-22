@@ -1,23 +1,30 @@
 import './App.css';
-import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router';
-
+import { useState } from 'react';
 import AuthPage from './Components/pages/AuthPage';
-import PrivateRoute from './Components/Auth/PrivateRoute.jsx';
 import Profile from './Components/pages/Profile.jsx';
+import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 
+const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
+  if (!user) {
+    return <Navigate to={redirectPath} replace />;
+  }
 
+  return children ? children : <Outlet />;
+};
 
-function App() {
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+
   return (
-    <Router>
       <Routes>
-        <Route path="/login" component={AuthPage} />
-        <PrivateRoute path="/profile" component={Profile} />
-        <Navigate from="*" to="/login" />
+        <Route index element={<AuthPage setIsAuthenticated={setIsAuthenticated}/>} />
+        <Route path="login" element={<AuthPage />} />
+        <Route element={<ProtectedRoute user={isAuthenticated} />}>
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route path="*" element={<p>There's nothing here: 404!</p>} />
       </Routes>
-    </Router>
+    // <AuthPage />
   );
 }
 

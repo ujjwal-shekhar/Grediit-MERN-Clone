@@ -10,12 +10,9 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { useNavigate } from 'react-router-dom';
-
-function Copyright(props) {
+const Copyright = (props) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -30,31 +27,23 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function LoginForm() {
+const LoginForm = ({ setAuth }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    
+  
     const username = data.get('username');
     const password = data.get('password');
 
     if (username === 'admin' && password === 'admin') {
-      navigate.push('/profile');
+      setAuth({
+        username: data.get('username'),
+        password: data.get('password'),
+      });
     } else {
       alert('Invalid username or password!');
     }
   };
-
-  const navigate = useNavigate();
-  
-  React.useEffect(() => {
-    // check if the user is authenticated
-    const isAuthenticated = true; // or use your own check
-
-    if (isAuthenticated) {
-      navigate.push('/profile');
-    }
-  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,10 +68,10 @@ export default function LoginForm() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -126,3 +115,5 @@ export default function LoginForm() {
     </ThemeProvider>
   );
 }
+
+export default LoginForm;

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function ProfileCard({ user }) {
+const ProfileCard = ({ user }) => {
     const classes = useStyles();
 
     return (
@@ -49,3 +49,5 @@ export default function ProfileCard({ user }) {
         </Card>
     );
 } 
+
+export default ProfileCard;
