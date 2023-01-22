@@ -1,6 +1,8 @@
 import { Grid, Container, Box } from '@material-ui/core';
 import * as React from 'react';
 
+import Button from '@mui/material/Button'
+
 import ProfileCard from '../Dashboard/Profile/ProfileCard.jsx';
 
 const Profile = () => {
@@ -15,6 +17,9 @@ const Profile = () => {
       
     return (
         <Grid>
+            <Button variant="outlined" color="error" >
+                Logout
+            </Button>
             <ProfileCard user={user}/>
         </Grid>
     );
