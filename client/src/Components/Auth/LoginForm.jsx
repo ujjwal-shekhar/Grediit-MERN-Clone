@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useNavigate } from 'react-router-dom';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,11 +34,27 @@ export default function LoginForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    
+    const username = data.get('username');
+    const password = data.get('password');
+
+    if (username === 'admin' && password === 'admin') {
+      navigate.push('/profile');
+    } else {
+      alert('Invalid username or password!');
+    }
   };
+
+  const navigate = useNavigate();
+  
+  React.useEffect(() => {
+    // check if the user is authenticated
+    const isAuthenticated = true; // or use your own check
+
+    if (isAuthenticated) {
+      navigate.push('/profile');
+    }
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

@@ -58,25 +58,5 @@ export default function LoginRegisterForm() {
                 </TabPanel>
             </TabContext>
         </Container>
-        // <LoginForm />
-        // <TabContext value={value}>
-        //     <Box sx={{
-        //         borderBottom: 1,
-        //         borderColor: "divider"
-        //     }}>
-        //         <TabList onChange={handleChange}>
-        //             <Tab
-        //                 label="Log In" value="1" />
-        //             <Tab
-        //                 label="Sign Up" value="2" />
-        //         </TabList>
-        //     </Box>
-        //     <TabPanel value="1">
-        //         <LoginForm />
-        //     </TabPanel>
-        //     <TabPanel value="2">
-        //         <RegisterForm />
-        //     </TabPanel>
-        // </TabContext>
     );
 }
