@@ -13,13 +13,13 @@ const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
 };
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [user, setUser] = useState(null);
 
   return (
       <Routes>
-        <Route index element={<AuthPage setIsAuthenticated={setIsAuthenticated}/>} />
+        <Route index element={<AuthPage setUser={setUser}/>} />
         <Route path="login" element={<AuthPage />} />
-        <Route element={<ProtectedRoute user={isAuthenticated} />}>
+        <Route element={<ProtectedRoute user={user} />}>
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<p>There's nothing here: 404!</p>} />

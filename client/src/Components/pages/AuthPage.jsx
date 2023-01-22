@@ -7,7 +7,7 @@ import LoginRegisterForm from '../Auth/LoginRegisterForm.jsx';
 
 const theme = createTheme();
 
-const AuthPage = ({ setIsAuthenticated }) => {
+const AuthPage = ({ setUser }) => {
     return (
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
@@ -26,7 +26,7 @@ const AuthPage = ({ setIsAuthenticated }) => {
                         backgroundPosition: 'center',
                     }}
                 />
-                <LoginRegisterForm setAuth={setIsAuthenticated}/>    
+                <LoginRegisterForm setUser={setUser}/>    
             </Grid>
         </ThemeProvider>
     );

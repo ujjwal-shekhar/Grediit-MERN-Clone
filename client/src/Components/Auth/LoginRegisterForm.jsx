@@ -9,7 +9,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
-const LoginRegisterForm = ({ setAuth }) => {
+const LoginRegisterForm = ({ setUser }) => {
 
     const [value, setValue] = React.useState("1");
     const handleChange = (event, newValue) => {
@@ -31,7 +31,7 @@ const LoginRegisterForm = ({ setAuth }) => {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    <LoginForm setAuth={setAuth}/>
+                    <LoginForm setUser={setUser}/>
                 </TabPanel>
                 <TabPanel value="2">
                     <RegisterForm />

@@ -27,7 +27,7 @@ const Copyright = (props) => {
 
 const theme = createTheme();
 
-const LoginForm = ({ setAuth }) => {
+const LoginForm = ({ setUser }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -36,7 +36,7 @@ const LoginForm = ({ setAuth }) => {
     const password = data.get('password');
 
     if (username === 'admin' && password === 'admin') {
-      setAuth({
+      setUser({
         username: data.get('username'),
         password: data.get('password'),
       });
