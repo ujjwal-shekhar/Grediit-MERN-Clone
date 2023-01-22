@@ -46,6 +46,7 @@ const LoginForm = ({ onSubmit }) => {
         onChange={handleEmailChange}
         name="email"
         error={emailError}
+        placeholder="Enter your email"
       />
       <FormInput
         label="Password"
@@ -54,6 +55,7 @@ const LoginForm = ({ onSubmit }) => {
         onChange={handlePasswordChange}
         name="password"
         error={passwordError}
+        placeholder="Enter your password"
       />
       <FormButton text="Log in" type="submit" />
     </form>

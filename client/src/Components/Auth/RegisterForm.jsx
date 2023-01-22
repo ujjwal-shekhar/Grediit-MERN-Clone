@@ -4,7 +4,7 @@ import FormButton from './FormButton';
 
 const contactNumberRegex = /^(?:(?:\+|0{0,2})91(\s*|[\-])?|[0]?)?([6789]\d{2}([ -]?)\d{3}([ -]?)\d{4})$/;
 
-const LoginForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -46,6 +46,16 @@ const LoginForm = ({ onSubmit }) => {
     setFirstNameError('');
   }
 
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+    setLastNameError('');
+  }
+
+  const handleAgeChange = (event) => {
+    setAge(event.target.value);
+    setAgeError('');
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     let hasError = false;
@@ -82,6 +92,19 @@ const LoginForm = ({ onSubmit }) => {
         hasError = true;
     }
 
+    if (!lastName) {
+        setLastNameError('Last Name is required');
+        hasError = true;
+    }
+
+    if (!age) {
+        setAgeError('Age is required');
+        hasError = true;
+    } else if (age < 13) {
+        setAgeError('Must be atleast 13 years of age.');
+        hasError = true;
+    }
+
     if (!hasError) {
       onSubmit({ email, password });
     }
@@ -89,6 +112,24 @@ const LoginForm = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+        <FormInput 
+        label="First Name"
+        type="text"
+        value={firstName}
+        onChange={handleFirstNameChange}
+        name="firstName"
+        error={firstNameError}
+        placeholder="Enter your first name"
+      />
+      <FormInput 
+        label="Last Name"
+        type="text"
+        value={lastName}
+        onChange={handleLastNameChange}
+        name="lastName"
+        error={lastNameError}
+        placeholder="Enter your last name"
+      />
       <FormInput
         label="Email"
         type="email"
@@ -96,22 +137,7 @@ const LoginForm = ({ onSubmit }) => {
         onChange={handleEmailChange}
         name="email"
         error={emailError}
-      />
-      <FormInput
-        label="Password"
-        type="password"
-        value={password}
-        onChange={handlePasswordChange}
-        name="password"
-        error={passwordError}
-      />
-      <FormInput 
-        label="Contact Number"
-        type="text"
-        value={contactNumber}
-        onChange={handleContactNumberChange}
-        name="contactNumber"
-        error={contactNumberError}
+        placeholder="Enter your email"
       />
       <FormInput 
         label="Username"
@@ -120,10 +146,39 @@ const LoginForm = ({ onSubmit }) => {
         onChange={handleUsernameChange}
         name="username"
         error={usernameError}
+        placeholder="Enter your username"
       />
-      <FormButton text="Log in" type="submit" />
+      <FormInput
+        label="Password"
+        type="password"
+        value={password}
+        onChange={handlePasswordChange}
+        name="password"
+        error={passwordError}
+        placeholder="Enter your password"
+      />
+      <FormInput 
+        label="Contact Number"
+        type="text"
+        value={contactNumber}
+        onChange={handleContactNumberChange}
+        name="contactNumber"
+        error={contactNumberError}
+        placeholder="Enter your contact number"
+      />
+
+      <FormInput 
+        label="Age"
+        type="number"
+        value={age}
+        onChange={handleAgeChange}
+        name="age"
+        error={ageError}
+        placeholder="Enter your age"
+      />
+      <FormButton text="Register" type="submit" />
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
