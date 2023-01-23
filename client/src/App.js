@@ -18,7 +18,7 @@ const App = () => {
   }
   return (
       <>
-      {/* <button onClick={handleTestingButton}>Test</button> */}
+      <button onClick={handleTestingButton}>Test</button>
       <Routes>
         <Route index element={<AuthPage setUser={setUser}/>} />
         <Route path="login" element={<AuthPage setUser={setUser}/>} />

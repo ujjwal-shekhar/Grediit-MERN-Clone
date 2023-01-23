@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
 const Copyright = (props) => {
@@ -32,7 +33,7 @@ const theme = createTheme();
 const LoginForm = ({ setUser }) => {
   const navigate = useNavigate();
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   
@@ -41,11 +42,18 @@ const LoginForm = ({ setUser }) => {
 
     if (username === 'admin' && password === 'admin') {
       console.log(setUser)
+      // Navigate Logged in user to profile page
       navigate("/profile")
-      setUser({
+      const user = {
         username: data.get('username'),
         password: data.get('password'),
-      });
+      };
+      // Set user in state
+      setUser(user);
+
+      // Set user in local storage
+      localStorage.setItem('user', user);
+
     } else {
       alert('Invalid username or password!');
     }
