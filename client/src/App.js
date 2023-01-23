@@ -23,7 +23,7 @@ const App = () => {
       <Navbar />
       {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
-        <Route index element={<AuthPage setUser={setUser}/>} />
+        <Route index element={<AuthPage user={user} setUser={setUser}/>} />
         <Route path="login" element={<AuthPage setUser={setUser}/>} />
         <Route element={<ProtectedRoute user={user} />}>
           <Route path="profile" element={<Profile />} />

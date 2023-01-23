@@ -30,10 +30,15 @@ const Copyright = (props) => {
 
 const theme = createTheme();
 
-const LoginForm = ({ setUser }) => {
+const LoginForm = ({ user, setUser }) => {
   const navigate = useNavigate();
-  const [buttonDisabled, setButtonDisabled] = React.useState(true);
-  
+  const [formValid, setFormValid] = React.useState(false);
+
+  if (username && password) {
+    setFormValid(true);
+  } else {
+    setFormValid(false);
+  }
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -109,7 +114,7 @@ const LoginForm = ({ setUser }) => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={buttonDisabled}
+              disabled={formValid}
             >
               Sign In
             </Button>
