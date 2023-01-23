@@ -32,7 +32,9 @@ const theme = createTheme();
 
 const LoginForm = ({ setUser }) => {
   const navigate = useNavigate();
+  const [buttonDisabled, setButtonDisabled] = React.useState(true);
   
+
   const handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -55,7 +57,7 @@ const LoginForm = ({ setUser }) => {
       localStorage.setItem('user', user);
 
     } else {
-      alert('Invalid username or password!');
+
     }
   };
 
@@ -77,7 +79,7 @@ const LoginForm = ({ setUser }) => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} >
             <TextField
               margin="normal"
               required
@@ -107,6 +109,7 @@ const LoginForm = ({ setUser }) => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={buttonDisabled}
             >
               Sign In
             </Button>

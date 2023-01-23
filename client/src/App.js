@@ -4,6 +4,8 @@ import AuthPage from './Components/pages/AuthPage';
 import Profile from './Components/pages/Profile.jsx';
 import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 
+import Navbar from './Components/Dashboard/Navbar/Navbar.jsx';
+
 const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
   if (!user) {
     return <Navigate to={redirectPath} replace />;
@@ -18,7 +20,8 @@ const App = () => {
   }
   return (
       <>
-      <button onClick={handleTestingButton}>Test</button>
+      <Navbar />
+      {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
         <Route index element={<AuthPage setUser={setUser}/>} />
         <Route path="login" element={<AuthPage setUser={setUser}/>} />
