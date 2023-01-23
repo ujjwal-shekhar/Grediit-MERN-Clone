@@ -32,21 +32,26 @@ const theme = createTheme();
 
 const LoginForm = ({ user, setUser }) => {
   const navigate = useNavigate();
-  const [formValid, setFormValid] = React.useState(false);
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-  const canSubmit = (username, password) => {
-    return (username.length > 0) && (password.length > 0);
+  const [usernameError, setUsernameError] = React.useState('');
+  const [passwordError, setPasswordError] = React.useState('');
+
+  let formValid = username.length > 0 && password.length > 0;
+
+  const handleUsernameChange = event => {
+    setUsername(event.target.value);
+    if (!event.target.value) {
+      setUsernameError('Username is required');
+    }
   }
 
-  const handleChange = event => {
-    console.log(event.target.value);
-    // const password = data.get('password');
-
-    // if (canSubmit(username, password)) {
-    //   setFormValid(true);
-    // } else {
-    //   setFormValid(false);
-    // }
+  const handlePasswordChange = event => {
+    setPassword(event.target.value);
+    if (!event.target.value) {
+      setPasswordError('Password is required');
+    }
   }
 
   const handleSubmit = async event => {
@@ -102,7 +107,7 @@ const LoginForm = ({ user, setUser }) => {
               label="Username"
               name="username"
               autoComplete="username"
-              onChange={handleChange}
+              onChange={handleUsernameChange}
               autoFocus
             />
             <TextField
@@ -113,7 +118,7 @@ const LoginForm = ({ user, setUser }) => {
               label="Password"
               type="password"
               id="password"
-              onChange={handleChange}
+              onChange={handlePasswordChange}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -125,7 +130,7 @@ const LoginForm = ({ user, setUser }) => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={formValid}
+              disabled={!formValid}
             >
               Sign In
             </Button>
