@@ -34,10 +34,19 @@ const LoginForm = ({ user, setUser }) => {
   const navigate = useNavigate();
   const [formValid, setFormValid] = React.useState(false);
 
-  if (username && password) {
-    setFormValid(true);
-  } else {
-    setFormValid(false);
+  const canSubmit = (username, password) => {
+    return (username.length > 0) && (password.length > 0);
+  }
+
+  const handleChange = event => {
+    console.log(event.target.value);
+    // const password = data.get('password');
+
+    // if (canSubmit(username, password)) {
+    //   setFormValid(true);
+    // } else {
+    //   setFormValid(false);
+    // }
   }
 
   const handleSubmit = async event => {
@@ -93,6 +102,7 @@ const LoginForm = ({ user, setUser }) => {
               label="Username"
               name="username"
               autoComplete="username"
+              onChange={handleChange}
               autoFocus
             />
             <TextField
@@ -103,6 +113,7 @@ const LoginForm = ({ user, setUser }) => {
               label="Password"
               type="password"
               id="password"
+              onChange={handleChange}
               autoComplete="current-password"
             />
             <FormControlLabel
