@@ -18,7 +18,7 @@ import { useLocation } from 'react-router-dom';
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Home', 'My SubGrediits', 'Logout'];
 
-const Navbar = () => {
+const Navbar = ( {setUser} ) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -48,7 +48,8 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-
+    setUser({});
+    localStorage.clear();
     handleCloseNavMenu();
   }
   const handleHome = () => {
@@ -66,7 +67,7 @@ const Navbar = () => {
 
   return (
     <AppBar position="static">
-      <button onClick={test}></button>
+      {/* <button onClick={test} width={100}>Test</button> */}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

@@ -12,7 +12,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
 const Copyright = (props) => {
@@ -62,21 +61,13 @@ const LoginForm = ({ user, setUser }) => {
     const password = data.get('password');
 
     if (username === 'admin' && password === 'admin') {
-      console.log(setUser)
-      // Navigate Logged in user to profile page
       navigate("/profile")
       const user = {
         username: data.get('username'),
         password: data.get('password'),
-      };
-      // Set user in state
+      } ;
       setUser(user);
-
-      // Set user in local storage
-      localStorage.setItem('user', user);
-
-    } else {
-
+      localStorage.setItem('user', JSON.stringify(username));
     }
   };
 
