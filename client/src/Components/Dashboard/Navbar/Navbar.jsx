@@ -48,7 +48,8 @@ const Navbar = ( {setUser} ) => {
   };
 
   const handleLogout = () => {
-    setUser({});
+    console.log("Called logout")
+    setUser('');
     localStorage.clear();
     handleCloseNavMenu();
   }
@@ -188,7 +189,7 @@ const Navbar = ( {setUser} ) => {
                     case 'My SubGrediits':
                       return handleMySubGrediits;
                     case 'Logout':
-                      return handleLogout;
+                      return handleLogout();
                     default:
                       return handleCloseUserMenu;
                   }
