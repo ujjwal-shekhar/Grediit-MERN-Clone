@@ -14,7 +14,7 @@ const theme = createTheme();
 const AuthPage = ({ user, setUser }) => {
     return (
         <ThemeProvider theme={theme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <Grid container component="main" sx={{ height: '800px'}}>
                 <CssBaseline />
                 <Grid
                     item
@@ -29,8 +29,20 @@ const AuthPage = ({ user, setUser }) => {
                     }}
                     align="center"
                 >
-                    <Box display="flex" justifyContent="center" alignItems="center">
-                        <Paper elevation={3} style={{ position: 'relative', zIndex: 1, margin:'auto' }}>
+                    <Box display="flex" justifyContent="center" alignItems="center" maxHeight='50px'>
+                        <Paper 
+                            elevation={3} 
+                            style=
+                                {{ 
+                                    position: 'absolute', 
+                                    zIndex: 1, margin:'auto', 
+                                    top: '50%', left: '50%', 
+                                    transform: 'translate(-50%, -50%)' ,
+                                    maxHeight: '600px'
+                                }}
+                            square={false}
+
+                        >
                             <LoginRegisterForm user={user} setUser={setUser}/> 
                         </Paper>
                     </Box>

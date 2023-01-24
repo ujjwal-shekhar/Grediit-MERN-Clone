@@ -19,23 +19,21 @@ const LoginRegisterForm = ({ user, setUser }) => {
     return (
         <Container component="main" maxWidth="xs">
             <TabContext value={value}>
-                <Box sx={{
-                    borderBottom: 1,
-                    borderColor: "divider"
-                }}>
+                <Box textAlign="center">
                     <TabList onChange={handleChange}>
                         <Tab
-                            label="Log In" value="1" />
+                            label="Log In" value="1" fullWidth/>
                         <Tab
-                            label="Sign Up" value="2" />
+                            label="Sign Up" value="2" fullWidth/>
                     </TabList>
-                </Box>
+                
                 <TabPanel value="1">
                     <LoginForm users={user} setUser={setUser}/>
                 </TabPanel>
                 <TabPanel value="2">
                     <RegisterForm />
                 </TabPanel>
+                </Box>
             </TabContext>
         </Container>
     );

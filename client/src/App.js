@@ -28,8 +28,8 @@ const App = () => {
   }, []);
   return (
       <>
-      <Navbar setUser={setUser}/>
-      <button onClick={handleTestingButton}>Test</button>
+      {user && <Navbar setUser={setUser}/>}
+      {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
         <Route index element={
           user ? <Profile /> :
