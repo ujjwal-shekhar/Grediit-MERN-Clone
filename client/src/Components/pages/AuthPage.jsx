@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -17,9 +18,6 @@ const AuthPage = ({ user, setUser }) => {
                 <CssBaseline />
                 <Grid
                     item
-                    xs={false}
-                    sm={8}
-                    md={8}
                     sx={{
                         backgroundImage: `url(${authPageBackground})`,
                         backgroundRepeat: 'no-repeat',
@@ -27,18 +25,17 @@ const AuthPage = ({ user, setUser }) => {
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
+                        width: '100vw'
                     }}
-                />
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    minHeight="100vh"
-                    >
-                    <LoginRegisterForm user={user} setUser={setUser}/>    
-                    {/* <YourComponent /> */}
-                </Box>
-                    </Grid>
+                    align="center"
+                >
+                    <Box display="flex" justifyContent="center" alignItems="center">
+                        <Paper elevation={3} style={{ position: 'relative', zIndex: 1, margin:'auto' }}>
+                            <LoginRegisterForm user={user} setUser={setUser}/> 
+                        </Paper>
+                    </Box>
+                </Grid>
+            </Grid>
 
         </ThemeProvider>
     );
