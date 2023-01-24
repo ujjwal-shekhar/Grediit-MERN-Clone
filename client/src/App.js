@@ -21,7 +21,7 @@ const App = () => {
   return (
       <>
       <Navbar />
-      {/* <button onClick={handleTestingButton}>Test</button> */}
+      {/* <button disabled={true} onClick={handleTestingButton}>Test</button> */}
       <Routes>
         <Route index element={<AuthPage user={user} setUser={setUser}/>} />
         <Route path="login" element={<AuthPage setUser={setUser}/>} />

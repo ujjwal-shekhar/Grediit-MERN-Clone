@@ -99,10 +99,13 @@ const RegisterForm = () => {
 
   const handleAgeChange = event => {
     if (!event.target.value) {
+      setAge('');
       setAgeError('Age is required');
     } else if (event.target.value < 13) {
+      setAge('');
       setAgeError('Age must be greater than 13');
     } else if (event.target.value > 120) {
+      setAge('');
       setAgeError('Age must be less than 120');
     } else {
       setAge(event.target.value);
@@ -112,30 +115,29 @@ const RegisterForm = () => {
 
   const handleContactNumberChange = event => {
     if (!event.target.value) {
+      setContactNumber('');
       setContactNumberError('Contact Number is required');
     } else if (event.target.value.length !== 10) {
-      setContactNumberError('Contact Number is invalid');
+      let tempNumber = event.target.value;  
+         if (!contactNumberRegex.test(tempNumber)) {
+          setContactNumber('');
+          setContactNumberError('Contact Number is invalid');
+        } else {
+          const extractedNumber = tempNumber.match(/\d+/g).join('').slice(-10);
+          let extractedRegex = /^[6-9]\d{9}$/;
+          if (!extractedRegex.test(extractedNumber) || extractedNumber.length !== 10) {
+            setContactNumber('');
+            setContactNumberError('Contact Number is invalid');
+          } else {
+            setContactNumber(extractedNumber);
+            setContactNumberError(null);
+          }
+        }
     } else {
       setContactNumber(event.target.value);
       setContactNumberError(null);
     }
     // console.log((contactNumberRegex.test(contactNumber)));
-    // if (!contactNumber) {
-    //   setContactNumberError('Contact Number is required');
-    // } else if (!contactNumberRegex.test(contactNumber) || !contactNumber.length >= 10) {
-    //   setContactNumber('');
-    //   setContactNumberError('Contact Number is invalid');
-    // } else {
-    //   const extractedNumber = contactNumber.match(/\d+/g).join('').slice(-10);
-    //   console.log(contactNumber);
-    //   let extractedRegex = /^[6-9]\d{9}$/;
-    //   if (!extractedRegex.test(extractedNumber)) {
-    //     setContactNumberError('Contact Number is invalid');
-    //   } else {
-    //     setContactNumber(extractedNumber);
-    //     setContactNumberError(null);
-    //   }
-    // }
     // console.log(contactNumber)
   }
 
