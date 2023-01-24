@@ -27,7 +27,8 @@ function Copyright(props) {
   );
 }
 
-const contactNumberRegex = /^(?:(?:\+|0{0,2})91(\s*|[\-])?|[0]?)?([6789]\d{2}([ -]?)\d{3}([ -]?)\d{4})$/;
+const contactNumberRegex = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/;
+const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const theme = createTheme();
 
 const RegisterForm = () => {
@@ -48,29 +49,29 @@ const RegisterForm = () => {
   const [contactNumberError, setContactNumberError] = React.useState(null);
 
   let formValid = (
-    emailError &&
-    passwordError &&
-    usernameError &&
-    firstNameError &&
-    lastNameError &&
-    ageError &&
-    contactNumberError
+    (email.length > 0) &&
+    (password.length > 0) &&
+    (username.length > 0) &&
+    (firstName.length > 0) &&
+    (lastName.length > 0) &&
+    (age.length > 0) &&
+    (contactNumber.length > 0)
   );
 
   const handleUsernameChange = event => {
     setUsername(event.target.value);
     if (!event.target.value) {
       setUsernameError('Username is required');
-    } else {
-      setUsernameError(null);
     }
   }
 
   const handleEmailChange = event => {
-    setEmail(event.target.value);
-    if (!event.target.value) {
-      setEmailError('Email is required');
+    let checkEmail = event.target.value;
+    if (!emailRegex.test(checkEmail)) {
+      setEmail('')
+      setEmailError('Email is Invalid');
     } else {
+      setEmail(event.target.value);
       setEmailError(null);
     }
   }
@@ -79,8 +80,6 @@ const RegisterForm = () => {
     setFirstName(event.target.value);
     if (!event.target.value) {
       setFirstNameError('First Name is required');
-    } else {
-      setFirstNameError(null);
     }
   }
 
@@ -88,8 +87,6 @@ const RegisterForm = () => {
     setLastName(event.target.value);
     if (!event.target.value) {
       setLastNameError('Last Name is required');
-    } else {
-      setLastNameError(null);
     }
   }
 
@@ -97,36 +94,49 @@ const RegisterForm = () => {
     setPassword(event.target.value);
     if (!event.target.value) {
       setPasswordError('Password is required');
-    } else {
-      setPasswordError(null);
     }
   }
 
   const handleAgeChange = event => {
-    setAge(event.target.value);
-    if (!age) {
+    if (!event.target.value) {
       setAgeError('Age is required');
-    } else if (age < 13) {
+    } else if (event.target.value < 13) {
       setAgeError('Age must be greater than 13');
-    } else if (age > 120) {
+    } else if (event.target.value > 120) {
       setAgeError('Age must be less than 120');
     } else {
+      setAge(event.target.value);
       setAgeError(null);
     }
   }
 
   const handleContactNumberChange = event => {
-    setContactNumber(event.target.value);
-    if (!contactNumber) {
+    if (!event.target.value) {
       setContactNumberError('Contact Number is required');
-    } else if (!contactNumberRegex.test(contactNumber)) {
-      console.log(contactNumber);
+    } else if (event.target.value.length !== 10) {
       setContactNumberError('Contact Number is invalid');
     } else {
-      const extractedNumber = contactNumber.match(/\d+/g).join('').slice(-10);
-      setContactNumber(extractedNumber);
+      setContactNumber(event.target.value);
       setContactNumberError(null);
     }
+    // console.log((contactNumberRegex.test(contactNumber)));
+    // if (!contactNumber) {
+    //   setContactNumberError('Contact Number is required');
+    // } else if (!contactNumberRegex.test(contactNumber) || !contactNumber.length >= 10) {
+    //   setContactNumber('');
+    //   setContactNumberError('Contact Number is invalid');
+    // } else {
+    //   const extractedNumber = contactNumber.match(/\d+/g).join('').slice(-10);
+    //   console.log(contactNumber);
+    //   let extractedRegex = /^[6-9]\d{9}$/;
+    //   if (!extractedRegex.test(extractedNumber)) {
+    //     setContactNumberError('Contact Number is invalid');
+    //   } else {
+    //     setContactNumber(extractedNumber);
+    //     setContactNumberError(null);
+    //   }
+    // }
+    // console.log(contactNumber)
   }
 
   const handleSubmit = (event) => {
