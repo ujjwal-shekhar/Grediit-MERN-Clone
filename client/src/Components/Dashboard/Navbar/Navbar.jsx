@@ -13,12 +13,24 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
+import { useLocation } from 'react-router-dom';
+
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Home', 'My SubGrediits', 'Logout'];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  let currPath = useLocation().pathname.slice(1);
+  const filteredSettings = settings.filter( setting => {
+    return setting.toLowerCase() !== currPath.toLowerCase();
+  });
+
+  const test = () => {
+    console.log(filteredSettings)
+    console.log(currPath);
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,8 +47,26 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+
+    handleCloseNavMenu();
+  }
+  const handleHome = () => {
+    
+    handleCloseNavMenu();
+  }
+  const handleMySubGrediits = () => {
+    
+    handleCloseNavMenu();
+  }
+  const handleProfile = () => {
+    
+    handleCloseNavMenu();
+  }
+
   return (
     <AppBar position="static">
+      <button onClick={test}></button>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -147,11 +177,25 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {filteredSettings.map((setting) => (
+                <MenuItem key={setting} onClick={() => {
+                  switch (setting) {
+                    case 'Profile':
+                      return handleProfile;
+                    case 'Home':
+                      return handleHome;
+                    case 'My SubGrediits':
+                      return handleMySubGrediits;
+                    case 'Logout':
+                      return handleLogout;
+                    default:
+                      return handleCloseUserMenu;
+                  }
+                }}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+
             </Menu>
           </Box>
         </Toolbar>
