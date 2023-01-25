@@ -43,7 +43,7 @@ const AuthPage = ({ user, setUser }) => {
                             square={false}
 
                         >
-                            <LoginRegisterForm user={user} setUser={setUser}/> 
+                            <LoginRegisterForm user={user} setUser={setUser} /> 
                         </Paper>
                     </Box>
                 </Grid>

@@ -22,9 +22,9 @@ const LoginRegisterForm = ({ user, setUser }) => {
                 <Box textAlign="center">
                     <TabList onChange={handleChange}>
                         <Tab
-                            label="Log In" value="1" fullWidth/>
+                            label="Log In" value="1" style={{height: '30px'}} fullWidth/>
                         <Tab
-                            label="Sign Up" value="2" fullWidth/>
+                            label="Sign Up" value="2" style={{height: '30px'}} fullWidth/>
                     </TabList>
                 
                 <TabPanel value="1">
