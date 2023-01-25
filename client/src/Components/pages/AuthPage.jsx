@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import authPageBackground from '../../utils/authPageBackground.jpg'
+import authPageBackground from '../../utils/authPageMarvel.jpg'
 
 import LoginRegisterForm from '../Auth/LoginRegisterForm.jsx';
 
