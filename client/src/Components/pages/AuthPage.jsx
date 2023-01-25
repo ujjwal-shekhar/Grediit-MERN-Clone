@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import authPageBackground from '../../utils/authPageMarvel.jpg'
+import authPageFinal from '../../utils/authPageFinal.jpg'
 
 import LoginRegisterForm from '../Auth/LoginRegisterForm.jsx';
 
@@ -18,14 +18,17 @@ const AuthPage = ({ user, setUser }) => {
                 <CssBaseline />
                 <Grid
                     item
+                    xs={false}
                     sx={{
-                        backgroundImage: `url(${authPageBackground})`,
+                        backgroundImage: `url(${authPageFinal})`,
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
-                        width: '100vw'
+                        width: '100vw',
+                        filter: 'blur(8)',
+                        WebkitFilter: 'blur(8)',
                     }}
                     align="center"
                 >
@@ -38,10 +41,8 @@ const AuthPage = ({ user, setUser }) => {
                                     zIndex: 1, margin:'auto', 
                                     top: '50%', left: '50%', 
                                     transform: 'translate(-50%, -50%)' ,
-                                    maxHeight: '600px'
+                                    maxHeight: '650px'
                                 }}
-                            square={false}
-
                         >
                             <LoginRegisterForm user={user} setUser={setUser} /> 
                         </Paper>

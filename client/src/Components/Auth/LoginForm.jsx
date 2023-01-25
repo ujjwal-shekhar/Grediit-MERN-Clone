@@ -81,16 +81,13 @@ const LoginForm = ({ user, setUser }) => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            maxWidth: '100%',
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar> 
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography> */}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} >
             <TextField
+              error={usernameError ? true : false}
+              helperText={usernameError}
               margin="normal"
               required
               fullWidth
@@ -100,8 +97,11 @@ const LoginForm = ({ user, setUser }) => {
               autoComplete="username"
               onChange={handleUsernameChange}
               autoFocus
+
             />
             <TextField
+              error={passwordError ? true : false}
+              helperText={passwordError}
               margin="normal"
               required
               fullWidth
@@ -139,7 +139,7 @@ const LoginForm = ({ user, setUser }) => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 3, mb: 3  }} />
       {/* </Container> */}
     </ThemeProvider>
   );

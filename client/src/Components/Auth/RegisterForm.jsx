@@ -162,16 +162,13 @@ const RegisterForm = () => {
             alignItems: 'center',
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography> */}
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+
+                  error={firstNameError ? true : false}
+                  helperText={firstNameError}
                   autoComplete="given-name"
                   name="firstName"
                   required
@@ -184,6 +181,8 @@ const RegisterForm = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={lastNameError ? true : false}
+                  helperText={lastNameError}
                   required
                   fullWidth
                   id="lastName"
@@ -195,6 +194,8 @@ const RegisterForm = () => {
               </Grid>
               <Grid item xs={12} sm={5}>
                 <TextField
+                  error={usernameError ? true : false}
+                  helperText={usernameError}
                   required
                   fullWidth
                   name="username"
@@ -207,6 +208,8 @@ const RegisterForm = () => {
               </Grid>
               <Grid item xs={12} sm={7}>
                 <TextField
+                  error={emailError ? true : false}
+                  helperText={emailError}
                   required
                   fullWidth
                   id="email"
@@ -218,6 +221,8 @@ const RegisterForm = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={passwordError ? true : false}
+                  helperText={passwordError}
                   required
                   fullWidth
                   name="password"
@@ -230,6 +235,8 @@ const RegisterForm = () => {
               </Grid>
               <Grid item xs={12} sm={8}>
                 <TextField
+                  error={contactNumberError ? true : false}
+                  helperText={contactNumberError}
                   required
                   fullWidth
                   name="contactnumber"
@@ -242,6 +249,8 @@ const RegisterForm = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
+                  error={ageError ? true : false}
+                  helperText={ageError}
                   required
                   fullWidth
                   name="age"
@@ -277,7 +286,7 @@ const RegisterForm = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: 2 }} />
       {/* </Container> */}
     </ThemeProvider>
   );
