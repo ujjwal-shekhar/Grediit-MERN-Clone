@@ -17,9 +17,6 @@ const Profile = () => {
       
     return (
         <Grid>
-            <Button variant="outlined" color="error" >
-                Logout
-            </Button>
             <ProfileCard user={user}/>
         </Grid>
     );

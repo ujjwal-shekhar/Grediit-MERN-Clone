@@ -43,6 +43,8 @@ const LoginForm = ({ user, setUser }) => {
     setUsername(event.target.value);
     if (!event.target.value) {
       setUsernameError('Username is required');
+    } else {
+      setUsernameError('');
     }
   }
 
@@ -50,6 +52,8 @@ const LoginForm = ({ user, setUser }) => {
     setPassword(event.target.value);
     if (!event.target.value) {
       setPasswordError('Password is required');
+    } else {
+      setPasswordError('');
     }
   }
 
@@ -88,7 +92,7 @@ const LoginForm = ({ user, setUser }) => {
             <TextField
               error={usernameError ? true : false}
               helperText={usernameError}
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               id="username"
@@ -97,12 +101,12 @@ const LoginForm = ({ user, setUser }) => {
               autoComplete="username"
               onChange={handleUsernameChange}
               autoFocus
-
+              // size="small"
             />
             <TextField
               error={passwordError ? true : false}
               helperText={passwordError}
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               name="password"
@@ -111,6 +115,7 @@ const LoginForm = ({ user, setUser }) => {
               id="password"
               onChange={handlePasswordChange}
               autoComplete="current-password"
+              // size="small"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -120,7 +125,7 @@ const LoginForm = ({ user, setUser }) => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 1, mb: 1 }}
               disabled={!formValid}
             >
               Sign In

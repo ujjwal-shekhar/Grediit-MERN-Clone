@@ -62,6 +62,10 @@ const RegisterForm = () => {
     setUsername(event.target.value);
     if (!event.target.value) {
       setUsernameError('Username is required');
+    } else if (event.target.value.length < 6) {
+      setUsernameError('Username must be at least 6 characters long');
+    } else {
+      setUsernameError(null);
     }
   }
 
@@ -80,6 +84,10 @@ const RegisterForm = () => {
     setFirstName(event.target.value);
     if (!event.target.value) {
       setFirstNameError('First Name is required');
+    } else if (event.target.value.length < 2) {
+      setFirstNameError('First Name must be at least 2 characters long');
+    } else {
+      setFirstNameError(null);
     }
   }
 
@@ -87,6 +95,10 @@ const RegisterForm = () => {
     setLastName(event.target.value);
     if (!event.target.value) {
       setLastNameError('Last Name is required');
+    } else if (event.target.value.length < 2) {
+      setLastNameError('Last Name must be at least 2 characters long');
+    } else {
+      setLastNameError(null);
     }
   }
 
@@ -94,6 +106,10 @@ const RegisterForm = () => {
     setPassword(event.target.value);
     if (!event.target.value) {
       setPasswordError('Password is required');
+    } else if (event.target.value.length < 8) {
+      setPasswordError('Password must be at least 8 characters long');
+    } else {
+      setPasswordError(null);
     }
   }
 
@@ -137,8 +153,6 @@ const RegisterForm = () => {
       setContactNumber(event.target.value);
       setContactNumberError(null);
     }
-    // console.log((contactNumberRegex.test(contactNumber)));
-    // console.log(contactNumber)
   }
 
   const handleSubmit = (event) => {
@@ -166,7 +180,6 @@ const RegisterForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-
                   error={firstNameError ? true : false}
                   helperText={firstNameError}
                   autoComplete="given-name"
@@ -177,10 +190,12 @@ const RegisterForm = () => {
                   label="First Name"
                   autoFocus
                   onChange={handleFirstNameChange}
+                  // size="small"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  // inputProps={{style:{fontSize: 24}}}
                   error={lastNameError ? true : false}
                   helperText={lastNameError}
                   required
@@ -190,6 +205,7 @@ const RegisterForm = () => {
                   name="lastName"
                   autoComplete="family-name"
                   onChange={handleLastNameChange}
+                  // size="small"
                 />
               </Grid>
               <Grid item xs={12} sm={5}>
@@ -204,6 +220,7 @@ const RegisterForm = () => {
                   id="username"
                   autoComplete="lite"
                   onChange={handleUsernameChange}
+                  // size="small"
                 />
               </Grid>
               <Grid item xs={12} sm={7}>
@@ -217,6 +234,7 @@ const RegisterForm = () => {
                   name="email"
                   autoComplete="email"
                   onChange={handleEmailChange}
+                  // size="small"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -231,6 +249,7 @@ const RegisterForm = () => {
                   id="password"
                   autoComplete="new-password"
                   onChange={handlePasswordChange}
+                  // size="small"
                 />
               </Grid>
               <Grid item xs={12} sm={8}>
@@ -245,6 +264,7 @@ const RegisterForm = () => {
                   id="contactnumber"
                   autoComplete="123456789"
                   onChange={handleContactNumberChange}
+                  // size="small"
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -259,20 +279,21 @@ const RegisterForm = () => {
                   id="age"
                   autoComplete="13"
                   onChange={handleAgeChange}
+                  // size="small"
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 1, mb: 1 }}
               disabled={!formValid}
             >
               Sign Up
