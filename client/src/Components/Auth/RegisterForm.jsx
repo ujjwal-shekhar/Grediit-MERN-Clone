@@ -48,6 +48,8 @@ const RegisterForm = () => {
   const [ageError, setAgeError] = React.useState(null);
   const [contactNumberError, setContactNumberError] = React.useState(null);
 
+  const [formData, setFormData] = React.useState({});
+
   let formValid = (
     (email.length > 0) &&
     (password.length > 0) &&
@@ -157,6 +159,7 @@ const RegisterForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(event.currentTarget);
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
@@ -295,6 +298,7 @@ const RegisterForm = () => {
               variant="contained"
               sx={{ mt: 1, mb: 1 }}
               disabled={!formValid}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>
