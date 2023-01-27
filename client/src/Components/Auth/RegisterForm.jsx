@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -48,16 +48,14 @@ const RegisterForm = () => {
   const [ageError, setAgeError] = React.useState(null);
   const [contactNumberError, setContactNumberError] = React.useState(null);
 
-  const [formData, setFormData] = React.useState({});
-
   let formValid = (
-    (email.length > 0) &&
-    (password.length > 0) &&
-    (username.length > 0) &&
-    (firstName.length > 0) &&
-    (lastName.length > 0) &&
-    (age.length > 0) &&
-    (contactNumber.length > 0)
+    (!emailError) &&
+    (!passwordError) &&
+    (!usernameError) &&
+    (!firstNameError) &&
+    (!lastNameError) &&
+    (!ageError) &&
+    (!contactNumberError)
   );
 
   const handleUsernameChange = event => {
@@ -159,12 +157,26 @@ const RegisterForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.currentTarget);
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    console.log(formValid);
+
+    const formData = {
+      username: username,
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      password: password,
+      age: age,
+      contact_number: contactNumber
+    }
+
+    console.log(formData);
+
+    axios({
+      url: "/user/create",
+      method: "POST",
+      data: formData
+    })
   };
 
   return (

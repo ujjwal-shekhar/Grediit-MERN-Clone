@@ -42,7 +42,7 @@ const UserSchema = new Schema({
         min: 13,
         max: 100
     },
-    contactNumber : {
+    contact_number : {
         type: Number,
         required: true,
         min: 1000000000,
