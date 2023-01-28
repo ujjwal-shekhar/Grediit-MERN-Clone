@@ -49,20 +49,22 @@ const RegisterForm = () => {
   const [contactNumberError, setContactNumberError] = React.useState(null);
 
   let formValid = (
-    (!emailError) &&
-    (!passwordError) &&
-    (!usernameError) &&
-    (!firstNameError) &&
-    (!lastNameError) &&
-    (!ageError) &&
-    (!contactNumberError)
+    (email.length > 0) &&
+    (password.length > 0) &&
+    (username.length > 0) &&
+    (firstName.length > 0) &&
+    (lastName.length > 0) &&
+    (age.length > 0) &&
+    (contactNumber.length > 0)
   );
 
   const handleUsernameChange = event => {
     setUsername(event.target.value);
     if (!event.target.value) {
+      setUsername('');
       setUsernameError('Username is required');
     } else if (event.target.value.length < 6) {
+      setUsername('');
       setUsernameError('Username must be at least 6 characters long');
     } else {
       setUsernameError(null);
@@ -83,8 +85,10 @@ const RegisterForm = () => {
   const handleFirstNameChange = event => {
     setFirstName(event.target.value);
     if (!event.target.value) {
+      setFirstNameError('');
       setFirstNameError('First Name is required');
     } else if (event.target.value.length < 2) {
+      setFirstNameError('');
       setFirstNameError('First Name must be at least 2 characters long');
     } else {
       setFirstNameError(null);
@@ -94,8 +98,10 @@ const RegisterForm = () => {
   const handleLastNameChange = event => {
     setLastName(event.target.value);
     if (!event.target.value) {
+      setLastName('');
       setLastNameError('Last Name is required');
     } else if (event.target.value.length < 2) {
+      setLastName('');
       setLastNameError('Last Name must be at least 2 characters long');
     } else {
       setLastNameError(null);
@@ -105,8 +111,10 @@ const RegisterForm = () => {
   const handlePasswordChange = event => {
     setPassword(event.target.value);
     if (!event.target.value) {
+      setPassword('');
       setPasswordError('Password is required');
     } else if (event.target.value.length < 8) {
+      setPassword('');
       setPasswordError('Password must be at least 8 characters long');
     } else {
       setPasswordError(null);
