@@ -4,7 +4,10 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 
-const mongoDB = 'mongodb+srv://ujjwal-shekhar:0lUv7SOiS0CznLES@grediit-2021113009.gk5yium.mongodb.net/grediit?retryWrites=true&w=majority';
+const mongoDB = process.env.ATLASURI;
+
+const catalog = require('./routes/catalog');
+app.use('/', catalog);
 
 const start = async () => {
   try {

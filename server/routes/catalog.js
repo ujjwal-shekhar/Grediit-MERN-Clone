@@ -22,4 +22,3 @@ router.post('/user/:id/delete', user_controller.user_delete_post);
 // Update user by their id using GET and POST methods
 router.get('/user/:id/update', user_controller.user_update_get);
 router.post('/user/:id/update', user_controller.user_update_post);
-
