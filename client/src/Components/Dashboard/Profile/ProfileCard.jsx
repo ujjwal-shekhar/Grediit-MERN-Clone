@@ -1,7 +1,17 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 
+import { Navigate } from 'react-router-dom'; 
+
 export default function ProfileCard() {
+  const handleFollowers = () => {
+    console.log('followers');
+    <Navigate to="/profile/followers" replace={true}/>
+  }
+  const handleFollowing = () => {
+    console.log('following');
+    <Navigate to="/profile/following" replace={true}/>
+  }
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer className="py-5 h-100">
@@ -23,17 +33,17 @@ export default function ProfileCard() {
               </div>
               <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                 <div className="d-flex justify-content-end text-center py-1">
-                  <div>
-                    <MDBCardText className="mb-1 h5">253</MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">Photos</MDBCardText>
-                  </div>
                   <div className="px-3">
+                  <MDBBtn color='light' onClick={handleFollowers}>
                     <MDBCardText className="mb-1 h5">1026</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
+                  </MDBBtn>
                   </div>
                   <div>
+                  <MDBBtn color='light' onClick={handleFollowing}>
                     <MDBCardText className="mb-1 h5">478</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">Following</MDBCardText>
+                  </MDBBtn>
                   </div>
                 </div>
               </div>
