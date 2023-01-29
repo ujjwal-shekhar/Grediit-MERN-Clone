@@ -36,8 +36,14 @@ const LoginForm = ({ user, setUser }) => {
 
   const [usernameError, setUsernameError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
+  const [rememberMe, setRememberMe] = React.useState(false);
 
   let formValid = username.length > 0 && password.length > 0;
+
+  const handleRememberMe = event => {
+    setRememberMe(event.target.checked);
+    console.log(rememberMe);
+  }
 
   const handleUsernameChange = event => {
     setUsername(event.target.value);
@@ -77,18 +83,18 @@ const LoginForm = ({ user, setUser }) => {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 0,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          </Avatar> */}
+          {/* <Typography component="h1" variant="h5">
             Sign in
-          </Typography>
+          </Typography> */}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} >
             <TextField
               margin="normal"
@@ -113,7 +119,7 @@ const LoginForm = ({ user, setUser }) => {
               autoComplete="current-password"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" color="primary" onClick={handleRememberMe}/>}
               label="Remember me"
             />
             <Button

@@ -38,7 +38,7 @@ const AuthPage = ({ user, setUser }) => {
                                     zIndex: 1, margin:'auto', 
                                     top: '50%', left: '50%', 
                                     transform: 'translate(-50%, -50%)' ,
-                                    maxHeight: '600px'
+                                    maxHeight: '800px'
                                 }}
                             square={false}
 
