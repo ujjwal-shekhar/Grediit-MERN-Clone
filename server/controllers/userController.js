@@ -5,7 +5,7 @@ exports.user_list = function(req, res, next) {
     User.find()
         .exec(function(err, list_users) {
             if (err) { return next(err); }
-            res.render('user_list', { title: 'User List', user_list: list_users });
+            res.json({ title: 'User List', user_list: list_users });
         });
 }
 
@@ -14,17 +14,19 @@ exports.user_detail = function(req, res, next) {
     User.findById(req.params.id)
         .exec(function(err, user) {
             if (err) { return next(err); }
-            res.render('user_detail', { title: 'User Detail', user: user });
+            res.json({ title: 'User Detail', user: user });
         });
 }
 
 // Display user create form on GET
 exports.user_create_get = function(req, res, next) {
-    res.render('user_form', { title: 'Create User' });
+    console.log('user_create_get called');
+    res.json({ title: 'Create User' });
 }
 
 // Handle user create on POST
 exports.user_create_post = (req, res, next) => {
+    console.log('user_create_post called');
     const user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -48,7 +50,7 @@ exports.user_delete_get = function(req, res, next) {
     User.findById(req.params.id)
         .exec(function(err, user) {
             if (err) { return next(err); }
-            res.render('user_delete', { title: 'Delete User', user: user });
+            res.json({ title: 'Delete User', user: user });
         });
 }
 
@@ -65,7 +67,7 @@ exports.user_update_get = function(req, res, next) {
     User.findById(req.params.id)
         .exec(function(err, user) {
             if (err) { return next(err); }
-            res.render('user_form', { title: 'Update User', user: user });
+            res.json({ title: 'Update User', user: user });
         });
 }
 

@@ -166,7 +166,17 @@ const RegisterForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log(formValid);
+    // console.log(formValid);
+
+    // console.log(typeof(contactNumber));
+    // let formData = new FormData();
+    // formData.append('username', username);
+    // formData.append('email', email);
+    // formData.append('first_name', firstName);
+    // formData.append('last_name', lastName);
+    // formData.append('password', password);
+    // formData.append('age', parseInt(age));
+    // formData.append('contact_number', parseInt(contactNumber));
 
     const formData = {
       username: username,
@@ -174,17 +184,33 @@ const RegisterForm = () => {
       first_name: firstName,
       last_name: lastName,
       password: password,
-      age: age,
-      contact_number: contactNumber
+      age: parseInt(age),
+      contact_number: parseInt(contactNumber)
     }
-
     console.log(formData);
-
     axios({
-      url: "/user/create",
+      url: "http://localhost:8080/user/create",
       method: "POST",
-      data: formData
+      data: formData,
     })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    // axios({
+    //   url: "http://localhost:8000/user/create",
+    //   method: "POST",
+    //   data: formData,
+    //   headers: {"Content-Type": "multipart/form-data"}
+    // })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   })
   };
 
   return (
