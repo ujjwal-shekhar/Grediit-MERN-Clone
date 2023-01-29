@@ -9,7 +9,7 @@ export default function ProfileCard() {
     <Navigate to="/profile/followers" replace={true}/>
   }
   const handleFollowing = () => {
-    console.log('following');
+    console.log('following'); 
     <Navigate to="/profile/following" replace={true}/>
   }
   return (

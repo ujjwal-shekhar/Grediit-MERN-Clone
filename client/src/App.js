@@ -34,16 +34,16 @@ const App = () => {
       {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
         
-        <Route element={<ProtectedRoute user={user} />}>
-          <Route index element={
-            user ? <Navigate to="/profile" replace={true} /> :
-            <AuthPage user={user} setUser={setUser}/>
-          } />
+        <Route index element={
+          user ? <Navigate to="/profile" replace={true} /> :
+          <AuthPage user={user} setUser={setUser}/>
+        } />
 
-          <Route path="login" element={
-            user ? <Navigate to="/profile" replace={true} /> :
-            <AuthPage user={user} setUser={setUser}/>
-          } />
+        <Route path="login" element={
+          user ? <Navigate to="/profile" replace={true} /> :
+          <AuthPage user={user} setUser={setUser}/>
+        } />
+        <Route element={<ProtectedRoute user={user} />}>
           <Route path="profile" element={<Profile />} />
           <Route path="profile/followers" element={<Followers />}/>
           <Route path="profile/following" element={<Following />}/>
