@@ -27,6 +27,7 @@ exports.user_create_get = function(req, res, next) {
 // Handle user create on POST
 exports.user_create_post = (req, res, next) => {
     console.log('user_create_post called');
+
     const user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -34,7 +35,7 @@ exports.user_create_post = (req, res, next) => {
         password: req.body.password,
         email: req.body.email,
         age: req.body.age,
-        contactNumber: req.body.contactNumber
+        contact_number: req.body.contact_number
     });
     user.save()
         .then(res => {

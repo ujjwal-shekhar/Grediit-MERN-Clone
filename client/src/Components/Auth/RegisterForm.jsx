@@ -179,15 +179,14 @@ const RegisterForm = () => {
     // formData.append('contact_number', parseInt(contactNumber));
 
     const formData = {
-      username: username,
-      email: email,
-      first_name: firstName,
-      last_name: lastName,
-      password: password,
-      age: parseInt(age),
-      contact_number: parseInt(contactNumber)
+      "username": username,
+      "email": email,
+      "first_name": firstName,
+      "last_name": lastName,
+      "password": password,
+      "age": parseInt(age),
+      "contact_number": parseInt(contactNumber)
     }
-    console.log(formData);
     axios({
       url: "http://localhost:8080/user/create",
       method: "POST",
