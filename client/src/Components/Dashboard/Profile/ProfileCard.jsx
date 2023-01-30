@@ -28,21 +28,21 @@ export default function ProfileCard({ user }) {
                   </MDBBtn>
                 </div>
                 <div className="ms-3" style={{ marginTop: '130px' }}>
-                  <MDBTypography tag="h5">Andy Horwitz</MDBTypography>
-                  <MDBCardText>New York</MDBCardText>
+                  <MDBTypography tag="h5">Ujjwal Shekhar</MDBTypography>
+                  <MDBCardText>@admin</MDBCardText>
                 </div>
               </div>
               <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                 <div className="d-flex justify-content-end text-center py-1">
                   <div className="px-3">
                   <MDBBtn color='light' onClick={handleFollowers}>
-                    <MDBCardText className="mb-1 h5">1026</MDBCardText>
+                    <MDBCardText className="mb-1 h5">4</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
                   </MDBBtn>
                   </div>
                   <div>
                   <MDBBtn color='light' onClick={handleFollowing}>
-                    <MDBCardText className="mb-1 h5">478</MDBCardText>
+                    <MDBCardText className="mb-1 h5">4</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">Following</MDBCardText>
                   </MDBBtn>
                   </div>
@@ -52,7 +52,7 @@ export default function ProfileCard({ user }) {
                 <div className="mb-5">
                   <p className="lead fw-normal mb-1">About</p>
                   <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
-                    <MDBCardText className="font-italic mb-1">Web Developer</MDBCardText>
+                    <MDBCardText className="font-italic mb-1">admin@admin.com</MDBCardText>
                     <MDBCardText className="font-italic mb-1">Lives in New York</MDBCardText>
                     <MDBCardText className="font-italic mb-0">Photographer</MDBCardText>
                   </div>

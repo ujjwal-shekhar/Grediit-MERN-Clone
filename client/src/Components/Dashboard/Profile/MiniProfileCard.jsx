@@ -3,10 +3,10 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCa
 
 export default function MiniProfileCard({ user }) {
   return (
-    <div className="mb-5" style={{ backgroundColor: '#9de2ff' }}>
+    <div className="mb-2" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer>
         <MDBRow className="justify-content-center">
-          <MDBCol md="0" lg="7" xl="5" className="mt-0 mb-0">
+          <MDBCol md="9" lg="8" xl="10" className="mt-0">
             <MDBCard style={{ borderRadius: '15px' }}>
               <MDBCardBody className="p-4">
                 <div className="d-flex text-black">

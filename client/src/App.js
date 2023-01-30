@@ -24,15 +24,24 @@ const App = () => {
   }
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
+    if (loggedInUser) { 
       const foundUser = JSON.parse(loggedInUser);
+
       setUser(foundUser);
       setLoadedUserStatus(true);
       // alert("foundUser");
     }
   }, []);
 
-  if (!loadedUserStatus) return <>Loading...</>
+  if ((!loadedUserStatus)) {
+    if (user)
+    {
+      console.log("user hai but load nahi hua")
+      return <>Loading...</>
+    } else {
+      return <AuthPage user={user} setUser={setUser} /> 
+    }
+  }
   return (
       <>
       {user && <Navbar setUser={setUser}/>}
