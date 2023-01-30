@@ -13,7 +13,7 @@ export default function ProfileCard({ user }) {
   }
   const handleFollowing = () => {
     console.log('following'); 
-    <Navigate to="/profile/following" />
+    <Navigate replace to="following" />
   }
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>

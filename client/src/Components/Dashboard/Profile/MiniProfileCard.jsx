@@ -1,12 +1,12 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 
-export default function Basic() {
+export default function MiniProfileCard({ user }) {
   return (
-    <div className="vh-100" style={{ backgroundColor: '#9de2ff' }}>
+    <div className="mb-5" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer>
         <MDBRow className="justify-content-center">
-          <MDBCol md="9" lg="7" xl="5" className="mt-5">
+          <MDBCol md="0" lg="7" xl="5" className="mt-0 mb-0">
             <MDBCard style={{ borderRadius: '15px' }}>
               <MDBCardBody className="p-4">
                 <div className="d-flex text-black">
@@ -38,7 +38,7 @@ export default function Basic() {
                     </div>
                     <div className="d-flex pt-1">
                       <MDBBtn outline className="me-1 flex-grow-1">Chat</MDBBtn>
-                      <MDBBtn className="flex-grow-1">Follow</MDBBtn>
+                      <MDBBtn className="flex-grow-1" color="danger">Unfollow</MDBBtn>
                     </div>
                   </div>
                 </div>

@@ -50,16 +50,20 @@ const App = () => {
         } />
 
         <Route 
-            path="/profile"   
+            path="/profile/*"   
             element={<ProtectedRoute user={user}>
                       <Profile />
                      </ProtectedRoute>}/>
             
-        <Route path="followers" 
-              element={<ProtectedRoute user={user}>
-                        <Followers />
-                      </ProtectedRoute>} />
-        
+          <Route path="/profile/followers" 
+                element={<ProtectedRoute user={user}>
+                          <Followers />
+                        </ProtectedRoute>} />
+          <Route path="/profile/following" 
+                element={<ProtectedRoute user={user}>
+                          <Following />
+                        </ProtectedRoute>} />
+         
       </Routes>
       </>
   );
