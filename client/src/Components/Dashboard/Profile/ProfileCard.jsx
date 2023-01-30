@@ -3,14 +3,17 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 
 import { Navigate } from 'react-router-dom'; 
 
-export default function ProfileCard() {
+import Followers from '../../pages/Followers';
+
+export default function ProfileCard({ user }) {
   const handleFollowers = () => {
     console.log('followers');
-    <Navigate to="/profile/followers" replace={true}/>
+    <Navigate replace to="followers" />
+    // <Followers />
   }
   const handleFollowing = () => {
     console.log('following'); 
-    <Navigate to="/profile/following" replace={true}/>
+    <Navigate to="/profile/following" />
   }
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>

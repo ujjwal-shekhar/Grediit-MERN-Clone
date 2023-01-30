@@ -18,6 +18,7 @@ const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
 const App = () => {
   // localStorage.clear()
   const [user, setUser] = useState(null);
+  const [loadedUserStatus, setLoadedUserStatus] = useState(null);
   const handleTestingButton = () => {
     console.log('user', user);
   }
@@ -26,29 +27,39 @@ const App = () => {
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
+      setLoadedUserStatus(true);
+      // alert("foundUser");
     }
   }, []);
+
+  if (!loadedUserStatus) return <>Loading...</>
   return (
       <>
       {user && <Navbar setUser={setUser}/>}
-      {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
-        
-        <Route index element={
-          user ? <Navigate to="/profile" replace={true} /> :
-          <AuthPage user={user} setUser={setUser}/>
+        <Route path='/' element={
+          user ? 
+                <Navigate replace to="/profile" /> :
+                <AuthPage user={user} setUser={setUser} />
         } />
 
-        <Route path="login" element={
-          user ? <Navigate to="/profile" replace={true} /> :
-          <AuthPage user={user} setUser={setUser}/>
+        <Route path="/login" element={
+        user ? 
+              <Navigate replace to="/profile" /> :
+              <AuthPage user={user} setUser={setUser} />
         } />
-        <Route element={<ProtectedRoute user={user} />}>
-          <Route path="profile" element={<Profile />} />
-          <Route path="profile/followers" element={<Followers />}/>
-          <Route path="profile/following" element={<Following />}/>
-        </Route>
-        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+
+        <Route 
+            path="/profile"   
+            element={<ProtectedRoute user={user}>
+                      <Profile />
+                     </ProtectedRoute>}/>
+            
+        <Route path="followers" 
+              element={<ProtectedRoute user={user}>
+                        <Followers />
+                      </ProtectedRoute>} />
+        
       </Routes>
       </>
   );
