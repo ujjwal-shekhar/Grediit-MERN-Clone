@@ -1,19 +1,17 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 
-import { Navigate } from 'react-router-dom'; 
+import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'; 
 
 import Followers from '../../pages/Followers';
 
 export default function ProfileCard({ user }) {
+  const navigate = useNavigate();
   const handleFollowers = () => {
-    console.log('followers');
-    <Navigate replace to="followers" />
-    // <Followers />
+    navigate('/profile/followers')
   }
   const handleFollowing = () => {
-    console.log('following'); 
-    <Navigate replace to="following" />
+    navigate('/profile/following')
   }
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
@@ -88,6 +86,10 @@ export default function ProfileCard({ user }) {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+      <Routes>
+        <Route path="followers" element={<Followers />} />
+        <Route path="following" element={<Followers />} />
+      </Routes>
     </div>
   );
 }

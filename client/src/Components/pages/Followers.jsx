@@ -5,6 +5,7 @@ import MiniProfileCard from '../Dashboard/Profile/MiniProfileCard.jsx';
 
 export default function Followers({ user }) {
     console.log('Followers reached'); 
+    // alert('Followers reached');
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer className="py-5 h-100">
