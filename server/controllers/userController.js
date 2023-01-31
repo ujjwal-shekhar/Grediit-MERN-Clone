@@ -1,25 +1,26 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
 // Display a list of users
-exports.user_list = function(req, res, next) {
+exports.user_list = function (req, res, next) {
     User.find()
-        .exec(function(err, list_users) {
+        .exec(function (err, list_users) {
             if (err) { return next(err); }
             res.json({ title: 'User List', user_list: list_users });
         });
 }
 
 // Display details of a user
-exports.user_detail = function(req, res, next) {
+exports.user_detail = function (req, res, next) {
     User.findById(req.params.id)
-        .exec(function(err, user) {
+        .exec(function (err, user) {
             if (err) { return next(err); }
             res.json({ title: 'User Detail', user: user });
         });
 }
 
 // Display user create form on GET
-exports.user_create_get = function(req, res, next) {
+exports.user_create_get = function (req, res, next) {
     console.log('user_create_get called');
     res.json({ title: 'Create User' });
 }
@@ -47,16 +48,16 @@ exports.user_create_post = (req, res, next) => {
 }
 
 // Display user delete form on GET
-exports.user_delete_get = function(req, res, next) {
+exports.user_delete_get = function (req, res, next) {
     User.findById(req.params.id)
-        .exec(function(err, user) {
+        .exec(function (err, user) {
             if (err) { return next(err); }
             res.json({ title: 'Delete User', user: user });
         });
 }
 
 // Handle user delete on POST
-exports.user_delete_post = function(req, res, next) {
+exports.user_delete_post = function (req, res, next) {
     User.findByIdAndRemove(req.params.id, function deleteUser(err) {
         if (err) { return next(err); }
         res.redirect('/users');
@@ -64,16 +65,16 @@ exports.user_delete_post = function(req, res, next) {
 }
 
 // Display user update form on GET
-exports.user_update_get = function(req, res, next) {
+exports.user_update_get = function (req, res, next) {
     User.findById(req.params.id)
-        .exec(function(err, user) {
+        .exec(function (err, user) {
             if (err) { return next(err); }
             res.json({ title: 'Update User', user: user });
         });
 }
 
 // Handle user update on POST
-exports.user_update_post = function(req, res, next) {
+exports.user_update_post = function (req, res, next) {
     const user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -84,25 +85,40 @@ exports.user_update_post = function(req, res, next) {
         contactNumber: req.body.contactNumber,
         _id: req.params.id
     });
-    User.findByIdAndUpdate(req.params.id, user, {}, function(err, theuser) {
+    User.findByIdAndUpdate(req.params.id, user, {}, function (err, theuser) {
         if (err) { return next(err); }
         res.redirect(theuser.url);
     });
 }
 
 // Handle user login on POST
-exports.user_login_post = function(req, res, next) {
-    const { username, password } = req.body;
-    try {
-        user 
-    }
-//     User.findOne({username: req.body.username}, (err, user) => {
-//         if (err) throw err;
-//         if (!user) {console.log("User not found")} 
-//         user.comparePassword(req.body.password, (err, isMatch) => {
-//             if (err) throw err;
-//             if (isMatch) {console.log("Password matched")}
-//             else {console.log("Password didn't match")}
-//         })
-//     })
+exports.user_login_post = function (req, res, next) {
+    User.findOne({ username: req.body.username }, (err, user) => {
+        if (err) res.status(400).json({ msg: err });
+        else if (!user) { res.status(400).json({ msg: 'Email or password incorrect' }); }
+        else {
+            user.comparePassword(req.body.password, (err, isMatch) => {
+                if (err) res.status(400).json({ msg: err });
+                else if (!isMatch) {
+                    res.status(400).json({ msg: "Email or password incorrect" })
+                } else {
+                    const payload = {
+                        user: {
+                            id: user.id,
+                        },
+                    };
+
+                    jwt.sign(
+                        payload,
+                        process.env.JWT_SECRET,
+                        { expiresIn: '30 days' },
+                        (err, token) => {
+                          if (err) throw err;
+                          res.json({ token });
+                        }
+                      );
+                }
+            })
+        }
+    })
 }
