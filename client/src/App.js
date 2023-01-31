@@ -5,6 +5,9 @@ import Profile from './Components/pages/Profile.jsx';
 import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 
 import Navbar from './Components/Dashboard/Navbar/Navbar.jsx';
+import Followers from './Components/pages/Followers.jsx';
+import Following from './Components/pages/Following.jsx';
+
 
 const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
   if (!user) {
@@ -31,18 +34,36 @@ const App = () => {
       {user && <Navbar setUser={setUser}/>}
       {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
-        <Route index element={
-          user ? <Profile /> :
-          <AuthPage user={user} setUser={setUser}/>
+        <Route path='/' element={
+          user ? 
+                <Navigate replace to="/profile" /> :
+                <AuthPage user={user} setUser={setUser} />
         } />
-        <Route path="login" element={
-          user ? <Profile /> :
-          <AuthPage user={user} setUser={setUser}/>
+
+        <Route path="/login" element={
+        user ? 
+              <Navigate replace to="/profile" /> :
+              <AuthPage user={user} setUser={setUser} />
         } />
-        <Route element={<ProtectedRoute user={user} />}>
-          <Route path="profile" element={<Profile />} />
-        </Route>
-        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+
+        <Route 
+            path="/profile/*"   
+            element={<ProtectedRoute user={user}>
+                      <Profile />
+                     </ProtectedRoute>}
+        />
+            
+        <Route path="/profile/followers" 
+              element={<ProtectedRoute user={user}>
+                        <Followers />
+                      </ProtectedRoute>} 
+        />
+        <Route path="/profile/following" 
+              element={<ProtectedRoute user={user}>
+                        <Following />
+                      </ProtectedRoute>} 
+        />
+         
       </Routes>
       </>
   );

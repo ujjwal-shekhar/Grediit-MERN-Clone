@@ -5,6 +5,10 @@ import Button from '@mui/material/Button'
 
 import ProfileCard from '../Dashboard/Profile/ProfileCard.jsx';
 
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Followers from './Followers.jsx';
+import Following from './Following.jsx';
+
 const Profile = () => {
     const user = {
         name: 'John Doe',
@@ -14,11 +18,15 @@ const Profile = () => {
         phone: '+1234567890',
         location: 'New York City'
       };
-      
+
     return (
+        <>
+
         <Grid>
             <ProfileCard user={user}/>
         </Grid>
+        
+        </>
     );
 } 
 export default Profile;

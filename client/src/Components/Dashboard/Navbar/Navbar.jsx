@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Home', 'My SubGrediits', 'Logout'];
@@ -48,7 +48,7 @@ const Navbar = ( {setUser} ) => {
   };
 
   const handleLogout = () => {
-    console.log("Called logout")
+    // console.log("Called logout")
     setUser('');
     localStorage.clear();
     handleCloseNavMenu();
@@ -183,15 +183,15 @@ const Navbar = ( {setUser} ) => {
                 <MenuItem key={setting} onClick={() => {
                   switch (setting) {
                     case 'Profile':
-                      return handleProfile;
+                      return handleProfile();
                     case 'Home':
-                      return handleHome;
+                      return handleHome();
                     case 'My SubGrediits':
-                      return handleMySubGrediits;
+                      return handleMySubGrediits();
                     case 'Logout':
                       return handleLogout();
                     default:
-                      return handleCloseUserMenu;
+                      return handleCloseUserMenu();
                   }
                 }}>
                   <Typography textAlign="center">{setting}</Typography>
