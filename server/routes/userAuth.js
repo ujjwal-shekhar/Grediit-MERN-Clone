@@ -12,6 +12,9 @@ router.get('/users', user_controller.user_list);
 router.get('/user/create', user_controller.user_create_get);
 router.post('/user/create', user_controller.user_create_post);
 
+// Validate user login using POST method
+router.post('/user/login', user_controller.user_login_post);
+
 // Get details of a user by their id
 router.get('/user/:id', user_controller.user_detail);
 

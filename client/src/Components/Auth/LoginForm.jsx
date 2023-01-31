@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Copyright = (props) => {
   return (
@@ -59,20 +60,23 @@ const LoginForm = ({ user, setUser }) => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-  
-    const username = data.get('username');
-    const password = data.get('password');
 
-    if (username === 'admin' && password === 'admin') {
-      navigate("/profile")
-      const user = {
-        username: data.get('username'),
-        password: data.get('password'),
-      } ;
-      setUser(user);
-      localStorage.setItem('user', JSON.stringify(username));
+    const formData = {
+      "username": username,
+      "password": password
     }
+
+    axios({
+      url: "http://localhost:8080/user/login",
+      method: "POST",
+      data: formData
+    })
+      .then(function (response){
+        console.log(response);
+      })
+      .catch(function (error){
+        console.log(error);
+      })
   };
 
   return (

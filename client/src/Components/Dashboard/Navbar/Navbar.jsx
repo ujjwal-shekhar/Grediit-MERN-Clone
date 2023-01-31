@@ -19,6 +19,7 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Home', 'My SubGrediits', 'Logout'];
 
 const Navbar = ( {setUser} ) => {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -62,7 +63,7 @@ const Navbar = ( {setUser} ) => {
     handleCloseNavMenu();
   }
   const handleProfile = () => {
-    
+    navigate('/profile');
     handleCloseNavMenu();
   }
 

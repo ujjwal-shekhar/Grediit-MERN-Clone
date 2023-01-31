@@ -89,3 +89,20 @@ exports.user_update_post = function(req, res, next) {
         res.redirect(theuser.url);
     });
 }
+
+// Handle user login on POST
+exports.user_login_post = function(req, res, next) {
+    const { username, password } = req.body;
+    try {
+        user 
+    }
+//     User.findOne({username: req.body.username}, (err, user) => {
+//         if (err) throw err;
+//         if (!user) {console.log("User not found")} 
+//         user.comparePassword(req.body.password, (err, isMatch) => {
+//             if (err) throw err;
+//             if (isMatch) {console.log("Password matched")}
+//             else {console.log("Password didn't match")}
+//         })
+//     })
+}

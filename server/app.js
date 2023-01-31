@@ -10,7 +10,7 @@ const logger = require("morgan");
 
 // const indexRouter = require("./routes/index");
 // const usersRouter = require("./routes/users");
-const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
+const catalogRouter = require("./routes/userAuth"); //Import routes for "catalog" area of site
 
 app.use(cors());
 app.use(logger("dev"));
