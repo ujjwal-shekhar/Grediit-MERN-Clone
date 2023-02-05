@@ -92,33 +92,53 @@ exports.user_update_post = function (req, res, next) {
 }
 
 // Handle user login on POST
-exports.user_login_post = function (req, res, next) {
-    User.findOne({ username: req.body.username }, (err, user) => {
-        if (err) res.status(400).json({ msg: err });
-        else if (!user) { res.status(400).json({ msg: 'Email or password incorrect' }); }
-        else {
-            user.comparePassword(req.body.password, (err, isMatch) => {
-                if (err) res.status(400).json({ msg: err });
-                else if (!isMatch) {
-                    res.status(400).json({ msg: "Email or password incorrect" })
-                } else {
-                    const payload = {
-                        user: {
-                            id: user.id,
-                        },
-                    };
+exports.user_login_post = async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+        const user = await user.FindOne({ username: username});
 
-                    jwt.sign(
-                        payload,
-                        process.env.JWT_SECRET,
-                        { expiresIn: '30 days' },
-                        (err, token) => {
-                          if (err) throw err;
-                          res.json({ token });
-                        }
-                      );
-                }
-            })
+        if (!user) {
+            res.status(400).json({ msg: "User does not exist" });
         }
-    })
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            res.status(400).json({ msg: "Incorrect password" });
+        }
+
+        const payload = { id: user._id };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
+
+        delete user.password;
+
+        res.status(200).json({ token, user });
+    } catch (err) {
+        res.status(500).json({ msg: err });
+    }
+    // User.findOne({ username: req.body.username }, (err, user) => {
+    //     if (err) res.status(400).json({ msg: err });
+    //     else if (!user) { res.status(400).json({ msg: 'Email or password incorrect' }); }
+    //     else {
+    //         user.comparePassword(req.body.password, (err, isMatch) => {
+    //             if (err) res.status(400).json({ msg: err });
+    //             else if (!isMatch) {
+    //                 res.status(400).json({ msg: "Email or password incorrect" })
+    //             } else {
+    //                 const payload = {
+    //                     user: {
+    //                         id: user.id,
+    //                     },
+    //                 };
+
+    //                 const token = jwt.sign(
+    //                     payload,
+    //                     process.env.JWT_SECRET,
+    //                   );
+
+    //                 delete user.password;
+    //                 res.status(200).json({ token, user });
+    //             }
+    //         })
+    //     }
+    // })
 }
