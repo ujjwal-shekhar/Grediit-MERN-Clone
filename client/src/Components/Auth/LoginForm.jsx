@@ -66,8 +66,10 @@ const LoginForm = ({ user, setUser }) => {
       "password": password
     }
 
+    console.log("clicked on submit button");
+
     axios({
-      url: "http://localhost:8080/user/login",
+      url: "http://localhost:8080/users/login",
       method: "POST",
       data: formData
     })
@@ -77,6 +79,8 @@ const LoginForm = ({ user, setUser }) => {
       .catch(function (error){
         console.log(error);
       })
+
+    console.log("after axios call");
   };
 
   return (

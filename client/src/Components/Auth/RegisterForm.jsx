@@ -175,7 +175,7 @@ const RegisterForm = () => {
       "contact_number": parseInt(contactNumber)
     }
     axios({
-      url: "http://localhost:8080/user/create",
+      url: "http://localhost:8080/users/create",
       method: "POST",
       data: formData,
     })

@@ -73,6 +73,10 @@ exports.user_update_get = function (req, res, next) {
         });
 }
 
+exports.user_profile_get = function (req, res, next) {
+    res.json({ title: 'User Profile' });
+}
+
 // Handle user update on POST
 exports.user_update_post = function (req, res, next) {
     const user = new User({
@@ -95,50 +99,26 @@ exports.user_update_post = function (req, res, next) {
 exports.user_login_post = async (req, res, next) => {
     try {
         const { username, password } = req.body;
-        const user = await user.FindOne({ username: username});
+        const user = await User.findOne({ username: username });
 
         if (!user) {
             res.status(400).json({ msg: "User does not exist" });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await user.comparePassword(password);
         if (!isMatch) {
             res.status(400).json({ msg: "Incorrect password" });
         }
 
-        const payload = { id: user._id };
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
+        console.log(isMatch)
 
-        delete user.password;
+        // const payload = { id: user._id };
+        // const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
 
-        res.status(200).json({ token, user });
+        // delete user.password;
+
+        // res.status(200).json({ token, user });
     } catch (err) {
         res.status(500).json({ msg: err });
     }
-    // User.findOne({ username: req.body.username }, (err, user) => {
-    //     if (err) res.status(400).json({ msg: err });
-    //     else if (!user) { res.status(400).json({ msg: 'Email or password incorrect' }); }
-    //     else {
-    //         user.comparePassword(req.body.password, (err, isMatch) => {
-    //             if (err) res.status(400).json({ msg: err });
-    //             else if (!isMatch) {
-    //                 res.status(400).json({ msg: "Email or password incorrect" })
-    //             } else {
-    //                 const payload = {
-    //                     user: {
-    //                         id: user.id,
-    //                     },
-    //                 };
-
-    //                 const token = jwt.sign(
-    //                     payload,
-    //                     process.env.JWT_SECRET,
-    //                   );
-
-    //                 delete user.password;
-    //                 res.status(200).json({ token, user });
-    //             }
-    //         })
-    //     }
-    // })
 }
