@@ -21,6 +21,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const handleTestingButton = () => {
     console.log('user', user);
+    console.log(localStorage.getItem("token"));
   }
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -32,7 +33,7 @@ const App = () => {
   return (
       <>
       {user && <Navbar setUser={setUser}/>}
-      {/* <button onClick={handleTestingButton}>Test</button> */}
+      <button onClick={handleTestingButton}>Test</button>
       <Routes>
         <Route path='/' element={
           user ? 

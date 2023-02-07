@@ -114,11 +114,12 @@ exports.user_login_post = async (req, res, next) => {
                 console.log("Inside isMatch");
                 res.status(400).json({ msg: "Incorrect password" });
             }
-            const payload = { id: user._id };
+            user.password = undefined;
+            const payload = { id: user._id, ...user };
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
             delete user.password;
-        
-            res.status(200).json({ token, user });
+            console.log(user);
+            res.status(200).json({ token });
         });
 
     } catch (err) {
