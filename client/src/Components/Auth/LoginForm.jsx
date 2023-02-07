@@ -74,7 +74,7 @@ const LoginForm = ({ user, setUser }) => {
       data: formData
     })
       .then(function (response){
-        console.log(response);
+        localStorage.setItem('token', response.data.token);
       })
       .catch(function (error){
         console.log(error);

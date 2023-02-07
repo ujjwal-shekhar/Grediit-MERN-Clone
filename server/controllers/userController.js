@@ -105,19 +105,22 @@ exports.user_login_post = async (req, res, next) => {
             res.status(400).json({ msg: "User does not exist" });
         }
 
-        const isMatch = await user.comparePassword(password);
-        if (!isMatch) {
-            res.status(400).json({ msg: "Incorrect password" });
-        }
+        console.log("Before isMatch");
+        user.comparePassword(password, (err, isMatch) => {
+            if (err) throw err;
 
-        console.log(isMatch)
+            console.log("isMatch", isMatch)            
+            if (!isMatch) {
+                console.log("Inside isMatch");
+                res.status(400).json({ msg: "Incorrect password" });
+            }
+            const payload = { id: user._id };
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
+            delete user.password;
+        
+            res.status(200).json({ token, user });
+        });
 
-        // const payload = { id: user._id };
-        // const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
-
-        // delete user.password;
-
-        // res.status(200).json({ token, user });
     } catch (err) {
         res.status(500).json({ msg: err });
     }
