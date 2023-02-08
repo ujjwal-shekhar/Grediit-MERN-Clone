@@ -23,16 +23,15 @@ const App = () => {
   const [user, setUser] = useState(null);
   const handleTestingButton = () => {
     console.log('user', user);
-    console.log((jwt_decode(localStorage.getItem("token"))._doc));
+    // console.log((jwt_decode(localStorage.getItem("token"))._doc));
   }
   useEffect(() => {
-    const loggedInUser = (jwt_decode(localStorage.getItem("token"))._doc);
-    // const loggedInUser = ; 
+    const loggedInUser = (localStorage.getItem("token"));
     if (loggedInUser) {
-      const foundUser = (loggedInUser);
+      const foundUser = (jwt_decode(loggedInUser))._doc;
       setUser(foundUser);
     }
-  }, []);
+  }, []); 
   return (
       <>
       {user && <Navbar setUser={setUser}/>}
