@@ -8,6 +8,8 @@ import Navbar from './Components/Dashboard/Navbar/Navbar.jsx';
 import Followers from './Components/pages/Followers.jsx';
 import Following from './Components/pages/Following.jsx';
 
+import jwt_decode from 'jwt-decode';
+
 
 const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
   if (!user) {
@@ -21,12 +23,13 @@ const App = () => {
   const [user, setUser] = useState(null);
   const handleTestingButton = () => {
     console.log('user', user);
-    console.log(localStorage.getItem("token"));
+    console.log((jwt_decode(localStorage.getItem("token"))._doc));
   }
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
+    const loggedInUser = (jwt_decode(localStorage.getItem("token"))._doc);
+    // const loggedInUser = ; 
     if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
+      const foundUser = (loggedInUser);
       setUser(foundUser);
     }
   }, []);
