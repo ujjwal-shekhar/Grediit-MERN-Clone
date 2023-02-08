@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 const Copyright = (props) => {
   return (
@@ -75,6 +76,11 @@ const LoginForm = ({ user, setUser }) => {
     })
       .then(function (response){
         localStorage.setItem('token', response.data.token);
+        const loggedInUser = (localStorage.getItem("token"));
+        if (loggedInUser) {
+          const foundUser = (jwt_decode(loggedInUser))._doc;
+          setUser(foundUser);
+        }
         console.log(response);
       })
       .catch(function (error){
