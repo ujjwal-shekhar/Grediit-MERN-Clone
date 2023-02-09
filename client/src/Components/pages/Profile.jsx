@@ -9,23 +9,13 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Followers from './Followers.jsx';
 import Following from './Following.jsx';
 
-const Profile = () => {
-    const user = {
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        image: 'https://via.placeholder.com/150',
-        bio: 'I am a software developer and enjoy working on projects that make a positive impact.',
-        phone: '+1234567890',
-        location: 'New York City'
-      };
-
+const Profile = ({ user }) => {
+    console.log(user);
     return (
         <>
-
         <Grid>
             <ProfileCard user={user}/>
         </Grid>
-        
         </>
     );
 } 

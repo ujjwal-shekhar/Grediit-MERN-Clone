@@ -121,7 +121,6 @@ exports.user_login_post = async (req, res, next) => {
             console.log(user);
             res.status(200).json({ token });
         });
-
     } catch (err) {
         res.status(500).json({ msg: err });
     }

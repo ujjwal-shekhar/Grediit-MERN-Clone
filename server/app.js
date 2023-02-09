@@ -6,6 +6,7 @@ require("dotenv").config();
 /* Error handler */
 const createError = require("http-errors");
 
+/* Misc Stuff */
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -56,9 +57,8 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render("error");
 });
-
-app.listen(process.env.port || 8000, () => {
-  console.log("Server is running on port: 8080");
+app.listen(process.env.PORT || 8000, () => {
+  console.log(`Server is running on port: ${process.env.PORT}`);
 })
 
 module.exports = app;
