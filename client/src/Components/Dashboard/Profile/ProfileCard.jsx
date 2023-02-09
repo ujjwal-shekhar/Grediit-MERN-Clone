@@ -1,32 +1,91 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
-
+import Backdrop from '@mui/material/Backdrop';
 import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'; 
 
 import Followers from '../../pages/Followers';
+import CreateSGForm from '../../Subgreddiits/SubgreddiitCreateForm';
 
-export default function ProfileCard({ user }) {
+export default function ProfileCard({ user, perms }) {
+  console.log(user, perms);
   const navigate = useNavigate();
   const fullName = user.first_name + ' ' + user.last_name;
+  const [showSGForm, setShowSGForm] = React.useState(false);
+  const [showEditForm, setShowEditForm] = React.useState(false);
+
+  const handleToggle = (formType) => {
+    if (formType === 'SG') {
+      setShowSGForm(!showSGForm);
+    } else if (formType === 'Edit') {
+      setShowEditForm(!showEditForm);
+    }
+  }
+
+  const handleClose = () => {
+    setShowSGForm(false);
+    setShowEditForm(false);
+  }
+
   const handleFollowers = () => {
     navigate('/profile/followers')
   }
   const handleFollowing = () => {
     navigate('/profile/following')
   }
+  const handleFollow = () => {
+    
+  }
+  const handleEdit = () => {
+    handleToggle('Edit')
+  }
+  const handleUnfollow = () => {
+
+  }
+  const handleCreateSG = () => {
+    handleToggle('SG');
+  }
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={showSGForm}
+        onClick={handleClose}
+      >
+        <CreateSGForm />
+      </Backdrop>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={showEditForm}
+        onClick={handleClose}
+      >
+        bye
+      </Backdrop>
       <MDBContainer className="py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="7">
             <MDBCard>
               <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
-                <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
+                <div className="ms-4 mt-5 md-5 d-flex flex-column" style={{ width: '150px' }}>
                   <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                     alt="Generic placeholder image" className="mt-4 mb-2 img-thumbnail" fluid style={{ width: '150px', zIndex: '1' }} />
-                  <MDBBtn outline color="dark" style={{height: '36px', overflow: 'visible'}}>
-                    Edit profile
-                  </MDBBtn>
+                    { perms == "AUTH" ? 
+                        <MDBBtn outline color="dark" style={{height: '36px', overflow: 'visible'}} onClick={handleEdit}>
+                        Edit profile
+                        </MDBBtn> 
+                        
+                        :
+
+                        <MDBBtn outline color="dark" style={{height: '36px', overflow: 'visible'}}>
+                        Follow
+                        </MDBBtn>
+                      }
+
+                    { perms == "AUTH" && 
+                      <MDBBtn outline color="dark" style={{height: '36px', overflow: 'visible'}} onClick={handleCreateSG}>
+                      Create SG
+                      </MDBBtn>
+                    }
+                    
                 </div>
                 <div className="ms-3" style={{ marginTop: '130px' }}>
                   <MDBTypography tag="h5">{fullName}</MDBTypography>

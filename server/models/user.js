@@ -46,7 +46,23 @@ const UserSchema = new Schema({
         required: true,
         min: 1000000000,
         max: 9999999999
-    }
+    },
+    followers : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }] ,
+    subgrediits : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SubGrediit'
+    }],
+    posts : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
 })
 
 UserSchema.pre('save', function(next) {

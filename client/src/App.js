@@ -54,8 +54,13 @@ const App = () => {
         <Route 
             path="/profile/*"   
             element={<ProtectedRoute user={user}>
-                      <Profile user={user}/>
+                      <Profile user={user} perms={"AUTH"}/>
                      </ProtectedRoute>}
+        />
+
+        <Route 
+            path="/profile/:username/*"   
+            element={<Profile perms={"VIEW"}/>}
         />
             
         <Route path="/profile/followers" 

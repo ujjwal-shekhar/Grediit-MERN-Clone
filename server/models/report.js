@@ -13,5 +13,12 @@ const ReportSchema = new Schema({
     concern: {
         type: String,
         required: true,
+    },
+    post : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
     }
 })
+
+const Report = mongoose.model('Report', UserSchema);
+module.exports = Report;

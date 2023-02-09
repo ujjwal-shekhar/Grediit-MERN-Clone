@@ -15,7 +15,7 @@ router.post('/create', user_controller.user_create_post);
 router.post('/login', user_controller.user_login_post);
 
 // Get details of a user by their id
-router.get('/:id', user_controller.user_detail);
+router.get('/:username', user_controller.user_detail);
 
 // Delete a user by their id using GET and POST methods
 router.get('/:id/delete', user_controller.user_delete_get);

@@ -12,11 +12,12 @@ exports.user_list = function (req, res, next) {
 
 // Display details of a user
 exports.user_detail = function (req, res, next) {
-    User.findById(req.params.id)
-        .exec(function (err, user) {
-            if (err) { return next(err); }
-            res.json({ title: 'User Detail', user: user });
-        });
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            res.json(user);
+        }
+    })
 }
 
 // Display user create form on GET
@@ -36,7 +37,10 @@ exports.user_create_post = (req, res, next) => {
         password: req.body.password,
         email: req.body.email,
         age: req.body.age,
-        contact_number: req.body.contact_number
+        contact_number: req.body.contact_number,
+        followers: [],
+        following: [],
+        subgrediits: []
     });
     user.save()
         .then(res => {

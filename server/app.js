@@ -25,6 +25,9 @@ app.use(cookieParser());
 const authRoutes = require("./routes/authRoutes");
 app.use("/users", authRoutes); 
 
+// const subgreddiitRoutes = require("./routes/subgreddiitRoutes");
+// app.use("/subgreddiits", subgreddiitRoutes);
+
 /*MongoDB setup*/
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
