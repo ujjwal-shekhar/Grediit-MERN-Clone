@@ -7,6 +7,7 @@ import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import Navbar from './Components/Dashboard/Navbar/Navbar.jsx';
 import Followers from './Components/pages/Followers.jsx';
 import Following from './Components/pages/Following.jsx';
+import SubGreddiit from './Components/pages/SubGreddiit.jsx';
 
 import jwt_decode from 'jwt-decode';
 
@@ -17,7 +18,7 @@ const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
   }
   return children ? children : <Outlet />;
 };
-
+// <3
 const App = () => {
   // localStorage.clear()
   const [user, setUser] = useState(null);
@@ -30,12 +31,13 @@ const App = () => {
     if (loggedInUser) {
       const foundUser = (jwt_decode(loggedInUser))._doc;
       setUser(foundUser);
+      console.log(user);
     }
   }, []); 
   return (
       <>
       {user && <Navbar setUser={setUser}/>}
-      {/* <button onClick={handleTestingButton}>Test</button> */}
+      <button onClick={handleTestingButton}>Test</button>
       <Routes>
         <Route path='/' element={
           user ? 
@@ -67,6 +69,7 @@ const App = () => {
                       </ProtectedRoute>} 
         />
          
+         <Route path="/subgreddiit/sample" element={<SubGreddiit />}/>
       </Routes>
       </>
   );

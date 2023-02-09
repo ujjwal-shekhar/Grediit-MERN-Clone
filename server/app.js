@@ -1,36 +1,42 @@
+/* ExpressJS setup */
 const express = require("express");
-const app = express();
 const cors = require("cors");
+require("dotenv").config();
 
+/* Error handler */
 const createError = require("http-errors");
+
+/* Misc Stuff */
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
-const authRoutes = require("./routes/authRoutes"); //Import routes for "catalog" area of site
 
+/* App config */
+const app = express();
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-require("dotenv").config();
 
+/* Routes */
+const authRoutes = require("./routes/authRoutes");
 app.use("/users", authRoutes); 
 
-
+/*MongoDB setup*/
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 const mongoDB = process.env.ATLAS_URI;
 
+async function main() {
+  await mongoose.connect(mongoDB);
+}
 main().then(() => {
     console.log("Connected to DB!");
 }).catch(err => console.log(err));
 
-async function main() {
-  await mongoose.connect(mongoDB);
-}
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -51,9 +57,8 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render("error");
 });
-
-app.listen(8080, () => {
-  console.log("Server is running on port: 8080");
+app.listen(process.env.PORT || 8000, () => {
+  console.log(`Server is running on port: ${process.env.PORT}`);
 })
 
 module.exports = app;
