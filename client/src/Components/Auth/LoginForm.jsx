@@ -12,8 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../Provider/AuthProvider"
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
@@ -32,17 +31,13 @@ const Copyright = (props) => {
 
 const theme = createTheme();
 
-// const LoginForm = ({ user, setUser }) => {
-const LoginForm = () => {
+const LoginForm = ({ user, setUser }) => {
+// const LoginForm = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const location = useLocation();
-  const redirectPath = location.state?.path || "";
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const [user, setUser] = React.useState(null);
 
   const [usernameError, setUsernameError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
@@ -84,8 +79,8 @@ const LoginForm = () => {
     })
       .then(function (response){
         localStorage.setItem('token', response.data.token);
-        setUser((jwt_decode(response.data.token))._doc);
-        console.log(user);
+        setUser(jwt_decode(response.data.token)._doc)
+        console.log(response.data.token);
       })
       .catch(function (error){
         console.log(error);

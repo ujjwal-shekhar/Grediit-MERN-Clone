@@ -7,6 +7,7 @@ import Followers from '../../pages/Followers';
 
 export default function ProfileCard({ user }) {
   const navigate = useNavigate();
+  const fullName = user.first_name + ' ' + user.last_name;
   const handleFollowers = () => {
     navigate('/profile/followers')
   }
@@ -28,8 +29,8 @@ export default function ProfileCard({ user }) {
                   </MDBBtn>
                 </div>
                 <div className="ms-3" style={{ marginTop: '130px' }}>
-                  <MDBTypography tag="h5">Ujjwal Shekhar</MDBTypography>
-                  <MDBCardText>@admin</MDBCardText>
+                  <MDBTypography tag="h5">{fullName}</MDBTypography>
+                  <MDBCardText>{'@' + user.username}</MDBCardText>
                 </div>
               </div>
               <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
@@ -52,9 +53,9 @@ export default function ProfileCard({ user }) {
                 <div className="mb-5">
                   <p className="lead fw-normal mb-1">About</p>
                   <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
-                    <MDBCardText className="font-italic mb-1">EmailID: admin@admin.com</MDBCardText>
-                    <MDBCardText className="font-italic mb-1">Contact Number : 1234567890</MDBCardText>
-                    <MDBCardText className="font-italic mb-0">Age: 19</MDBCardText>
+                    <MDBCardText className="font-italic mb-1">EmailID: {user.email}</MDBCardText>
+                    <MDBCardText className="font-italic mb-1">Contact Number : {user.contact_number}</MDBCardText>
+                    <MDBCardText className="font-italic mb-0">Age: {user.age}</MDBCardText>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between align-items-center mb-4">

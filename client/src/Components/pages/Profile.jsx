@@ -10,7 +10,6 @@ import Followers from './Followers.jsx';
 import Following from './Following.jsx';
 
 const Profile = ({ user }) => {
-    console.log(user);
     return (
         <>
         <Grid>

@@ -31,7 +31,7 @@ const App = () => {
     if (loggedInUser) {
       const foundUser = (jwt_decode(loggedInUser))._doc;
       setUser(foundUser);
-      console.log(user);
+      console.log("onload ", user);
     }
   }, []); 
   return (
@@ -54,7 +54,7 @@ const App = () => {
         <Route 
             path="/profile/*"   
             element={<ProtectedRoute user={user}>
-                      <Profile />
+                      <Profile user={user}/>
                      </ProtectedRoute>}
         />
             
