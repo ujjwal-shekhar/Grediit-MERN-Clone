@@ -36,12 +36,21 @@ const Profile = ({ user, perms }) => {
         })
         .then((response) => {
             setFoundUser(response.data);
-            console.log("the user was found to be : ", response.data, foundUser);
         })
         .catch((err) => {
             console.log(err);
         })
     }
+
+    if (perms !== "AUTH" && !foundUser) {
+        return (
+            <Grid>
+                <h1>Loading</h1>
+            </Grid>
+        );
+    }
+
+
     console.log("after setting ", foundUser);
     return (
         <>

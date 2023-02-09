@@ -57,6 +57,7 @@ export default function ProfileCard({ user, perms }) {
   const handleCreateSG = () => {
     handleToggle('SG');
   }
+
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
       <Modal
