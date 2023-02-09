@@ -1,10 +1,23 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
-import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'; 
 
 import Followers from '../../pages/Followers';
 import CreateSGForm from '../../Subgreddiits/SubgreddiitCreateForm';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 650,
+  // bgcolor: 'background.paper',
+  // border: '2px solid #000',
+  // boxShadow: 24,
+  p: 4,
+};
 
 export default function ProfileCard({ user, perms }) {
   console.log(user, perms);
@@ -46,20 +59,26 @@ export default function ProfileCard({ user, perms }) {
   }
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      <Modal
         open={showSGForm}
-        onClick={handleClose}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        <CreateSGForm />
-      </Backdrop>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        <Box sx={style}>
+          <CreateSGForm creator={user}/>
+        </Box>
+      </Modal>
+      <Modal
         open={showEditForm}
-        onClick={handleClose}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        bye
-      </Backdrop>
+        <Box sx={style}>
+          lmai  
+        </Box>
+      </Modal>
       <MDBContainer className="py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="7">
@@ -69,7 +88,7 @@ export default function ProfileCard({ user, perms }) {
                   <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                     alt="Generic placeholder image" className="mt-4 mb-2 img-thumbnail" fluid style={{ width: '150px', zIndex: '1' }} />
                     { perms == "AUTH" ? 
-                        <MDBBtn outline color="dark" style={{height: '36px', overflow: 'visible'}} onClick={handleEdit}>
+                        <MDBBtn outline className='mb-2' color="dark" style={{height: '36px', overflow: 'visible'}} onClick={handleEdit}>
                         Edit profile
                         </MDBBtn> 
                         
