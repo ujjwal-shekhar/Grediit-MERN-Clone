@@ -7,7 +7,7 @@ const SubGreddiitSchema = new Schema({
         required: true,
         unique: true,
         maxLength: 30,
-        minLength: 5
+        minLength: 2
     },
     description: {
         type: String,
@@ -33,7 +33,14 @@ const SubGreddiitSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
-
+    moderators: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
 })
 
 const SubGreddiit = mongoose.model('SubGreddiit', SubGreddiitSchema);

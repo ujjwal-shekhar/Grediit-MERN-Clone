@@ -1,6 +1,7 @@
 const SubGreddiit = require('../models/subgreddiit');
 
 exports.subgreddiit_list = function (req, res, next) {
+    console.log('subgreddiit_list called');
     SubGreddiit.find()
         .exec(function (err, list_subgreddiits) {
             if (err) { return next(err); }
@@ -17,15 +18,24 @@ exports.subgreddiit_detail = function (req, res, next) {
     })
 }
 
-exports.subgreddiit_create = (req, res, next) => {
+exports.subgreddiit_create_test = function (req, res, next) {
+    console.log("subgreddiit_create_test called");
+}
+
+exports.subgreddiit_create = function (req, res, next) {
     console.log('subgreddiit_create by POST called');
 
     const subgreddiit = new SubGreddiit({
         name: req.body.name,
         description: req.body.description,
-        moderators: [req.body.creator],
-        posts: []
+        moderators: [],     
+        posts: [],
+        tags: [],
+        banned_keywords: [],
+        banned_members: [],
+        common_members: []
     });
+    console.log('subgreddiit: ' + subgreddiit);
     subgreddiit.save()
         .then(res => {
             res.redirect('/subgreddiits');

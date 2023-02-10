@@ -6,6 +6,7 @@ const subgreddiit_controller = require("../controllers/subgreddiitController");
 
 router.get("/", subgreddiit_controller.subgreddiit_list);
 
-router.post("/create", subgreddiit_controller.subgreddiit_create);
+// router.get("/create", verifyToken, subgreddiit_controller.subgreddiit_create_test);
+router.post("/create", verifyToken, subgreddiit_controller.subgreddiit_create);
 
 module.exports = router;

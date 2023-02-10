@@ -37,7 +37,7 @@ const App = () => {
   return (
       <>
       {user && <Navbar setUser={setUser}/>}
-      <button onClick={handleTestingButton}>Test</button>
+      {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
         <Route path='/' element={
           user ? 
@@ -74,7 +74,7 @@ const App = () => {
                       </ProtectedRoute>} 
         />
          
-         <Route path="/subgreddiit/sample" element={<SubGreddiit />}/>
+         <Route path="/subgreddiits/sample" element={<SubGreddiit />}/>
       </Routes>
       </>
   );
