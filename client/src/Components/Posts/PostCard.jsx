@@ -19,7 +19,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Popover from '@mui/material/Popover';
 import Comment from './Comments';
 import AddCommentIcon from '@mui/icons-material/AddComment';
-
+import Fade from '@mui/material/Fade';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -97,11 +97,13 @@ export default function RecipeReviewCard() {
           <IconButton aria-label="Downvote">
             <ArrowDownwardIcon />
           </IconButton>
-          {expanded && 
+
             <IconButton aria-label="Add Comment">
-              <AddCommentIcon />
+              <Fade in={expanded}>
+                <AddCommentIcon />
+              </Fade>
             </IconButton>
-          }
+
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
