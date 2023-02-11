@@ -36,7 +36,7 @@ const App = () => {
   }, []); 
   return (
       <>
-      {user && <Navbar setUser={setUser}/>}
+      {/* {user && <Navbar user={user} setUser={setUser}/>} */}
       {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
         <Route path='/' element={

@@ -21,19 +21,38 @@ const pages_sg  = ['Home', 'My SubGrediits', 'Logout'];
 const pages_profile = ['Profile', 'Home', 'My SubGrediits', 'Logout'];  
 const settings = ['Profile', 'Home', 'My SubGrediits', 'Logout'];
 
-const Navbar = ( {setUser} ) => {
+const Navbar = ({ user, setUser }) => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const [perms, setPerms] = React.useState(null);
+
   let currPath = useLocation().pathname.slice(1);
+  let currComp = currPath.split('/')[0];
+
+  if (currComp == "subgreddiits") {
+    let currSG = currPath.split('/')[1];
+    if (!perms) {
+      // axios({
+      //   url
+      // })
+    }
+    pages = (perms == "AUTH") ? pages_sg_mod : pages_sg;
+  } else if (currComp == "profile") {
+    pages = pages_profile;
+  }
+
+  const pages = currPath.split('/')[0] == "subgreddiits" ?
+               pages_sg : pages_profile;
   const filteredSettings = settings.filter( setting => {
     return setting.toLowerCase() !== currPath.toLowerCase();
   });
 
   const test = () => {
     console.log(filteredSettings)
-    console.log(currPath);
+    console.log(pages)
+    console.log(currPath.split('/')[0]);
   }
 
   const handleOpenNavMenu = (event) => {
@@ -70,9 +89,15 @@ const Navbar = ( {setUser} ) => {
     handleCloseNavMenu();
   }
 
+  if (!perms) {
+    return (
+      <h1>Loading...</h1>
+    );
+  }
+
   return (
     <AppBar position="static">
-      {/* <button onClick={test} width={100}>Test</button> */}
+      <button onClick={test} width={100}>Test</button>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Icon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>

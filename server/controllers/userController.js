@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const SubGreddiit = require('../models/subgreddiit');
 const jwt = require('jsonwebtoken');
 
 // Display a list of users
@@ -58,6 +59,31 @@ exports.user_delete_get = function (req, res, next) {
             if (err) { return next(err); }
             res.json({ title: 'Delete User', user: user });
         });
+}
+
+// Get user's subgreddiits that they moderate
+exports.user_mod_subgreddiits_get = function (req, res, next) {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            SubGreddiit.find({moderators: user._id}, (err, subgreddiits) => {
+                if (err) console.log(err);
+                else {
+                    res.json(subgreddiits);
+                }
+            })
+        }
+    })
+} 
+
+// Get user's subgreddiits that they are a member 
+exports.user_view_subgreddiits_get = function (req, res, next) {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            
+        }
+    })
 }
 
 // Handle user delete on POST

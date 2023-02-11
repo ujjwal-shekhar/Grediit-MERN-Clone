@@ -28,7 +28,7 @@ exports.subgreddiit_create = function (req, res, next) {
     const subgreddiit = new SubGreddiit({
         name: req.body.name,
         description: req.body.description,
-        moderators: [],     
+        moderators: [req.boy.creator],     
         posts: [],
         tags: [],
         banned_keywords: [],
@@ -44,3 +44,4 @@ exports.subgreddiit_create = function (req, res, next) {
             console.log(err);
         });
 }
+
