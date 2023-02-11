@@ -24,11 +24,11 @@ exports.subgreddiit_create_test = function (req, res, next) {
 
 exports.subgreddiit_create = function (req, res, next) {
     console.log('subgreddiit_create by POST called');
-
+    console.log(mongoose.Types.ObjectId(req.body.creatorID))
     const subgreddiit = new SubGreddiit({
         name: req.body.name,
         description: req.body.description,
-        moderators: [req.boy.creator],     
+        moderators: [mongoose.Types.ObjectId(req.body.creatorID)],     
         posts: [],
         tags: [],
         banned_keywords: [],
