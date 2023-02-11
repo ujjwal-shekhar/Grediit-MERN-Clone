@@ -12,10 +12,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+import Icon from '@mui/material/Icon';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages_sg_mod = ['Users', 'Joining Requests', 'Stats', 'Reports'];
+const pages_sg  = ['Home', 'My SubGrediits', 'Logout'];
+const pages_profile = ['Profile', 'Home', 'My SubGrediits', 'Logout'];  
 const settings = ['Profile', 'Home', 'My SubGrediits', 'Logout'];
 
 const Navbar = ( {setUser} ) => {
@@ -72,7 +75,9 @@ const Navbar = ( {setUser} ) => {
       {/* <button onClick={test} width={100}>Test</button> */}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Icon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+            <PsychologyAltIcon />
+          </Icon>
           <Typography
             variant="h6"
             noWrap
@@ -88,7 +93,7 @@ const Navbar = ( {setUser} ) => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Greddiit
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -127,7 +132,9 @@ const Navbar = ( {setUser} ) => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Icon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+            <PsychologyAltIcon />
+          </Icon>
           <Typography
             variant="h5"
             noWrap
@@ -144,7 +151,7 @@ const Navbar = ( {setUser} ) => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Greddiit
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

@@ -33,6 +33,10 @@ const SubGreddiitSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
+    requested_members: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     moderators: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -40,6 +44,10 @@ const SubGreddiitSchema = new Schema({
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
+    }],
+    reports: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Report'
     }],
 })
 

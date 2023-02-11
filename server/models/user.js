@@ -55,11 +55,19 @@ const UserSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }] ,
-    subgrediits : [{
+    mod_subgrediits : [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SubGrediit'
     }],
-    posts : [{
+    view_subgrediits : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SubGrediit'
+    }],
+    created_posts : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
+    saved_posts : [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     }],
