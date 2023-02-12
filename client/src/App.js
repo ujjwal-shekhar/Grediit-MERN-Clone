@@ -10,6 +10,8 @@ import Following from './Components/pages/Following.jsx';
 import SubGreddiit from './Components/pages/SubGreddiit.jsx';
 
 import jwt_decode from 'jwt-decode';
+import MiniSubgreddiitCard from './Components/Subgreddiits/MiniSubgreddiitCard';
+import UserSubgreddiits from './Components/pages/UserSubgreddiits';
 
 
 const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
@@ -22,6 +24,7 @@ const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
 const App = () => {
   // localStorage.clear()
   const [user, setUser] = useState(null);
+  const [toRender, setToRender] = useState(false);
   const handleTestingButton = () => {
     console.log('user', user);
     // console.log((jwt_decode(localStorage.getItem("token"))._doc));
@@ -33,10 +36,12 @@ const App = () => {
       setUser(foundUser);
       console.log("onload ", user);
     }
+    setToRender(true);
   }, []); 
+  if (!toRender) return (<>Loading...</>);
   return (
       <>
-      {/* {user && <Navbar user={user} setUser={setUser}/>} */}
+      {user && <Navbar user={user} setUser={setUser}/>}
       {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
         <Route path='/' element={
@@ -73,8 +78,20 @@ const App = () => {
                         <Following />
                       </ProtectedRoute>} 
         />
+
+        <Route path="/subgreddiits/*" 
+              element={<ProtectedRoute user={user}>
+                        <UserSubgreddiits />
+                      </ProtectedRoute>} 
+        />
+
+        <Route path="/subgreddiits/my" 
+              element={<ProtectedRoute user={user}>
+                        <UserSubgreddiits />
+                      </ProtectedRoute>} 
+        />
          
-         <Route path="/subgreddiits/sample" element={<SubGreddiit />}/>
+         {/* <Route path="/subgreddiits/sample" element={<SubGreddiit />}/> */}
       </Routes>
       </>
   );

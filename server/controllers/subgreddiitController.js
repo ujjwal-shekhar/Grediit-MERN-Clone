@@ -48,3 +48,20 @@ exports.subgreddiit_create = function (req, res, next) {
         });
 }
 
+// Check if user is a moderator of the subgreddiit
+exports.subgreddiit_moderator_check = function (req, res, next) {
+    console.log('subgreddiit_moderator_check called');
+    console.log(req.user._id);
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                console.log('user is a moderator');
+                res.json({isModerator: true});
+            } else {
+                console.log('user is not a moderator');
+                res.json({isModerator: false});
+            }
+        }
+    })
+}

@@ -15,6 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import Icon from '@mui/material/Icon';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const pages_sg_mod = ['Users', 'Joining Requests', 'Stats', 'Reports'];
 const pages_sg  = ['Home', 'My SubGrediits', 'Logout'];
@@ -27,24 +28,44 @@ const Navbar = ({ user, setUser }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const [perms, setPerms] = React.useState(null);
+  const [pages, setPages] = React.useState(null);
 
-  let currPath = useLocation().pathname.slice(1);
-  let currComp = currPath.split('/')[0];
+  let currPath = useLocation().pathname;
+  console.log(currPath)
+  React.useEffect(() => {
+    let currPage = currPath.split('/')[1];
+    let currSubPage = currPath.split('/')[2];
 
-  if (currComp == "subgreddiits") {
-    let currSG = currPath.split('/')[1];
-    if (!perms) {
-      // axios({
-      //   url
-      // })
+    if (currSubPage.length === 0) {
+      currSubPage = "my";
     }
-    pages = (perms == "AUTH") ? pages_sg_mod : pages_sg;
-  } else if (currComp == "profile") {
-    pages = pages_profile;
-  }
 
-  const pages = currPath.split('/')[0] == "subgreddiits" ?
-               pages_sg : pages_profile;
+    if (currPage == "subgreddiits") {
+      // let currSG = currPath.split('/')[1];
+      if (currSubPage !== "my") {
+        axios({
+          
+        })
+      }
+    } else if (currPage === "profile") {
+      pages = pages_profile;
+    }
+  }, [currPath]);
+
+  // if (currComp == "subgreddiits") {
+  //   let currSG = currPath.split('/')[1];
+  //   if (!perms) {
+  //     // axios({
+  //     //   url
+  //     // })
+  //   }
+  //   pages = (perms == "AUTH") ? pages_sg_mod : pages_sg;
+  // } else if (currComp === "profile") {
+  //   pages = pages_profile;
+  // }
+
+  // const pages = currPath.split('/')[0] == "subgreddiits" ?
+  //              pages_sg : pages_profile;
   const filteredSettings = settings.filter( setting => {
     return setting.toLowerCase() !== currPath.toLowerCase();
   });
