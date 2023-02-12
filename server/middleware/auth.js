@@ -7,10 +7,11 @@ const verifyToken = async (req, res, next) => {
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
-
+        console.log('haloboi')
         if (token.startsWith('Bearer ')) {
             token = token.slice(7, token.length);
         }
+        console.log(token);
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log("decoded: " + decoded._doc.first_name);

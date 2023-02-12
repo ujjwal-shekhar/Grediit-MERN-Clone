@@ -31,24 +31,42 @@ const Navbar = ({ user, setUser }) => {
   const [pages, setPages] = React.useState(null);
 
   let currPath = useLocation().pathname;
+  console.log(user);
   console.log(currPath)
   React.useEffect(() => {
-    let currPage = currPath.split('/')[1];
-    let currSubPage = currPath.split('/')[2];
-
-    if (currSubPage.length === 0) {
-      currSubPage = "my";
+    let currPage = null;
+    if (currPath === '/') {
+      currPage = currPath.split('/')[1];
+    } else {
+      currPage = '/profile';
     }
+
+    let currSubPage = null;
+    if (currPath.split('/').length > 2){
+      currSubPage = currPath.split('/')[2];
+      if (currSubPage.length === 0) {
+        currSubPage = "my";
+      }
+    }
+
 
     if (currPage == "subgreddiits") {
       // let currSG = currPath.split('/')[1];
       if (currSubPage !== "my") {
-        axios({
-          
-        })
+        axios.post("http://localhost:8080/subgreddiits/:" + currSubPage + "/perms", 
+        JSON.stringify({
+          "user": user 
+        }), 
+        {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          "Authorization" : 'Bearer ' + localStorage.getItem('token')
+        }
+      })
       }
     } else if (currPage === "profile") {
-      pages = pages_profile;
+      setPages(pages_profile);
     }
   }, [currPath]);
 
