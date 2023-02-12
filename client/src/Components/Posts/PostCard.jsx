@@ -20,6 +20,8 @@ import Popover from '@mui/material/Popover';
 import Comment from './Comments';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Fade from '@mui/material/Fade';
+import Stack from '@mui/material/Stack';
+import ReportIcon from '@mui/icons-material/Report';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -42,6 +44,7 @@ export default function RecipeReviewCard() {
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    console.log(Boolean(anchorEl));
     console.log("clicked settings")
   };
 
@@ -62,22 +65,28 @@ export default function RecipeReviewCard() {
             </Avatar>
           }
           action={
+            <>
             <IconButton aria-label="settings" onClick={handleClick}>
-              <MoreVertIcon >
-                <Popover
-                  id={id}
-                  open={open}
-                  anchorEl={anchorEl}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                >
-                  <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-                </Popover>
-              </MoreVertIcon>
+              <MoreVertIcon />
             </IconButton>
+              <Popover
+                id={id}
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                >
+                <Stack spacing={2}>
+                  <IconButton aria-label="Report">
+                    <ReportIcon /> 
+                    <Typography variant='overline' sx={{marginLeft : 1}}>Report Post</Typography>
+                  </IconButton> 
+                </Stack>
+              </Popover>
+              </>
           }
           title="Shrimp and Chorizo Paella"
           subheader="September 14, 2016"

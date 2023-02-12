@@ -36,7 +36,6 @@ function CreateSGForm({ creator }) {
       "creatorID": creator._id
     }
 
-
     axios.post('http://localhost:8080/subgreddiits/create', JSON.stringify(formData), {
       headers: {
         'Content-Type': 'application/json',
