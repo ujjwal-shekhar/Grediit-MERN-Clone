@@ -190,8 +190,14 @@ exports.user_add_follower_post = function (req, res, next) {
     User.findOne({username: req.params.follower}, (err, follower) => {
         if (err) console.log(err);
         else {
-            follower.following.push(req.params.username);
-            follower.save();
+            User.findOne({username: req.params.username}, (err, user) => {
+                if (err) console.log(err);
+                else {
+                    follower.following.push(user._id);
+                    follower.save();
+                    console.log("added following");
+                }
+            })
         }
     })
 };

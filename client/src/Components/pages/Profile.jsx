@@ -58,7 +58,7 @@ const Profile = ({ user, perms }) => {
                 perms === "AUTH" ?
                 <ProfileCard user={user} perms={"AUTH"}/>
                 :
-                <ProfileCard user={foundUser} perms={perms}/>
+                <ProfileCard user={foundUser} perms={"VIEW"}/>
             }
         </Grid>
         </>

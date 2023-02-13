@@ -70,12 +70,12 @@ const App = () => {
             
         <Route path="/profile/followers" 
               element={<ProtectedRoute user={user}>
-                        <Followers />
+                        <Followers user={user}/>
                       </ProtectedRoute>} 
         />
         <Route path="/profile/following" 
               element={<ProtectedRoute user={user}>
-                        <Following />
+                        <Following user={user}/>
                       </ProtectedRoute>} 
         />
 

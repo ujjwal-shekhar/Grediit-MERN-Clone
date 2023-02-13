@@ -21,12 +21,11 @@ const style = {
 };
 
 export default function ProfileCard({ user, perms }) {
-  console.log(user, perms);
   const navigate = useNavigate();
   const fullName = user.first_name + ' ' + user.last_name;
   const [showSGForm, setShowSGForm] = React.useState(false);
   const [showEditForm, setShowEditForm] = React.useState(false);
-
+  
   const handleToggle = (formType) => {
     if (formType === 'SG') {
       setShowSGForm(!showSGForm);
@@ -34,7 +33,7 @@ export default function ProfileCard({ user, perms }) {
       setShowEditForm(!showEditForm);
     }
   }
-
+  
   const handleClose = () => {
     setShowSGForm(false);
     setShowEditForm(false);
@@ -53,12 +52,14 @@ export default function ProfileCard({ user, perms }) {
     handleToggle('Edit')
   }
   const handleUnfollow = () => {
-
+    
   }
   const handleCreateSG = () => {
     handleToggle('SG');
   }
 
+  console.log("ProfileCard : ", user, perms);
+  
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
       <Modal
