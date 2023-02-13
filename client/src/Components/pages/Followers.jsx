@@ -1,13 +1,13 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 
-import MiniProfileCard from '../Dashboard/Profile/MiniProfileCard.jsx';
+import MiniProfileCard from '../Dashboard/Profile/MiniProfileCard';
 import Loading from './Loading.jsx';
 
 import axios from 'axios';
 
-export default function Followers({ user, perms }) {
-  console.log('Followers reached ', user, perms); 
+export default function Followers({ user }) {
+  console.log('Followers reached ', user); 
   const [followers, setFollowers] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
@@ -37,19 +37,25 @@ export default function Followers({ user, perms }) {
     return <Loading />;
   }
 
+  console.log("followers : ", followers )
+
   return (
+    <>
+    {/* <MiniProfileCard user={user} mode={"FOLLOWERS"}/> */}
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer className="py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="7">
-                <MiniProfileCard user={user} perms={perms}/>
-                {/* <MiniProfileCard />
-                <MiniProfileCard />
-                <MiniProfileCard /> */}
-
+            <>
+            {followers.map(follower => {  
+              console.log("follower : " + follower);
+              <MiniProfileCard key={follower._id} user={follower} mode={"FOLLOWERS"}/>
+            })}
+            </>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
     </div>
+    </>
   );
 }

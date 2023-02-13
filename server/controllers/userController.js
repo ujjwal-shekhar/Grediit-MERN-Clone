@@ -146,7 +146,7 @@ exports.user_login_post = async (req, res, next) => {
             }
             user.password = undefined;
             const payload = { id: user._id, ...user };
-            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '300d' });
             delete user.password;
             console.log(user);
             res.status(200).json({ token });

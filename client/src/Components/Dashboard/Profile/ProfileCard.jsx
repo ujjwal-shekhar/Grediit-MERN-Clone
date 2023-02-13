@@ -7,6 +7,7 @@ import { Navigate, Routes, Route, useNavigate } from 'react-router-dom';
 import Followers from '../../pages/Followers';
 import Following from '../../pages/Following';
 import CreateSGForm from '../../Subgreddiits/SubgreddiitCreateForm';
+import MiniProfileCard from './MiniProfileCard';
 
 const style = {
   position: 'absolute',
@@ -61,6 +62,8 @@ export default function ProfileCard({ user, perms }) {
   console.log("ProfileCard : ", user, perms);
   
   return (
+    <>
+    {/* {<MiniProfileCard />} */}
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
       <Modal
         open={showSGForm}
@@ -77,7 +80,7 @@ export default function ProfileCard({ user, perms }) {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
+        >
         <Box sx={style}>
           lmai  
         </Box>
@@ -96,7 +99,7 @@ export default function ProfileCard({ user, perms }) {
                         </MDBBtn> 
                         
                         :
-
+                        
                         <MDBBtn outline color="dark" style={{height: '36px', overflow: 'visible'}}>
                         Follow
                         </MDBBtn>
@@ -168,10 +171,11 @@ export default function ProfileCard({ user, perms }) {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-      <Routes>
-        <Route path="followers" element={<Followers user={user} perms={perms}/>} />
-        <Route path="following" element={<Following user={user} perms={perms}/>} />
-      </Routes>
+      {/* <Routes>
+        <Route path="followers" element={<Followers user={user} />} />
+        <Route path="following" element={<Following user={user} />} />
+      </Routes> */}
     </div>
+    </>
   );
 }

@@ -1,7 +1,14 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 
-export default function MiniProfileCard({ user, perms }) {
+export default function MiniProfileCard({ key, user, mode }) {
+  console.log("MiniProfileCard : " + user, mode);
+  const fullName = user.first_name + " " + user.last_name;
+
+  const handleUnfollow = () => {
+    console.log("unfollow");
+  }
+
   return (
     <div className="mb-2" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer>
@@ -18,8 +25,8 @@ export default function MiniProfileCard({ user, perms }) {
                       fluid />
                   </div>
                   <div className="flex-grow-1 ms-3">
-                    <MDBCardTitle>Danny McLoan</MDBCardTitle>
-                    <MDBCardText>@username</MDBCardText>
+                    <MDBCardTitle>{fullName}</MDBCardTitle>
+                    <MDBCardText>@{user.username}</MDBCardText>
 
                     <div className="d-flex justify-content-start rounded-3 p-2 mb-2"
                       style={{ backgroundColor: '#efefef' }}>
@@ -38,7 +45,7 @@ export default function MiniProfileCard({ user, perms }) {
                     </div>
                     <div className="d-flex pt-1">
                       <MDBBtn outline className="me-1 flex-grow-1">Chat</MDBBtn>
-                      <MDBBtn className="flex-grow-1" color="danger">Unfollow</MDBBtn>
+                      <MDBBtn className="flex-grow-1" color="danger" onClick={handleUnfollow}>Unfollow</MDBBtn>
                     </div>
                   </div>
                 </div>
