@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 
-export default function MiniProfileCard({ user }) {
+export default function MiniProfileCard({ user, perms }) {
   return (
     <div className="mb-2" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer>

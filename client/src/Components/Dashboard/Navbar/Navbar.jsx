@@ -11,7 +11,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import Icon from '@mui/material/Icon';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
@@ -31,15 +30,18 @@ const Navbar = ({ user, setUser }) => {
   const [pages, setPages] = React.useState(null);
 
   let currPath = useLocation().pathname;
-  console.log(user);
-  console.log(currPath)
+  // console.log(user);
+  // console.log(currPath)
+
   React.useEffect(() => {
+    console.log("used effect")
     let currPage = null;
-    if (currPath === '/') {
+    if (currPath !== '/') {
       currPage = currPath.split('/')[1];
     } else {
       currPage = '/profile';
     }
+    console.log("currPage: " + currPage) 
 
     let currSubPage = null;
     if (currPath.split('/').length > 2){
@@ -48,26 +50,40 @@ const Navbar = ({ user, setUser }) => {
         currSubPage = "my";
       }
     }
-
+    console.log("currSubPage: " + currSubPage + "currPage: " + currPage)
 
     if (currPage == "subgreddiits") {
-      // let currSG = currPath.split('/')[1];
       if (currSubPage !== "my") {
-        axios.post("http://localhost:8080/subgreddiits/:" + currSubPage + "/perms", 
-        JSON.stringify({
-          "user": user 
-        }), 
-        {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          "Authorization" : 'Bearer ' + localStorage.getItem('token')
-        }
-      })
+        console.log("bout to fetch fam")
+        axios.get(
+          "http://localhost:8080/subgreddiits/" + currSubPage + "/perms", 
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              "Authorization" : 'Bearer ' + localStorage.getItem('token')
+          }
+        })
+        .then(res => {
+          console.log(res);
+          // setPerms(res.data);
+          // if (res.data == "AUTH") {
+          //   setPages(pages_sg_mod);
+          // } else {
+          //   setPages(pages_sg);
+          // }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      } else {
+        setPages(pages_sg);
       }
     } else if (currPage === "profile") {
       setPages(pages_profile);
     }
+
+    console.log("lol")
   }, [currPath]);
 
   // if (currComp == "subgreddiits") {

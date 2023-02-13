@@ -9,6 +9,6 @@ router.get("/", subgreddiit_controller.subgreddiit_list);
 // router.get("/create", verifyToken, subgreddiit_controller.subgreddiit_create_test);
 router.post("/create", verifyToken, subgreddiit_controller.subgreddiit_create);
 
-router.post("/:name/perms", verifyToken, subgreddiit_controller.subgreddiit_moderator_check)
+router.get("/:name/perms", verifyToken, subgreddiit_controller.subgreddiit_moderator_check)
 
 module.exports = router;

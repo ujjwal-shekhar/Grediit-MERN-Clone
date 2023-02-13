@@ -3,15 +3,16 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 
 import MiniProfileCard from '../Dashboard/Profile/MiniProfileCard.jsx';
 
-export default function Followers({ user }) {
-    console.log('Followers reached'); 
+export default function Followers({ user, perms }) {
+  console.log('Followers reached'); 
+  // axios.get('http://localhost:8080/profile/' + user.username + '/followers')
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer className="py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="7">
             {/* <MDBCard> */}
-                <MiniProfileCard />
+                <MiniProfileCard user={user} perms={perms}/>
                 <MiniProfileCard />
                 <MiniProfileCard />
                 <MiniProfileCard />

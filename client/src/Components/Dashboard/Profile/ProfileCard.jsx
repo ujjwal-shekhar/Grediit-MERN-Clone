@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import { Navigate, Routes, Route, useNavigate } from 'react-router-dom'; 
 
 import Followers from '../../pages/Followers';
+import Following from '../../pages/Following';
 import CreateSGForm from '../../Subgreddiits/SubgreddiitCreateForm';
 
 const style = {
@@ -167,8 +168,8 @@ export default function ProfileCard({ user, perms }) {
         </MDBRow>
       </MDBContainer>
       <Routes>
-        <Route path="followers" element={<Followers />} />
-        <Route path="following" element={<Followers />} />
+        <Route path="followers" element={<Followers user={user} perms={perms}/>} />
+        <Route path="following" element={<Following user={user} perms={perms}/>} />
       </Routes>
     </div>
   );

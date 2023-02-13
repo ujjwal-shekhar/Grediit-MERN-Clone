@@ -3,7 +3,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 
 import MiniProfileCard from '../Dashboard/Profile/MiniProfileCard.jsx';
 
-export default function Following({ user }) {
+export default function Following({ user, perms }) {
     console.log('following reached')
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>

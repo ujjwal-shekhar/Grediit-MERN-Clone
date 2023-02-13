@@ -155,3 +155,43 @@ exports.user_login_post = async (req, res, next) => {
         res.status(500).json({ msg: err });
     }
 }
+
+// Get user followers
+exports.user_followers_get = function (req, res, next) {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            User.find({_id: user.followers}, (err, followers) => {
+                if (err) console.log(err);
+                else {
+                    res.json(followers);
+                }
+            })
+        }
+    })
+}
+
+// Add a user in the post request to the user's list of followers
+exports.user_add_follower_post = function (req, res, next) {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            User.findOne({username: req.params.follower}, (err, follower) => {
+                if (err) console.log(err);
+                else {
+                    user.followers.push(follower._id);
+                    user.save();
+                    console.log("added follower");
+                    res.json(user);
+                }
+            })
+        }
+    })
+    User.findOne({username: req.params.follower}, (err, follower) => {
+        if (err) console.log(err);
+        else {
+            follower.following.push(req.params.username);
+            follower.save();
+        }
+    })
+};

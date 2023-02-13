@@ -28,4 +28,14 @@ router.post('/:id/update', user_controller.user_update_post);
 // Get the profile page
 router.get('/:id/profile', verifyToken, user_controller.user_profile_get);
 
+// Get followers of a user
+router.get('/:username/followers', verifyToken, user_controller.user_followers_get);
+
+// Post a new follower to a user
+router.get(
+    '/:username/followers/add/:follower',
+    verifyToken,
+    user_controller.user_add_follower_post
+)
+
 module.exports = router;

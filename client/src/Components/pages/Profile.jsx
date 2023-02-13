@@ -4,6 +4,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button'
 
 import ProfileCard from '../Dashboard/Profile/ProfileCard.jsx';
+import Loading from '../pages/Loading.jsx';
 
 import { useParams } from 'react-router-dom';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -44,9 +45,7 @@ const Profile = ({ user, perms }) => {
 
     if (perms !== "AUTH" && !foundUser) {
         return (
-            <Grid>
-                <h1>Loading</h1>
-            </Grid>
+            <Loading />
         );
     }
 
