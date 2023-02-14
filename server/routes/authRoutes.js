@@ -31,6 +31,9 @@ router.get('/:id/profile', verifyToken, user_controller.user_profile_get);
 // Get followers of a user
 router.get('/:username/followers', verifyToken, user_controller.user_followers_get);
 
+// Get following of a user
+router.get('/:username/following', verifyToken, user_controller.user_following_get);
+
 // Post a new follower to a user
 router.get(
     '/:username/followers/add/:follower',

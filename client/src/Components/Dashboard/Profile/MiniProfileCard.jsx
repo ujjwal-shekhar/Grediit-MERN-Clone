@@ -1,12 +1,16 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 
-export default function MiniProfileCard({ key, user, mode }) {
+export default function MiniProfileCard({ user, mode }) {
   console.log("MiniProfileCard : " + user, mode);
   const fullName = user.first_name + " " + user.last_name;
 
+  const handleRemove = () => {
+    console.log("Remove");
+  }
+
   const handleUnfollow = () => {
-    console.log("unfollow");
+    console.log("Unfollow");
   }
 
   return (
@@ -19,16 +23,17 @@ export default function MiniProfileCard({ key, user, mode }) {
                 <div className="d-flex text-black">
                   <div className="flex-shrink-0">
                     <MDBCardImage
-                      style={{ width: '180px', borderRadius: '10px' }}
+                      style={{ width: '115px', borderRadius: '10px' }}
+                      className="d-sm-block"
                       src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp'
                       alt='Generic placeholder image'
                       fluid />
                   </div>
-                  <div className="flex-grow-1 ms-3">
+                  <div className="flex-grow-1 ms-3 mt-1">
                     <MDBCardTitle>{fullName}</MDBCardTitle>
                     <MDBCardText>@{user.username}</MDBCardText>
 
-                    <div className="d-flex justify-content-start rounded-3 p-2 mb-2"
+                    {/* <div className="d-flex justify-content-start rounded-3 p-2 mb-2"
                       style={{ backgroundColor: '#efefef' }}>
                       <div>
                         <p className="small text-muted mb-1">Articles</p>
@@ -42,10 +47,15 @@ export default function MiniProfileCard({ key, user, mode }) {
                         <p className="small text-muted mb-1">Rating</p>
                         <p className="mb-0">8.5</p>
                       </div>
-                    </div>
-                    <div className="d-flex pt-1">
+                    </div> */}
+                    <div className="d-flex pt-1 ">
                       <MDBBtn outline className="me-1 flex-grow-1">Chat</MDBBtn>
-                      <MDBBtn className="flex-grow-1" color="danger" onClick={handleUnfollow}>Unfollow</MDBBtn>
+                      {
+                        (mode == "FOLLOWING") ?
+                        <MDBBtn className="flex-grow-1" color="danger" onClick={handleRemove}>Remove</MDBBtn>
+                        :
+                        <MDBBtn className="flex-grow-1" color="danger" onClick={handleUnfollow}>Unfollow</MDBBtn>
+                      }
                     </div>
                   </div>
                 </div>

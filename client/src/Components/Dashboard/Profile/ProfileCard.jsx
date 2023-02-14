@@ -41,9 +41,17 @@ export default function ProfileCard({ user, perms }) {
   }
 
   const handleFollowers = () => {
+    if (perms !== 'AUTH') {
+      navigate('/unauthorized');
+      return;
+    }
     navigate('/profile/followers')
   }
   const handleFollowing = () => {
+    if (perms !== 'AUTH') {
+      navigate('/unauthorized');
+      return;
+    }
     navigate('/profile/following')
   }
   const handleFollow = () => {

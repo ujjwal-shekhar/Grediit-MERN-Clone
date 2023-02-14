@@ -47,10 +47,7 @@ export default function Followers({ user }) {
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="7">
             <>
-            {followers.map(follower => {  
-              console.log("follower : " + follower);
-              <MiniProfileCard key={follower._id} user={follower} mode={"FOLLOWERS"}/>
-            })}
+            {followers.map(follower => <MiniProfileCard key={follower._id} user={follower} mode={"FOLLOWERS"}/>)}
             </>
           </MDBCol>
         </MDBRow>
