@@ -1,6 +1,8 @@
 import { Card, Space } from 'antd';
 import Button from 'antd/lib/button';
 
+
+
 const App = ({ subgreddiit, perms }) => {
   const handleClick = () => {
     console.log('Clicked');
@@ -17,6 +19,15 @@ const App = ({ subgreddiit, perms }) => {
         <p>Description : {subgreddiit.description}</p>
         <p>Number of People : {subgreddiit.moderators.length + subgreddiit.common_members.length}</p>
         <p>Number of posts : {subgreddiit.posts.length}</p>
+        <p>
+          Banned Keywords : {
+            subgreddiit.banned_keywords.map((keyword, index) => {
+              return (
+                <span key={index}> {index ? "," : ""} {keyword}  </span>
+              )
+            })
+          }
+        </p>
       </Card>
     </Space>
   );
