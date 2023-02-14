@@ -65,3 +65,20 @@ exports.subgreddiit_moderator_check = function (req, res, next) {
         }
     })
 }
+
+// Get details of subgreddiit by name
+exports.subgreddiit_detail = function (req, res, next) {
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            // Check if user is a moderator
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                console.log('user is a moderator');
+                res.json({subgreddiit: subgreddiit, isModerator: true});
+            } else {
+                console.log('user is not a moderator');
+                res.json({subgreddiit: subgreddiit, isModerator: false});
+            }
+        }
+    })
+}
