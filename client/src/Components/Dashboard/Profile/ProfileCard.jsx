@@ -7,6 +7,7 @@ import { Navigate, Routes, Route, useNavigate } from 'react-router-dom';
 import Followers from '../../pages/Followers';
 import Following from '../../pages/Following';
 import CreateSGForm from '../../Subgreddiits/SubgreddiitCreateForm';
+
 import MiniProfileCard from './MiniProfileCard';
 
 const style = {

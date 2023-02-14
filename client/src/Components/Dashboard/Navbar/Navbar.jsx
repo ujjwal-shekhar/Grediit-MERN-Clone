@@ -14,92 +14,23 @@ import MenuItem from '@mui/material/MenuItem';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import Icon from '@mui/material/Icon';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
+import Person4Icon from '@mui/icons-material/Person4Rounded';
+import HomeIcon from '@mui/icons-material/Home';
+import RedditIcon from '@mui/icons-material/Reddit';
 import axios from 'axios';
 
 const pages_sg_mod = ['Users', 'Joining Requests', 'Stats', 'Reports'];
-const pages_sg  = ['Home', 'My SubGrediits', 'Logout'];
-const pages_profile = ['Profile', 'Home', 'My SubGrediits', 'Logout'];  
-const settings = ['Profile', 'Home', 'My SubGrediits', 'Logout'];
+const pages_sg  = ['Home', 'My SubGreddiits', 'Logout'];
+const pages_profile = ['Profile', 'Home', 'My SubGreddiits', 'Logout'];  
+const settings = ['Profile', 'Home', 'My SubGreddiits', 'Logout'];
+const pages = ['Profile Page', 'My SubGreddiits', 'Subgreddiits']
 
 const Navbar = ({ user, setUser }) => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const [perms, setPerms] = React.useState(null);
-  const [pages, setPages] = React.useState(null);
-
-  let currPath = useLocation().pathname;
-  // console.log(user);
-  // console.log(currPath)
-
-  React.useEffect(() => {
-    console.log("used effect")
-    let currPage = null;
-    if (currPath !== '/') {
-      currPage = currPath.split('/')[1];
-    } else {
-      currPage = '/profile';
-    }
-    console.log("currPage: " + currPage) 
-
-    let currSubPage = null;
-    if (currPath.split('/').length > 2){
-      currSubPage = currPath.split('/')[2];
-      if (currSubPage.length === 0) {
-        currSubPage = "my";
-      }
-    }
-    console.log("currSubPage: " + currSubPage + "currPage: " + currPage)
-
-    if (currPage == "subgreddiits") {
-      if (currSubPage !== "my") {
-        console.log("bout to fetch fam")
-        axios.get(
-          "http://localhost:8080/subgreddiits/" + currSubPage + "/perms", 
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              "Authorization" : 'Bearer ' + localStorage.getItem('token')
-          }
-        })
-        .then(res => {
-          console.log(res);
-          // setPerms(res.data);
-          // if (res.data == "AUTH") {
-          //   setPages(pages_sg_mod);
-          // } else {
-          //   setPages(pages_sg);
-          // }
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      } else {
-        setPages(pages_sg);
-      }
-    } else if (currPage === "profile") {
-      setPages(pages_profile);
-    }
-
-    console.log("lol")
-  }, [currPath]);
-
-  // if (currComp == "subgreddiits") {
-  //   let currSG = currPath.split('/')[1];
-  //   if (!perms) {
-  //     // axios({
-  //     //   url
-  //     // })
-  //   }
-  //   pages = (perms == "AUTH") ? pages_sg_mod : pages_sg;
-  // } else if (currComp === "profile") {
-  //   pages = pages_profile;
-  // }
-
-  // const pages = currPath.split('/')[0] == "subgreddiits" ?
-  //              pages_sg : pages_profile;
+  const currPath = useLocation().pathname;
   const filteredSettings = settings.filter( setting => {
     return setting.toLowerCase() !== currPath.toLowerCase();
   });
@@ -131,12 +62,12 @@ const Navbar = ({ user, setUser }) => {
     localStorage.clear();
     handleCloseNavMenu();
   }
-  const handleHome = () => {
-    
+  const handleSubGreddiits = () => {
+    navigate('/subgreddiits');
     handleCloseNavMenu();
   }
-  const handleMySubGrediits = () => {
-    
+  const handleMySubGreddiits = () => {
+    navigate('/subgreddiits/my');
     handleCloseNavMenu();
   }
   const handleProfile = () => {
@@ -144,15 +75,15 @@ const Navbar = ({ user, setUser }) => {
     handleCloseNavMenu();
   }
 
-  if (!perms) {
-    return (
-      <h1>Loading...</h1>
-    );
-  }
+  // if (!perms) {
+  //   return (
+  //     <h1>Loading...</h1>
+  //   );
+  // }
 
   return (
     <AppBar position="static">
-      <button onClick={test} width={100}>Test</button>
+      {/* <button onClick={test} width={100}>Test</button> */}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Icon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
@@ -234,15 +165,29 @@ const Navbar = ({ user, setUser }) => {
             Greddiit
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            <IconButton onClick={handleProfile}>
+              <Person4Icon sx={{color: 'white'}} />
+              <Typography sx={{ my: 2, color: 'white', display: 'block' }}>Profile</Typography>
+            </IconButton>
+            <IconButton onClick={handleMySubGreddiits}>
+              <HomeIcon sx={{color: 'white'}} />
+              <Typography sx={{ my: 2, color: 'white', display: 'block' }}>My Subgreddiits</Typography>
+            </IconButton>
+            <IconButton onClick={handleSubGreddiits}>
+              <RedditIcon sx={{color: 'white'}} />
+              <Typography sx={{ my: 2, color: 'white', display: 'block' }}>Subgreddiits</Typography>
+            </IconButton>
+            {/* {pages.map((page) => (
+              <IconButton>
+              </IconButton>
+              // <Button
+              //   key={page}
+              //   onClick={handleCloseNavMenu}
+              //   sx={{ my: 2, color: 'white', display: 'block' }}
+              // >
+              //   {page}
+              // </Button>
+            ))} */}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -272,10 +217,10 @@ const Navbar = ({ user, setUser }) => {
                   switch (setting) {
                     case 'Profile':
                       return handleProfile();
-                    case 'Home':
-                      return handleHome();
-                    case 'My SubGrediits':
-                      return handleMySubGrediits();
+                    case 'SubGreddiits':
+                      return handleSubGreddiits();
+                    case 'My SubGreddiits':
+                      return handleMySubGreddiits();
                     case 'Logout':
                       return handleLogout();
                     default:
