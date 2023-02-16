@@ -87,7 +87,7 @@ const App = () => {
 
         <Route path="/subgreddiits/my" 
               element={<ProtectedRoute user={user}>
-                        <UserSubgreddiits />
+                        <UserSubgreddiits user={user}/>
                       </ProtectedRoute>} 
         />
          

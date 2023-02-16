@@ -82,3 +82,13 @@ exports.subgreddiit_detail = function (req, res, next) {
         }
     })
 }
+
+// GET list of all subgreddiits that the user is a moderator of
+exports.subgreddiit_moderator_list = function (req, res, next) {
+    console.log('subgreddiit_moderator_list called');
+    SubGreddiit.find({moderators: req.user._id})
+        .exec(function (err, list_subgreddiits) {
+            if (err) { return next(err); }
+            res.json({ title: 'SubGreddiit List', subgreddiit_list: list_subgreddiits });
+        });
+}

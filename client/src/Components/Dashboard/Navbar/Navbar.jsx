@@ -75,12 +75,6 @@ const Navbar = ({ user, setUser }) => {
     handleCloseNavMenu();
   }
 
-  // if (!perms) {
-  //   return (
-  //     <h1>Loading...</h1>
-  //   );
-  // }
-
   return (
     <AppBar position="static">
       {/* <button onClick={test} width={100}>Test</button> */}

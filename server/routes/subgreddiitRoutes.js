@@ -13,4 +13,6 @@ router.get("/:name/perms", verifyToken, subgreddiit_controller.subgreddiit_moder
 
 router.get("/:name", subgreddiit_controller.subgreddiit_detail);
 
+router.get("/:name/mod_subgreddits", verifyToken, subgreddiit_controller.subgreddiit_moderator_list);
+
 module.exports = router;
