@@ -28,7 +28,7 @@ export default function SubGreddiit() {
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `${localStorage.getItem('token')}`
+          'Authorization': localStorage.getItem('token')
         }
       }
     )

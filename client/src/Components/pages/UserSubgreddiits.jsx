@@ -86,8 +86,8 @@ export default function UserSubgreddiits({ user }) {
             }
         )
             .then((res) => {
-                console.log(res.data);
-                setSGList(res.data);
+                console.log(res.data.subgreddiit_list);
+                setSGList(res.data.subgreddiit_list);
                 setLoading(false);
             })
             .catch((err) => {
@@ -100,11 +100,15 @@ export default function UserSubgreddiits({ user }) {
     }
 
     return (
-        <Container sx={{ position: 'relative' }}>
+        <Container>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4 mt-1'>
-                {
-                    sgList
-                }
+                    {
+                        sgList.map((sg, index) => (
+                            <MDBCol>    
+                                <MiniSubgreddiitCard key={index} subgreddiit={sg} perms={"MOD"} />
+                            </MDBCol>
+                        ))
+                    }
                 {/* {sgList.map((sg, index) => (
                     // <MDBCol>
                     //     <MiniSubgreddiitCard key={index} subgreddiit={sg} perms={"MOD"} />
@@ -125,8 +129,8 @@ export default function UserSubgreddiits({ user }) {
             </MDBRow>
             <IconButton onClick={handleAddSG} sx={{
                 position: 'absolute',
-                bottom: 0,
-                right: 0,
+                bottom: 20,
+                right: 20,
                 // color: 'white',
                 // backgroundColor: 'primary',
             }}>

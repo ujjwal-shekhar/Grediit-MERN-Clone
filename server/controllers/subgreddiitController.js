@@ -92,3 +92,15 @@ exports.subgreddiit_moderator_list = function (req, res, next) {
             res.json({ title: 'SubGreddiit List', subgreddiit_list: list_subgreddiits });
         });
 }
+
+// Delete subgreddiit and everything, including Posts, Reports associated to it
+// exports.subgreddiit_delete = function (req, res, next) {
+//     console.log('subgreddiit_delete called');
+//     SubGreddiit.findOneAndDelete({name: req.params.name}, (err, subgreddiit) => {
+//         if (err) console.log(err);
+//         else {
+//             console.log('Subgreddiit deleted');
+//             res.json({isDeleted: true});
+//         }
+//     }
+// }

@@ -1,17 +1,31 @@
 import { Card, Space } from 'antd';
 import Button from 'antd/lib/button';
 
-
+import { useNavigate } from 'react-router-dom';
 
 const App = ({ subgreddiit, perms }) => {
-  const handleClick = () => {
+  const navigate = useNavigate();
+  const handleDelete = () => {
     console.log('Clicked');
+  }
+  const handleOpen = () => {
+    // console.log('Clicked');
+    navigate(`/subgreddiits/${subgreddiit.name}`);
   }
   return (
     <Space direction="vertical" size={16}>
       <Card
         title={subgreddiit.name}
-        extra={perms == "MOD" ? <Button type="primary" danger onClick={handleClick}>Delete</Button> : null}
+        extra={
+                perms == "MOD" ? 
+                  <Space>
+                    <Button type="primary" danger onClick={handleDelete}>Delete</Button> 
+                    <Button type="primary" onClick={handleOpen}>Open</Button>
+                  </Space>
+                  : 
+                  <Button type="default" onClick={handleOpen}>Open</Button>
+                
+              }
         style={{
           width: 300,
         }}
