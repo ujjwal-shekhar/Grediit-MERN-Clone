@@ -93,6 +93,21 @@ exports.subgreddiit_moderator_list = function (req, res, next) {
         });
 }
 
+// Get list of members in a subgreddiit
+exports.subgreddiit_members = function (req, res, next) {
+    console.log('get_members called');
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            res.json({
+                "common_members" : subgreddiit.common_members,
+                "banned_members" : subgreddiit.banned_members,
+                "requested_members" : subgreddiit.requested_members
+            });
+        }
+    })
+}
+
 // Delete subgreddiit and everything, including Posts, Reports associated to it
 // exports.subgreddiit_delete = function (req, res, next) {
 //     console.log('subgreddiit_delete called');

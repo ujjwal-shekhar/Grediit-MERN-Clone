@@ -15,4 +15,5 @@ router.get("/:name", verifyToken, subgreddiit_controller.subgreddiit_detail);
 
 router.get("/:name/mod_subgreddits", verifyToken, subgreddiit_controller.subgreddiit_moderator_list);
 
+router.get("/:name/members_list", subgreddiit_controller.subgreddiit_members);
 module.exports = router;

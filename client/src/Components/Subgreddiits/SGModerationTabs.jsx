@@ -29,10 +29,10 @@ export default function Component ({ subgreddiitName }) {
     return (
         <Box sx={{ bgcolor:'white', width: '250px', marginBottom: '5px' }}>
             <Tabs value={valueVertical} onChange={handleVerticalChange} aria-label="nav tabs example" orientation="vertical">
-            <Tab label="Users" value='one'/>
-            <Tab label="Joining Requests" value='two'/>
-            <Tab label="Stats" value='three'/>
-            <Tab label="Reported Page" value='four'/>
+                <Tab label="Users" value='one'/>
+                <Tab label="Joining Requests" value='two'/>
+                <Tab label="Stats" value='three'/>
+                <Tab label="Reported Page" value='four'/>
             </Tabs>
             {/* Routes here */}
         </Box>

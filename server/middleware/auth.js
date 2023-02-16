@@ -14,8 +14,10 @@ const verifyToken = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         // console.log("decoded");
-        console.log("decoded: " + decoded._doc.first_name);
+        // console.log("decoded: " + decoded._doc.first_name);
         req.user = decoded._doc;
+
+        console.log("user id for the user " + req.user._id)
 
         next();
 

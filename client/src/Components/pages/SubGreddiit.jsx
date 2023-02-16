@@ -10,6 +10,7 @@ import SubGreddiitModerationTabs from '../Subgreddiits/SGModerationTabs';
 import Loading from './Loading.jsx';
 
 import axios from "axios";
+import SGUsers from "../Subgreddiits/SG_Users";
 
 export default function SubGreddiit() {
   const [value, setValue] = React.useState('one');
@@ -20,6 +21,7 @@ export default function SubGreddiit() {
   const [loading, setLoading] = React.useState(true);
 
   const navigate = useNavigate();
+  const pathname = useLocation().pathname;
 
   React.useEffect(() => {
     navigate(`/subgreddiits/${subgreddiitName}/posts`);
@@ -69,30 +71,40 @@ export default function SubGreddiit() {
     // <PostCard />
     <React.Fragment>
       <CssBaseline />
-          <Box sx={{ bgcolor:'white', width: '100%', marginBottom: '5px' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="nav tabs example" centered>
-              <Tab label="Posts" onClick={handlePosts} value='one'/>
-              <Tab label="Moderation" onClick={handleMod} value='two'/>
-            </Tabs>
-          </Box>
-      <Grid container spacing={2}>
-      <Grid item xs={4} sm={4} md={4}>
-        <Item>
-        
-      {
-        (value == 'two') && 
-        <SubGreddiitModerationTabs subgreddiitName={subgreddiitName}/>
-      }
-      </Item>
-      </Grid>
-      <Grid item >
-
-      <Container maxWidth="md">
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', width: '100%' }} >
-          
+      { (perms) && 
+        <Box sx={{ bgcolor: 'white', width: '100%', marginBottom: '5px' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="nav tabs example" centered>
+            <Tab label="Posts" onClick={handlePosts} value='one' />
+            <Tab label="Moderation" onClick={handleMod} value='two' />
+          </Tabs>
         </Box>
-      </Container>
-      </Grid>
+      }
+      <Grid container spacing={2}>
+        <Grid item xs={4} sm={4} md={4}>
+          <Item>
+
+            {
+              (value == 'two') && (perms == true) &&
+              <SubGreddiitModerationTabs subgreddiitName={subgreddiitName} />
+            }
+          </Item>
+        </Grid>
+        <Grid item >
+
+          <Container   className="mt-4">
+            <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', width: '100%' }} >
+              {
+                (pathname == `/subgreddiits/${subgreddiitName}/posts`) &&
+                <h1>Insert Posts</h1>
+              }
+              {
+                (pathname == `/subgreddiits/${subgreddiitName}/mod/users`) &&
+                <SGUsers subgreddiitName={subgreddiitName}/>
+                // <h1>Insert Users</h1>
+              }
+            </Box>
+          </Container>
+        </Grid>
       </Grid>
     </React.Fragment>
   )
