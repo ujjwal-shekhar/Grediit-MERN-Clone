@@ -186,6 +186,16 @@ exports.user_following_get = function (req, res, next) {
     })
 }
 
+// Get user following and followers count
+exports.user_following_followers_count_get = function (req, res, next) {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            res.json({following: user.following.length, followers: user.followers.length});
+        }
+    })
+}
+
 // Add a user in the post request to the user's list of followers
 exports.user_add_follower_post = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {

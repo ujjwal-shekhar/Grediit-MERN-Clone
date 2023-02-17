@@ -66,7 +66,7 @@ const App = () => {
 
         <Route 
             path="/profile/:username/*"   
-            element={<Profile perms={"VIEW"}/>}
+            element={<Profile user={user} perms={"VIEW"}/>}
         />
             
         <Route path="/profile/followers" 

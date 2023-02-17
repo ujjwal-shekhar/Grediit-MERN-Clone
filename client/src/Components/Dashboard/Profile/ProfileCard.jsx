@@ -7,8 +7,10 @@ import { Navigate, Routes, Route, useNavigate } from 'react-router-dom';
 import Followers from '../../pages/Followers';
 import Following from '../../pages/Following';
 import CreateSGForm from '../../Subgreddiits/SubgreddiitCreateForm';
-
+import Loading from '../../pages/Loading';
 import MiniProfileCard from './MiniProfileCard';
+
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -25,8 +27,33 @@ const style = {
 export default function ProfileCard({ user, perms }) {
   const navigate = useNavigate();
   const fullName = user.first_name + ' ' + user.last_name;
+  const [loading, setLoading] = React.useState(true);
   const [showSGForm, setShowSGForm] = React.useState(false);
   const [showEditForm, setShowEditForm] = React.useState(false);
+  const [followersCount, setFollowersCount] = React.useState(null);
+  const [followingCount, setFollowingCount] = React.useState(null);
+
+  React.useEffect(() => {
+    axios.get(
+      `http://localhost:8080/users/${user.username}/socials/count`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        }
+      }
+    )
+     .then((response) => {
+        console.log(response.data);
+        setFollowersCount(response.data.followers);
+        setFollowingCount(response.data.following);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+  }, [])
   
   const handleToggle = (formType) => {
     if (formType === 'SG') {
@@ -69,6 +96,12 @@ export default function ProfileCard({ user, perms }) {
   }
 
   console.log("ProfileCard : ", user, perms);
+
+  if (loading) {
+    return (
+      <Loading />
+    )
+  }
   
   return (
     <>
@@ -130,13 +163,13 @@ export default function ProfileCard({ user, perms }) {
                 <div className="d-flex justify-content-end text-center py-1">
                   <div className="px-3">
                   <MDBBtn color='light' onClick={handleFollowers}>
-                    <MDBCardText className="mb-1 h5">4</MDBCardText>
+                    <MDBCardText className="mb-1 h5">{followersCount}</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
                   </MDBBtn>
                   </div>
                   <div>
                   <MDBBtn color='light' onClick={handleFollowing}>
-                    <MDBCardText className="mb-1 h5">4</MDBCardText>
+                    <MDBCardText className="mb-1 h5">{followingCount}</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">Following</MDBCardText>
                   </MDBBtn>
                   </div>

@@ -13,55 +13,55 @@ import Following from './Following.jsx';
 
 import jwt_decode from 'jwt-decode';
 
-import axios from 'axios' 
+import axios from 'axios'
 
 const Profile = ({ user, perms }) => {
-    const { username } = useParams();
-    if (username) {
-        if (((jwt_decode(localStorage.getItem("token")))._doc).username === username) {
-            user = ((jwt_decode(localStorage.getItem("token")))._doc);
-            perms = "AUTH";
-        }
-    } else if (((jwt_decode(localStorage.getItem("token")))._doc).username === user.username) {
-        user = ((jwt_decode(localStorage.getItem("token")))._doc);
-        perms = "AUTH";
-    }
+    const [loading, setLoading] = React.useState(true);
     const [foundUser, setFoundUser] = React.useState(null);
+    const { username } = useParams();
 
-    if (foundUser) console.log("here2");
-    if ((perms != "AUTH") && (!foundUser)) {
-        console.log("here");
-        axios({
-            url: "http://localhost:8080/users/" + username,
-            method: "GET",
-        })
-        .then((response) => {
-            setFoundUser(response.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
+    React.useEffect(() => {
+        if (perms !== "AUTH") {
+            if (user.username === username) {
+                perms = "AUTH";
+                setLoading(false);
+            }
+        }
 
-    if (perms !== "AUTH" && !foundUser) {
+        if (perms != "AUTH") {
+            console.log("here");
+            axios({
+                url: "http://localhost:8080/users/" + username,
+                method: "GET",
+            })
+                .then((response) => {
+                    setFoundUser(response.data);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }, []);
+
+    if (loading) {
         return (
             <Loading />
         );
     }
 
-
     console.log("after setting ", foundUser);
     return (
         <>
-        <Grid>
-            {
-                perms === "AUTH" ?
-                <ProfileCard user={user} perms={"AUTH"}/>
-                :
-                <ProfileCard user={foundUser} perms={"VIEW"}/>
-            }
-        </Grid>
+            <Grid>
+                {
+                    perms === "AUTH" ?
+                        <ProfileCard user={user} perms={"AUTH"} />
+                        :
+                        <ProfileCard user={foundUser} perms={"VIEW"} />
+                }
+            </Grid>
         </>
     );
-} 
+}
 export default Profile;
