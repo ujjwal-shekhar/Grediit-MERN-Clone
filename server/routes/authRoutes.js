@@ -21,9 +21,6 @@ router.get('/:username', user_controller.user_detail);
 router.get('/:id/delete', user_controller.user_delete_get);
 router.post('/:id/delete', user_controller.user_delete_post);
 
-// Update user by their id using GET and POST methods
-router.get('/:id/update', user_controller.user_update_get);
-router.post('/:id/update', user_controller.user_update_post);
 
 // Get the profile page
 router.get('/:id/profile', verifyToken, user_controller.user_profile_get);

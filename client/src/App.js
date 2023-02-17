@@ -39,7 +39,9 @@ const App = () => {
     }
     setToRender(true);
   }, []); 
+
   if (!toRender) return (<>Loading...</>);
+
   return (
       <>
       {user && <Navbar user={user} setUser={setUser}/>}
@@ -66,7 +68,9 @@ const App = () => {
 
         <Route 
             path="/profile/:username/*"   
-            element={<Profile user={user} perms={"VIEW"}/>}
+            element={<ProtectedRoute user={user}>
+                    <Profile user={user} perms={"VIEW"}/>
+                    </ProtectedRoute>}
         />
             
         <Route path="/profile/followers" 

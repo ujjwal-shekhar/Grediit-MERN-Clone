@@ -94,36 +94,13 @@ exports.user_delete_post = function (req, res, next) {
     });
 }
 
-// Display user update form on GET
-exports.user_update_get = function (req, res, next) {
-    User.findById(req.params.id)
-        .exec(function (err, user) {
-            if (err) { return next(err); }
-            res.json({ title: 'Update User', user: user });
-        });
-}
-
 exports.user_profile_get = function (req, res, next) {
     res.json({ title: 'User Profile' });
 }
 
-// Handle user update on POST
-exports.user_update_post = function (req, res, next) {
-    const user = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-        age: req.body.age,
-        contactNumber: req.body.contactNumber,
-        _id: req.params.id
-    });
-    User.findByIdAndUpdate(req.params.id, user, {}, function (err, theuser) {
-        if (err) { return next(err); }
-        res.redirect(theuser.url);
-    });
-}
+// Update user profile on POST
+exports.user_profile_post = function (req, res, next) {
+    
 
 // Handle user login on POST
 exports.user_login_post = async (req, res, next) => {
@@ -226,3 +203,4 @@ exports.user_add_follower_post = function (req, res, next) {
         }
     })
 };
+

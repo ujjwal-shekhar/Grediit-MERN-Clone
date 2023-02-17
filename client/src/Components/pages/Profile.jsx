@@ -20,11 +20,15 @@ const Profile = ({ user, perms }) => {
     const [foundUser, setFoundUser] = React.useState(null);
     const { username } = useParams();
 
+    console.log("Inside Profile.jsx: ", user, perms, username);
+    const [tempPerms, setTempPerms] = React.useState(perms);
+
     React.useEffect(() => {
         if (perms !== "AUTH") {
             if (user.username === username) {
-                perms = "AUTH";
-                setLoading(false);
+                setFoundUser(user);
+                setTempPerms("AUTH");
+                // console.log("permsimfdismf" + perms);
             }
         }
 
@@ -36,13 +40,14 @@ const Profile = ({ user, perms }) => {
             })
                 .then((response) => {
                     setFoundUser(response.data);
-                    setLoading(false);
                 })
                 .catch((err) => {
                     console.log(err);
                 })
-        }
+            }
+        setLoading(false);
     }, []);
+
 
     if (loading) {
         return (
@@ -50,7 +55,8 @@ const Profile = ({ user, perms }) => {
         );
     }
 
-    console.log("after setting ", foundUser);
+    perms = tempPerms;
+    console.log("after setting ", foundUser, perms);
     return (
         <>
             <Grid>
