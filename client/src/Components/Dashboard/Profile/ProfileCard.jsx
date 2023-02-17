@@ -8,6 +8,7 @@ import Followers from '../../pages/Followers';
 import Following from '../../pages/Following';
 import CreateSGForm from '../../Subgreddiits/SubgreddiitCreateForm';
 import Loading from '../../pages/Loading';
+import EditProfileForm from './EditProfileForm';
 import MiniProfileCard from './MiniProfileCard';
 
 import axios from 'axios';
@@ -124,7 +125,7 @@ export default function ProfileCard({ user, perms }) {
         aria-describedby="modal-modal-description"
         >
         <Box sx={style}>
-          lmai  
+          <EditProfileForm />
         </Box>
       </Modal>
       <MDBContainer className="py-5 h-100">

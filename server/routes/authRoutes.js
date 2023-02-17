@@ -41,4 +41,7 @@ router.get(
 // Get user following and follower counts
 router.get('/:username/socials/count', verifyToken, user_controller.user_following_followers_count_get);
 
+// Update user details on post
+router.post('/update', verifyToken, user_controller.user_update_post);
+
 module.exports = router;

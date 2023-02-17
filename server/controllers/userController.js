@@ -98,9 +98,26 @@ exports.user_profile_get = function (req, res, next) {
     res.json({ title: 'User Profile' });
 }
 
-// Update user profile on POST
-exports.user_profile_post = function (req, res, next) {
-    
+// Update user on POST
+// But the user cannot update the refs to their followers and following and other refs
+exports.user_update_post = function (req, res, next) {
+    const new_user = new User({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        age: req.body.age,
+        contact_number: req.body.contact_number,
+    });
+    User.findByIdAndUpdate(req.user._id, new_user, {
+        new: true,
+    }, function (err, theuser) {
+        if (err) { return next(err); }
+    });
+}
+
+
 
 // Handle user login on POST
 exports.user_login_post = async (req, res, next) => {
