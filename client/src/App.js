@@ -13,6 +13,7 @@ import jwt_decode from 'jwt-decode';
 import MiniSubgreddiitCard from './Components/Subgreddiits/MiniSubgreddiitCard';
 import UserSubgreddiits from './Components/pages/UserSubgreddiits';
 import Unauthorized from './Components/pages/Unauthorized';
+import AllSubgreddiits from './Components/pages/AllSubgreddiits';
 
 const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
   if (!user) {
@@ -88,6 +89,12 @@ const App = () => {
         <Route path="/subgreddiits/my" 
               element={<ProtectedRoute user={user}>
                         <UserSubgreddiits user={user}/>
+                      </ProtectedRoute>} 
+        />
+
+        <Route path="/subgreddiits/*" 
+              element={<ProtectedRoute user={user}>
+                        <AllSubgreddiits />
                       </ProtectedRoute>} 
         />
          

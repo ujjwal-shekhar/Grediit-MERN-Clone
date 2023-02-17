@@ -77,7 +77,7 @@ export default function UserSubgreddiits({ user }) {
 
     React.useEffect(() => {
         axios.get(
-            'http://localhost:8080/subgreddiits/',
+            'http://localhost:8080/subgreddiits/mod_subgreddiits',
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,27 +105,11 @@ export default function UserSubgreddiits({ user }) {
                     {
                         sgList.map((sg, index) => (
                             <MDBCol>    
-                                <MiniSubgreddiitCard key={index} subgreddiit={sg} perms={"MOD"} />
+                                <MiniSubgreddiitCard key={index} 
+                                subgreddiit={sg} perms={"MOD"} />
                             </MDBCol>
                         ))
                     }
-                {/* {sgList.map((sg, index) => (
-                    // <MDBCol>
-                    //     <MiniSubgreddiitCard key={index} subgreddiit={sg} perms={"MOD"} />
-                    // </MDBCol>
-                ))} */}
-                {/* <MDBCol>
-                    <MiniSubgreddiitCard subgreddiit={subgreddiit} perms={"MOD"} />
-                </MDBCol>
-                <MDBCol>
-                    <MiniSubgreddiitCard subgreddiit={subgreddiit} perms={"MOD"} />
-                </MDBCol>
-                <MDBCol>
-                    <MiniSubgreddiitCard subgreddiit={subgreddiit} perms={"MOD"} />
-                </MDBCol>
-                <MDBCol>
-                    <MiniSubgreddiitCard subgreddiit={subgreddiit} perms={"MOD"} />
-                </MDBCol>    */}
             </MDBRow>
             <IconButton onClick={handleAddSG} sx={{
                 position: 'absolute',
