@@ -11,6 +11,7 @@ import Loading from './Loading.jsx';
 
 import axios from "axios";
 import SGUsers from "../Subgreddiits/SG_Users";
+import SG_Joining_Requests from "../Subgreddiits/SG_Joining_Requests";
 
 export default function SubGreddiit() {
   const [value, setValue] = React.useState('one');
@@ -108,6 +109,10 @@ export default function SubGreddiit() {
                 (pathname == `/subgreddiits/${subgreddiitName}/mod/users`) &&
                 <SGUsers subgreddiitName={subgreddiitName}/>
                 // <h1>Insert Users</h1>
+              }
+              {
+                (pathname == `/subgreddiits/${subgreddiitName}/mod/joining-requests`) &&
+                <SG_Joining_Requests subgreddiitName={subgreddiitName}/>
               }
             </Box>
           </Container>
