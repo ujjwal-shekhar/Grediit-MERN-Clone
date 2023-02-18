@@ -14,11 +14,14 @@ function CreateSGForm({ creator }) {
   const [checked, setChecked] = React.useState(false);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
+  const [bannedKeywords, setBannedKeywords] = React.useState(['']);
   const [nameError, setNameError] = React.useState('');
   const [descriptionError, setDescriptionError] = React.useState('');
+  const [bannedKeywordsError, setBannedKeywordsError] = React.useState('');
 
   const submitDisable = (name.length < 2) || 
                         (description.length < 10) || 
+                        (bannedKeywordsError.length) || 
                         (!checked);
 
   const handleCheck = () => {
@@ -33,6 +36,7 @@ function CreateSGForm({ creator }) {
     const formData = {
       "name": name,
       "description": description,
+      "bannedKeywords": bannedKeywords,
       "creatorID": creator._id
     }
 
@@ -73,6 +77,17 @@ function CreateSGForm({ creator }) {
     }
   }
 
+  const handleBannedKeywordsChange = (e) => {
+    e.preventDefault();
+    setBannedKeywords(e.target.value.split(','));
+    // Every Banned keyword must be at least 2 characters long
+    if (e.target.value.split(',').every((keyword) => keyword.length < 2)) {
+      setBannedKeywordsError('Banned keywords must be at least 2 characters long');
+    } else {
+      setBannedKeywordsError('');
+    }
+  }
+
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center' >
       <div className='mask gradient-custom-3'></div>
@@ -81,6 +96,7 @@ function CreateSGForm({ creator }) {
           <h2 className="text-uppercase text-center mb-5" >Create a Subgreddiit</h2>
           <MDBInput onChange={handleNameChange} wrapperClass='mb-4' label='Subgreddiit Name' size='lg' id='form1' type='text' />
           <MDBInput onChange={handleDescriptionChange} wrapperClass='mb-4' label='Subgreddiit Description' size='lg' id='form2' type='text' />
+          <MDBInput onChange={handleBannedKeywordsChange} wrapperClass='mb-4' label='Banned Keywords' size='lg' id='form2' type='text' />
           <div className='d-flex flex-row justify-content-center mb-4'>
             <MDBCheckbox onChange={handleCheck} name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
           </div>
