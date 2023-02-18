@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
-import MiniProfileCard from '../Dashboard/Profile/MiniProfileCard';
+// import MiniProfileCard from '../Dashboard/Profile/MiniProfileCard';
+import MiniSGUserCard from './MiniSGUserCard';
 import Loading from '../pages/Loading.jsx';
 
 import Divider from '@mui/material/Divider';
@@ -11,18 +12,20 @@ export default function SGUsers({ subgreddiitName }) {
     const [loading, setLoading] = React.useState(true);
     const [common_members, setCommonMembers] = React.useState([]);
     const [banned_members, setBannedMembers] = React.useState([]);
+    const [moderators, setModerators] = React.useState([]);
     React.useEffect(() => {
         axios.get(
-            `http://localhost:8080/subgreddiits/${subgreddiitName}/members_list`,
+            `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/members_list`,
             {
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', 
                 }
             }
         )
             .then((response) => {
                 setCommonMembers(response.data.common_members);
                 setBannedMembers(response.data.banned_members);
+                setModerators(response.data.mods);
                 setLoading(false);
             })
             .catch((err) => {
@@ -38,11 +41,14 @@ export default function SGUsers({ subgreddiitName }) {
         <React.Fragment>
             <Divider>Members</Divider>
             {common_members.map((member) => {
-                return <MiniProfileCard username={member.username} />
+                return <MiniSGUserCard username={member} />
+            })}
+            {moderators.map((member) => {
+                return <MiniSGUserCard username={member} />
             })}
             <Divider>Banned Members</Divider>
             {banned_members.map((member) => {
-                return <MiniProfileCard username={member.username} />
+                return <MiniSGUserCard username={member} />
             })}
         </React.Fragment>
     )

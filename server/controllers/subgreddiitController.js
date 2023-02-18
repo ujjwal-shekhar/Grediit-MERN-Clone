@@ -105,7 +105,8 @@ exports.subgreddiit_members = function (req, res, next) {
             res.json({
                 "common_members" : subgreddiit.common_members,
                 "banned_members" : subgreddiit.banned_members,
-                "requested_members" : subgreddiit.requested_members
+                "requested_members" : subgreddiit.requested_members,
+                "mods" : subgreddiit.moderators
             });
         }
     })

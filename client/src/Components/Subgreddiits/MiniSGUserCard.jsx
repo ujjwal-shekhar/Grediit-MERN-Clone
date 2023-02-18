@@ -1,17 +1,17 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 
-export default function MiniProfileCard({ user, mode }) {
+export default function MiniProfileCard({ user }) {
   console.log("MiniProfileCard : " + user, mode);
   const fullName = user.first_name + " " + user.last_name;
 
-  const handleRemove = () => {
-    console.log("Remove");
-  }
+//   const handleRemove = () => {
+//     console.log("Remove");
+//   }
 
-  const handleUnfollow = () => {
-    console.log("Unfollow");
-  }
+//   const handleUnfollow = () => {
+//     console.log("Unfollow");
+//   }
 
   return (
     <div className="mb-2" style={{ backgroundColor: '#9de2ff' }}>
