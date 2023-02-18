@@ -17,13 +17,8 @@ router.post('/login', user_controller.user_login_post);
 // Get details of a user by their id
 router.get('/:username', user_controller.user_detail);
 
-// Delete a user by their id using GET and POST methods
-router.get('/:id/delete', user_controller.user_delete_get);
-router.post('/:id/delete', user_controller.user_delete_post);
-
-
 // Get the profile page
-router.get('/:id/profile', verifyToken, user_controller.user_profile_get);
+router.get('/id/:id', verifyToken, user_controller.user_detail_id);
 
 // Get followers of a user
 router.get('/:username/followers', verifyToken, user_controller.user_followers_get);
@@ -32,6 +27,7 @@ router.get('/:username/followers', verifyToken, user_controller.user_followers_g
 router.get('/:username/following', verifyToken, user_controller.user_following_get);
 
 // Post a new follower to a user
+// TODO make this into a post request
 router.get(
     '/:username/followers/add/:follower',
     verifyToken,

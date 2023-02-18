@@ -24,7 +24,7 @@ export default function SubGreddiit() {
   const pathname = useLocation().pathname;
 
   React.useEffect(() => {
-    navigate(`/subgreddiits/${subgreddiitName}/posts`);
+    // navigate(`/subgreddiits/${subgreddiitName}/posts`);
     axios.get(
       `http://localhost:8080/subgreddiits/SG/${subgreddiitName}`,
       {
@@ -37,6 +37,13 @@ export default function SubGreddiit() {
       .then((res) => {
         setSubgreddiit(res.data);
         setPerms(res.data.isModerator);
+        if (res.data.isModerator) {
+          navigate(`/subgreddiits/${subgreddiitName}/mod/users`);
+          setValue('two');
+        } else {
+          navigate(`/subgreddiits/${subgreddiitName}/posts`);
+          setValue('one');
+        }
         setLoading(false);
       })
       .catch((err) => {

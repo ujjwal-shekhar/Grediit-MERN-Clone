@@ -16,6 +16,7 @@ export default function SGUsers({ subgreddiitName }) {
             {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
             }
         )
@@ -34,7 +35,11 @@ export default function SGUsers({ subgreddiitName }) {
 
     return (
         <React.Fragment>
-            
+            {
+                requestedMembers.map((member, index) => {
+                    return <MiniProfileCard key={index} userID={member} />
+                })
+            }
         </React.Fragment>
     )
 }

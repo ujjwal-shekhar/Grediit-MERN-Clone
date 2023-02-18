@@ -40,15 +40,16 @@ export default function SGUsers({ subgreddiitName }) {
     return (
         <React.Fragment>
             <Divider>Members</Divider>
-            {common_members.map((member) => {
-                return <MiniSGUserCard username={member} />
+            {common_members.map((member, index) => {
+                return <MiniSGUserCard key={index} userID={member} mode={"SG_USER"}/>
             })}
-            {moderators.map((member) => {
-                return <MiniSGUserCard username={member} />
+            {moderators.map((member, index) => {
+            console.log(member);
+                return <MiniSGUserCard key={index} userID={member} />
             })}
             <Divider>Banned Members</Divider>
-            {banned_members.map((member) => {
-                return <MiniSGUserCard username={member} />
+            {banned_members.map((member, index) => {
+                return <MiniSGUserCard key={index} userID={member} />
             })}
         </React.Fragment>
     )

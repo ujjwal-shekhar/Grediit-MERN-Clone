@@ -10,7 +10,10 @@ const App = ({ subgreddiit, perms }) => {
   }
   const handleOpen = () => {
     // console.log('Clicked');
-    navigate(`/subgreddiits/${subgreddiit.name}`);
+    if (perms === "POSTS")
+      navigate(`/subgreddiits/${subgreddiit.name}`);
+    else 
+      navigate(`/subgreddiits/${subgreddiit.name}/mod/users`);
   }
   return (
     <Space direction="vertical" size={16}>

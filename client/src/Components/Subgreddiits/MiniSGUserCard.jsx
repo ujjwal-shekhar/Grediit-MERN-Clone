@@ -1,17 +1,50 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 
-export default function MiniProfileCard({ user }) {
-  console.log("MiniProfileCard : " + user, mode);
+import axios from 'axios';
+
+import Loading from '../pages/Loading.jsx';
+
+export default function MiniProfileCard({ userID, mode }) {
+  // console.log("MiniProfileCard : " + user, mode);
+  console.log("MiniProfileCard : " + userID);
+  const [loading, setLoading] = React.useState(true);
+  const [user, setUser] = React.useState({});
+  
+  React.useEffect(() => {
+    axios.get(
+      `http://localhost:8080/users/id/${userID}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    )
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }, [])
+
+  const handleAccept = () => {
+    console.log("Accept");
+  }
+
+  const handleReject = () => {
+    console.log("Reject");
+  }
+
   const fullName = user.first_name + " " + user.last_name;
 
-//   const handleRemove = () => {
-//     console.log("Remove");
-//   }
+  if (loading) {
+    return <Loading />
+  }
 
-//   const handleUnfollow = () => {
-//     console.log("Unfollow");
-//   }
 
   return (
     <div className="mb-2" style={{ backgroundColor: '#9de2ff' }}>
@@ -23,7 +56,7 @@ export default function MiniProfileCard({ user }) {
                 <div className="d-flex text-black">
                   <div className="flex-shrink-0">
                     <MDBCardImage
-                      style={{ width: '115px', borderRadius: '10px' }}
+                      style={{ width: '80px', borderRadius: '10px' }}
                       className="d-sm-block"
                       src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp'
                       alt='Generic placeholder image'
@@ -34,12 +67,17 @@ export default function MiniProfileCard({ user }) {
                     <MDBCardText>@{user.username}</MDBCardText>
 
                     <div className="d-flex pt-1 ">
-                      <MDBBtn outline className="me-1 flex-grow-1">Chat</MDBBtn>
                       {
-                        (mode !== "FOLLOWING") ?
-                        <MDBBtn className="flex-grow-1" color="danger" onClick={handleRemove}>Remove</MDBBtn>
-                        :
-                        <MDBBtn className="flex-grow-1" color="danger" onClick={handleUnfollow}>Unfollow</MDBBtn>
+                        (mode === "SG_USER") && (
+                          <>
+                          </>
+                        )
+                        (mode === "SG_JOIN_REQ") && (
+                          <>
+                          <MDBBtn outline className="me-1 flex-grow-1" color="success" onClick={handleAccept}>Accept</MDBBtn>
+                          <MDBBtn outline className="me-1 flex-grow-1" color="danger" onClick={handleReject}>Reject</MDBBtn>
+                          </>
+                        )
                       }
                     </div>
                   </div>

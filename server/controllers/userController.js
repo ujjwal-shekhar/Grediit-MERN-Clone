@@ -21,6 +21,17 @@ exports.user_detail = function (req, res, next) {
     })
 }
 
+// Display user details using id
+exports.user_detail_id = function (req, res, next) {
+    User.findById(req.params.id, (err, user) => {
+        if (err) console.log(err);
+        else {
+            res.json(user);
+        }
+    })
+}
+
+
 // Display user create form on GET
 exports.user_create_get = function (req, res, next) {
     console.log('user_create_get called');
@@ -49,15 +60,6 @@ exports.user_create_post = (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-        });
-}
-
-// Display user delete form on GET
-exports.user_delete_get = function (req, res, next) {
-    User.findById(req.params.id)
-        .exec(function (err, user) {
-            if (err) { return next(err); }
-            res.json({ title: 'Delete User', user: user });
         });
 }
 
@@ -92,10 +94,6 @@ exports.user_delete_post = function (req, res, next) {
         if (err) { return next(err); }
         res.redirect('/users');
     });
-}
-
-exports.user_profile_get = function (req, res, next) {
-    res.json({ title: 'User Profile' });
 }
 
 // Update user on POST
