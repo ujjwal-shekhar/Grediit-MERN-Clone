@@ -108,7 +108,6 @@ export default function SubGreddiit() {
               {
                 (pathname == `/subgreddiits/${subgreddiitName}/mod/users`) &&
                 <SGUsers subgreddiitName={subgreddiitName}/>
-                // <h1>Insert Users</h1>
               }
               {
                 (pathname == `/subgreddiits/${subgreddiitName}/mod/joining-requests`) &&

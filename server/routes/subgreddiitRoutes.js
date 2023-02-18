@@ -16,4 +16,6 @@ router.get("/SG/:name/perms", verifyToken, subgreddiit_controller.subgreddiit_mo
 router.get("/SG/:name", verifyToken, subgreddiit_controller.subgreddiit_detail);
 
 router.get("/SG/:name/members_list", subgreddiit_controller.subgreddiit_members);
+
+router.get("/SG/:name/posts", subgreddiit_controller.subgreddiit_posts);
 module.exports = router;

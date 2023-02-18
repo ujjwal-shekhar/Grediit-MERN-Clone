@@ -84,6 +84,23 @@ exports.subgreddiit_detail = function (req, res, next) {
     })
 }
 
+// Get list of posts in a subgreddiit
+exports.subgreddiit_posts = function (req, res, next) {
+    console.log('subgreddiit_posts called');
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            // Check if req.user is a moderator or a member of the subgreddiit
+            if (subgreddiit.moderators.includes(req.user._id) 
+            || subgreddiit.common_members.includes(req.user._id)) {
+                res.json({posts: subgreddiit.posts, isMember: true});
+            } else {   
+                res.json({"Unauthorized": "You are not a member of this subgreddiit"});
+            }
+        }
+    })
+}
+
 // GET list of all subgreddiits that the user is a moderator of
 exports.subgreddiit_moderator_list = function (req, res, next) {
     console.log('subgreddiit_moderator_list called');
