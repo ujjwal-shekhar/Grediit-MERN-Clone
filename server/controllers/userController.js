@@ -104,9 +104,6 @@ exports.user_update_post = function (req, res, next) {
     const new_user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
         age: req.body.age,
         contact_number: req.body.contact_number,
     });
