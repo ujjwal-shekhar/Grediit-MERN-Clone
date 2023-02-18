@@ -10,24 +10,61 @@ const App = ({ subgreddiit, perms }) => {
   }
   const handleOpen = () => {
     // console.log('Clicked');
-    if (perms === "POSTS")
-      navigate(`/subgreddiits/${subgreddiit.name}`);
-    else 
+    if (perms === "MOD_MY" || perms === "MOD_ALL")
       navigate(`/subgreddiits/${subgreddiit.name}/mod/users`);
+    else 
+      navigate(`/subgreddiits/${subgreddiit.name}/`);
   }
+
+  const handleLeave = () => {
+    console.log('Clicked');
+  }
+
+  const toReturn = () => {
+    if (perms === "MOD_MY") {
+      return (
+        <Space>
+          <Button type="primary" danger onClick={handleDelete}>Delete</Button>
+          <Button type="primary" onClick={handleOpen}>Open</Button>
+        </Space>
+      )
+    } else if (perms === "MOD_ALL") {
+      return (
+        <Space>
+          <Button type="primary" danger disabled={true} onClick={handleLeave}>Leave</Button>
+          <Button type="primary" onClick={handleOpen}>Open</Button>
+        </Space>
+      )
+    } else if (perms === "MEMBER") {
+      return (
+        <Space>
+          <Button type="primary" danger onClick={handleDelete}>Leave</Button>
+          <Button type="primary" onClick={handleOpen}>Open</Button>
+        </Space>
+      )
+    } else if (perms === "LEFT") {
+      return (
+        <Space>
+          <Button type="primary" danger disabled={true} onClick={handleDelete}>Join</Button>
+          <Button type="primary" onClick={handleOpen}>Open</Button>
+        </Space>
+      )
+    } else if (perms === "NON_MEMBER") {
+      return (
+        <Space>
+          <Button type="primary" danger onClick={handleDelete}>Join</Button>
+          <Button type="primary" onClick={handleOpen}>Open</Button>
+        </Space>
+      )
+    }
+  }
+
   return (
     <Space direction="vertical" size={16}>
       <Card
         title={subgreddiit.name}
         extra={
-                perms == "MOD" ? 
-                  <Space>
-                    <Button type="primary" danger onClick={handleDelete}>Delete</Button> 
-                    <Button type="primary" onClick={handleOpen}>Open</Button>
-                  </Space>
-                  : 
-                  <Button type="default" onClick={handleOpen}>Open</Button>
-                
+                toReturn()
               }
         style={{
           width: 300,

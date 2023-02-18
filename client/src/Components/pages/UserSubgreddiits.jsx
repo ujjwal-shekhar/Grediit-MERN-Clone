@@ -105,12 +105,13 @@ export default function UserSubgreddiits({ user }) {
         <Container>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4 mt-1'>
                     {
-                        sgList.map((sg) => (
-                            <MDBCol>    
-                                <MiniSubgreddiitCard key={sg._id} 
-                                subgreddiit={sg} perms={"MOD"} />
+                        sgList.map((sg) => {
+                            // console.log(sg._id)
+                            return <MDBCol key={sg._id} >    
+                                <MiniSubgreddiitCard 
+                                subgreddiit={sg} perms={"MOD_MY"} />
                             </MDBCol>
-                        ))
+                        })  
                     }
             </MDBRow>
             <IconButton onClick={handleAddSG} sx={{
