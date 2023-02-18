@@ -40,7 +40,16 @@ router.get('/:username/socials/count', verifyToken, user_controller.user_followi
 // Update user details on post
 router.post('/update', verifyToken, user_controller.user_update_post);
 
-// Get use mod_subgreddiits
+// Get user mod_subgreddiits
 router.get('/:username/mod_subgreddiits', verifyToken, user_controller.user_mod_subgreddiits_get);
+
+// Get user's subgreddiits that they are common_members of
+router.get('/:username/common_members', verifyToken, user_controller.user_members_subgreddiits_get);
+
+// Get user's subgreddiits that they are banned_members of
+router.get('/:username/banned_members', verifyToken, user_controller.user_banned_subgreddiits_get);
+
+// Get user's subgreddiits that they are requested_members of
+router.get('/:username/requested_members', verifyToken, user_controller.user_requested_subgreddiits_get);
 
 module.exports = router;

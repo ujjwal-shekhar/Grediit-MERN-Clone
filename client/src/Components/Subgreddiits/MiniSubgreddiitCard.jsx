@@ -56,6 +56,13 @@ const App = ({ subgreddiit, perms }) => {
           <Button type="primary" onClick={handleOpen}>Open</Button>
         </Space>
       )
+    } else if (perms === "REQUESTED") {
+      return (
+        <Space>
+          <Button type="primary" danger disabled={true} >Requested</Button>
+          <Button type="primary" onClick={handleOpen}>Open</Button>
+        </Space>
+      )
     }
   }
 

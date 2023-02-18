@@ -1,7 +1,6 @@
 const SubGreddiit = require('../models/subgreddiit');
 const User = require('../models/user');
 const mongoose = require('mongoose');
-const { ConnectionPoolClosedEvent } = require('mongodb');
 
 exports.subgreddiit_list = function (req, res, next) {
     console.log('subgreddiit_list called');

@@ -15,11 +15,12 @@ export default function AllSubgreddiits() {
         <Container>
             <Box className='mt-2' sx={{width:'100%'}}>
                 <Space direction='vertical'>
-
                     <SGTags />
                     <SearchBar />
                 </Space>
             </Box>
+
+            
         </Container>
     );
 }

@@ -78,15 +78,54 @@ exports.user_mod_subgreddiits_get = function (req, res, next) {
     })
 } 
 
-// Get user's subgreddiits that they are a member 
-exports.user_view_subgreddiits_get = function (req, res, next) {
+// Get user's subgreddiits that they are a member of
+exports.user_members_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
         if (err) console.log(err);
         else {
-            
+            // Find all subgreddiits with user in common_members
+            SubGreddiit.find({common_members: user._id}, (err, subgreddiits) => {
+                if (err) console.log(err);
+                else {
+                    res.json(subgreddiits);
+                }
+            })
         }
     })
 }
+
+// Get user's subgreddiits that they are a requested_member of
+exports.user_requested_subgreddiits_get = function (req, res, next) {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            // Find all subgreddiits with user in requested_member
+            SubGreddiit.find({requested_members: user._id}, (err, subgreddiits) => {
+                if (err) console.log(err);
+                else {
+                    res.json(subgreddiits);
+                }
+            })
+        }
+    });
+}
+
+// Get user's subgreddiits that they are a banned_member of
+exports.user_banned_subgreddiits_get = function (req, res, next) {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            // Find all subgreddiits with user in banned_members
+            SubGreddiit.find({banned_members: user._id}, (err, subgreddiits) => {
+                if (err) console.log(err);
+                else {
+                    res.json(subgreddiits);
+                }
+            })
+        }
+    });
+}
+
 
 // Handle user delete on POST
 exports.user_delete_post = function (req, res, next) {
