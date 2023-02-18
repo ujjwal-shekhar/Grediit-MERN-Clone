@@ -1,5 +1,7 @@
 const SubGreddiit = require('../models/subgreddiit');
+const User = require('../models/user');
 const mongoose = require('mongoose');
+const { ConnectionPoolClosedEvent } = require('mongodb');
 
 exports.subgreddiit_list = function (req, res, next) {
     console.log('subgreddiit_list called');
@@ -86,9 +88,10 @@ exports.subgreddiit_detail = function (req, res, next) {
 // GET list of all subgreddiits that the user is a moderator of
 exports.subgreddiit_moderator_list = function (req, res, next) {
     console.log('subgreddiit_moderator_list called');
-    SubGreddiit.find({moderators: req.user._id})
+    SubGreddiit.find({moderators: {$in : [req.user._id]}})
         .exec(function (err, list_subgreddiits) {
             if (err) { console.log(err) }
+            console.log(list_subgreddiits);
             res.json({ title: 'SubGreddiit List', subgreddiit_list: list_subgreddiits });
         });
 }

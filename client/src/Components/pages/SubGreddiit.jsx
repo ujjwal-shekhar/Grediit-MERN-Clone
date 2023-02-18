@@ -26,7 +26,7 @@ export default function SubGreddiit() {
   React.useEffect(() => {
     navigate(`/subgreddiits/${subgreddiitName}/posts`);
     axios.get(
-      `http://localhost:8080/subgreddiits/${subgreddiitName}`,
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}`,
       {
         headers: {
           'Content-Type': 'application/json',

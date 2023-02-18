@@ -44,4 +44,7 @@ router.get('/:username/socials/count', verifyToken, user_controller.user_followi
 // Update user details on post
 router.post('/update', verifyToken, user_controller.user_update_post);
 
+// Get use mod_subgreddiits
+router.get('/:username/mod_subgreddiits', verifyToken, user_controller.user_mod_subgreddiits_get);
+
 module.exports = router;

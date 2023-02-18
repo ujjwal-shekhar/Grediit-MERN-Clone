@@ -76,8 +76,9 @@ export default function UserSubgreddiits({ user }) {
     }
 
     React.useEffect(() => {
+        console.log("Mounted UserSGs")
         axios.get(
-            'http://localhost:8080/subgreddiits/mod_subgreddiits',
+            'http://localhost:8080/subgreddiits/mod_subgreddiits_list',
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,6 +89,7 @@ export default function UserSubgreddiits({ user }) {
             .then((res) => {
                 console.log(res.data.subgreddiit_list);
                 setSGList(res.data.subgreddiit_list);
+                console.log(res)
                 setLoading(false);
             })
             .catch((err) => {
