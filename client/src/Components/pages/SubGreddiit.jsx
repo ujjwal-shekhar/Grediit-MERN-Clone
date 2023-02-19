@@ -6,12 +6,12 @@ import LinkTab from '@mui/material/Link';
 import { useParams } from 'react-router-dom';
 import Item from '@mui/material/Stack';
 import { useNavigate, useLocation } from 'react-router-dom';
-import SubGreddiitModerationTabs from '../Subgreddiits/SGModerationTabs';
+import SubGreddiitModerationTabs from '../Subgreddiits/My_SG_Components/SGModerationTabs';
 import Loading from './Loading.jsx';
 
 import axios from "axios";
-import SGUsers from "../Subgreddiits/SG_Users";
-import SG_Joining_Requests from "../Subgreddiits/SG_Joining_Requests";
+import SGUsers from "../Subgreddiits/SG_Page_Components/SG_Users";
+import SG_Joining_Requests from "../Subgreddiits/My_SG_Components/SG_Joining_Requests";
 
 export default function SubGreddiit() {
   const [value, setValue] = React.useState('one');

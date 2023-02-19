@@ -6,7 +6,7 @@ import { Navigate, Routes, Route, useNavigate } from 'react-router-dom';
 
 import Followers from '../../pages/Followers';
 import Following from '../../pages/Following';
-import CreateSGForm from '../../Subgreddiits/SubgreddiitCreateForm';
+import CreateSGForm from '../../Subgreddiits/SG_Page_Components/SubgreddiitCreateForm';
 import Loading from '../../pages/Loading';
 import EditProfileForm from './EditProfileForm';
 import MiniProfileCard from './MiniProfileCard';
@@ -177,7 +177,7 @@ export default function ProfileCard({ user, perms }) {
                 </div>
               </div>
               <MDBCardBody className="text-black p-4">
-                <div className="mb-5">
+                <div className="mb-3">
                   <p className="lead fw-normal mb-1">About</p>
                   <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
                     <MDBCardText className="font-italic mb-1">EmailID: {user.email}</MDBCardText>
@@ -185,7 +185,7 @@ export default function ProfileCard({ user, perms }) {
                     <MDBCardText className="font-italic mb-0">Age: {user.age}</MDBCardText>
                   </div>
                 </div>
-                <div className="d-flex justify-content-between align-items-center mb-4">
+                {/* <div className="d-flex justify-content-between align-items-center mb-4">
                   <MDBCardText className="lead fw-normal mb-0">Recent photos</MDBCardText>
                   <MDBCardText className="mb-0"><a href="#!" className="text-muted">Show all</a></MDBCardText>
                 </div>
@@ -208,7 +208,7 @@ export default function ProfileCard({ user, perms }) {
                     <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
                       alt="image 1" className="w-100 rounded-3" />
                   </MDBCol>
-                </MDBRow>
+                </MDBRow> */}
               </MDBCardBody>
             </MDBCard>
           </MDBCol>

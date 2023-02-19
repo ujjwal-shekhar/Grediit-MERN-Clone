@@ -3,7 +3,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCa
 
 import axios from 'axios';
 
-import Loading from '../pages/Loading.jsx';
+import Loading from '../../pages/Loading.jsx';
 
 export default function MiniProfileCard({ userID, mode }) {
   // console.log("MiniProfileCard : " + user, mode);

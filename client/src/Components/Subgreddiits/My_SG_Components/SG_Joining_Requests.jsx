@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
-import MiniProfileCard from '../Dashboard/Profile/MiniProfileCard';
-import Loading from '../pages/Loading.jsx';
+import MiniProfileCard from '../../Dashboard/Profile/MiniProfileCard';
+import Loading from '../../pages/Loading.jsx';
 
 import Divider from '@mui/material/Divider';
 

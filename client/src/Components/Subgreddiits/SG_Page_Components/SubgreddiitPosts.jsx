@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-import PostCard from '../Posts/PostCard';
+import PostCard from '../../Posts/PostCard';
 
 import axios from 'axios';
 
@@ -34,13 +34,16 @@ export default function PostContainer({ subgreddiitName }) {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm">
-        {(posts.length > 0) ? (
-          posts.map((post, index) => {
-            return <PostCard key={index} post={post} />
-          })
-          :
-          <h1></h1>
-        )}
+        {
+          (posts.length > 0) ? (posts.map((post) => {
+            return (
+              <PostCard
+                key={post.id}
+                post={post}
+              />
+            )
+          })) : (<h1>No posts yet</h1>)
+        }
       </Container>
     </React.Fragment>
   );

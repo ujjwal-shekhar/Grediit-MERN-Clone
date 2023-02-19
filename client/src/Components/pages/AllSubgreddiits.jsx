@@ -3,8 +3,8 @@ import { Container, Box } from '@material-ui/core';
 
 import { Space } from 'antd';
 
-import SearchBar from '../Subgreddiits/SearchBar';
-import SGTags from '../Subgreddiits/AllSGTags' 
+import SearchBar from '../Subgreddiits/All_SG_Components/SearchBar';
+import SGTags from '../Subgreddiits/All_SG_Components/AllSGTags' 
 
 import axios from 'axios';
 
