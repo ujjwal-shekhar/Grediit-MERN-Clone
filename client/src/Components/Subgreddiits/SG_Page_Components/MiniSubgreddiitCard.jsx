@@ -16,6 +16,10 @@ const App = ({ subgreddiit, perms }) => {
       navigate(`/subgreddiits/${subgreddiit.name}/`);
   }
 
+  const handleJoin = () => {
+    console.log('Clicked');
+  }
+
   const handleLeave = () => {
     console.log('Clicked');
   }
@@ -52,8 +56,8 @@ const App = ({ subgreddiit, perms }) => {
     } else if (perms === "NON_MEMBER") {
       return (
         <Space>
-          <Button type="primary" danger onClick={handleDelete}>Join</Button>
-          <Button type="primary" onClick={handleOpen}>Open</Button>
+          <Button type="primary" onClick={handleJoin}>Join</Button>
+          <Button type="primary" disabled={true} onClick={handleOpen}>Open</Button>
         </Space>
       )
     } else if (perms === "REQUESTED") {

@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Container, Box } from '@material-ui/core';
+import { Space } from 'antd';
 
 import Loading from '../../pages/Loading.jsx';
-import MiniSubgreddiitCard from '../Subgreddiits/SG_Page_Components/MiniSubgreddiitCard.jsx'
+import MiniSubgreddiitCard from '../../Subgreddiits/SG_Page_Components/MiniSubgreddiitCard.jsx'
+
+import { MDBRow } from 'mdb-react-ui-kit';
 
 import axios from 'axios';
 
-export default function AllSubgreddiits({ user }) {
+export default function Member_SG_List({ user }) {
     const [loading, setLoading] = useState(true);
     const [memberSG, setMemberSG] = useState([]);
     useEffect(() => {
@@ -21,7 +24,7 @@ export default function AllSubgreddiits({ user }) {
             }
         )
             .then((response) => {
-                setMemberSG(response.data.subgreddiits);
+                setMemberSG(response.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -37,13 +40,16 @@ export default function AllSubgreddiits({ user }) {
         <Container>
             <Box className='mt-2' sx={{width:'100%'}}>
                 <Space direction='vertical'>
+                    <MDBRow className='row-cols-1 row-cols-md-3 g-4 mt-1'>
                     {
-                        modSG.map((sg) => {
+                        memberSG.map((sg) => {
                             return (
-                                <MiniSubgreddiitCard subgreddiit={sg} perms={"MEMBER"}/>
+                                <MiniSubgreddiitCard key={sg._id}
+                                subgreddiit={sg} perms={"MEMBER"}/>
                             )
                         })
                     }
+                    </MDBRow>
                 </Space>
             </Box>
         </Container>

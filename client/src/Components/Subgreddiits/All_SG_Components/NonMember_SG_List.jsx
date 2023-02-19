@@ -9,13 +9,13 @@ import { MDBRow } from 'mdb-react-ui-kit';
 
 import axios from 'axios';
 
-export default function Mod_SG_List({ user }) {
+export default function Member_SG_List({ user }) {
     const [loading, setLoading] = useState(true);
-    const [modSG, setModSG] = useState([]);
+    const [memberSG, setMemberSG] = useState([]);
     useEffect(() => {
-        console.log("Mod_sg mounted");
+        console.log("AllSg");
         axios.get(
-            "http://localhost:8080/users/" + user.username + "/mod_subgreddiits",
+            "http://localhost:8080/subgreddiits/non_member_subgreddiits",
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,9 +24,7 @@ export default function Mod_SG_List({ user }) {
             }
         )
             .then((response) => {
-                console.log("response received as : ", response.data);
-                
-                setModSG(response.data);
+                setMemberSG(response.data.subgreddiit_list);
                 setLoading(false);
             })
             .catch((error) => {
@@ -44,10 +42,10 @@ export default function Mod_SG_List({ user }) {
                 <Space direction='vertical'>
                     <MDBRow className='row-cols-1 row-cols-md-3 g-4 mt-1'>
                     {
-                        modSG.map((sg) => {
+                        memberSG.map((sg) => {
                             return (
                                 <MiniSubgreddiitCard key={sg._id}
-                                subgreddiit={sg} perms={"MOD_ALL"}/>
+                                subgreddiit={sg} perms={"NON_MEMBER"}/>
                             )
                         })
                     }

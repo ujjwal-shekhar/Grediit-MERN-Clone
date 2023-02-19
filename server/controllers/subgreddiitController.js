@@ -128,6 +128,22 @@ exports.subgreddiit_members = function (req, res, next) {
     })
 }
 
+// Get all subgreddiits in which user isn't a member or a moderator or a requested member
+exports.subgreddiit_non_member_list = function (req, res, next) {
+    console.log('subgreddiit_list called');
+    SubGreddiit.find({$and: [
+        {moderators: {$nin: [req.user._id]}},
+        {common_members: {$nin: [req.user._id]}},
+        {requested_members: {$nin: [req.user._id]}}
+    ]})
+        .exec(function (err, list_subgreddiits) {
+            if (err) { console.log(err) }
+            console.log(list_subgreddiits);
+            res.json({ title: 'SubGreddiit List', subgreddiit_list: list_subgreddiits });
+        });
+}
+
+
 // 
 
 // Delete subgreddiit and everything, including Posts, Reports associated to it
