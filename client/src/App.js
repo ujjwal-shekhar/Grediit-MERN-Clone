@@ -29,20 +29,16 @@ const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
 const App = () => {
   // localStorage.clear()
   const [user, setUser] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  // const [loggedInUser, setLoggedInUser] = useState(null);
   const [toRender, setToRender] = useState(false);
   const handleTestingButton = () => {
     console.log('user', user);
     // console.log((jwt_decode(localStorage.getItem("token"))._doc));
   }
   useEffect(() => {
-    setTimeout(() => {
-      console.log("onload 1", user);
-      setLoggedInUser(localStorage.getItem("token"));
-
-    }, 3000)
-    console.log("loggedInUser", loggedInUser);
-    if (loggedInUser != null) {
+    const loggedInUser= localStorage.getItem("token");
+    // console.log("loggedInUser", loggedInUser);
+    if (loggedInUser) {
       console.log("entered")
       const tempUser = jwt_decode(loggedInUser)._doc;
       console.log("tempUser : ", tempUser);
@@ -60,20 +56,16 @@ const App = () => {
         .then(res => {
           console.log("res.data ", res.data);
           setUser(res.data);
-      })
+          setToRender(true);
+        })
         .catch(err => {
           console.log(err);
-      })
-
-      // setUser(foundUser);
-      console.log("onload 2", user);
-    }
-    const timer = setTimeout(() => {
-      console.log("onload 3", user);
+        })
+    } else {
       setToRender(true);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    }
+    // setToRender(true);
+}, []);
 
   if (!toRender) return (<Loading />);
 
