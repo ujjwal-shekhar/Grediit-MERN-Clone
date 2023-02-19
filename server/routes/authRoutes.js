@@ -37,8 +37,15 @@ router.get(
 // Get user following and follower counts
 router.get('/:username/socials/count', verifyToken, user_controller.user_following_followers_count_get);
 
-// Update user details on post
-router.post('/update', verifyToken, user_controller.user_update_post);
+// Update user details on put
+router.put('/update', verifyToken, user_controller.user_update_post);
+
+// Remove user follower on put
+router.post('/remove/', verifyToken, user_controller.user_remove_follower_post);
+
+// Remove user following on put
+router.post('/unfollow/', verifyToken, user_controller.user_remove_following_post);
+
 
 // Get user mod_subgreddiits
 router.get('/:username/mod_subgreddiits', verifyToken, user_controller.user_mod_subgreddiits_get);
@@ -51,5 +58,7 @@ router.get('/:username/banned_members', verifyToken, user_controller.user_banned
 
 // Get user's subgreddiits that they are requested_members of
 router.get('/:username/requested_members', verifyToken, user_controller.user_requested_subgreddiits_get);
+
+
 
 module.exports = router;

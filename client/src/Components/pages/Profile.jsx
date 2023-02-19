@@ -15,7 +15,7 @@ import jwt_decode from 'jwt-decode';
 
 import axios from 'axios'
 
-const Profile = ({ user, perms }) => {
+const Profile = ({ user, setUser, perms }) => {
     const [loading, setLoading] = React.useState(true);
     const [foundUser, setFoundUser] = React.useState(null);
     const { username } = useParams();
@@ -62,7 +62,7 @@ const Profile = ({ user, perms }) => {
             <Grid>
                 {
                     perms === "AUTH" ?
-                        <ProfileCard user={user} perms={"AUTH"} />
+                        <ProfileCard user={user} setUser={setUser} perms={"AUTH"} />
                         :
                         <ProfileCard user={foundUser} perms={"VIEW"} />
                 }

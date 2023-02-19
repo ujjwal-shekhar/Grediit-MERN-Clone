@@ -10,7 +10,7 @@ import {
     from 'mdb-react-ui-kit';
 import axios from 'axios';
 
-function CreateSGForm({ creator }) {
+function EditProfileForm({ setUser }) {
     const [checked, setChecked] = React.useState(false);
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
@@ -22,10 +22,10 @@ function CreateSGForm({ creator }) {
     const [contactNumberError, setContactNumberError] = React.useState('');
 
     const submitDisable = 
-        (firstNameError.length) ||
-        (lastNameError.length) ||
-        (ageError.length) ||
-        (contactNumberError.length) ||
+        (firstNameError !== '') ||
+        (lastNameError !== '') ||
+        (age < 13) ||
+        (contactNumber.length < 10) ||
         (!checked);
 
     const handleCheck = () => {
@@ -35,7 +35,7 @@ function CreateSGForm({ creator }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(`Creator: ${creator.username}`);
+        // console.log(`Creator: ${creator.username}`);
 
         const formData = {
             "firstName": firstName,
@@ -44,7 +44,7 @@ function CreateSGForm({ creator }) {
             "contactNumber": contactNumber,
         }
 
-        axios.post('http://localhost:8080/users/update', JSON.stringify(formData), {
+        axios.put('http://localhost:8080/users/update', JSON.stringify(formData), {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -52,7 +52,9 @@ function CreateSGForm({ creator }) {
             }
         })
             .then(function (res) {
-                console.log("Response Received : ", res);
+                console.log("Response Received after edit: ", res);
+                setUser(res.data);
+                // console.log(res.data);
             })
             .catch(function (err) {
                 console.log("ErrorCaught : ", err);
@@ -114,11 +116,11 @@ function CreateSGForm({ creator }) {
                     <div className='d-flex flex-row justify-content-center mb-4'>
                         <MDBCheckbox onChange={handleCheck} name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
                     </div>
-                    <MDBBtn disabled={submitDisable} onClick={handleSubmit} className='mb-4 w-100 gradient-custom-4' size='lg'>Create Subgreddiit</MDBBtn>
+                    <MDBBtn disabled={submitDisable} onClick={handleSubmit} className='mb-4 w-100 gradient-custom-4' size='lg'>Edit Profile</MDBBtn>
                 </MDBCardBody>
             </MDBCard>
         </MDBContainer>
     );
 }
 
-export default CreateSGForm;
+export default EditProfileForm;

@@ -15,6 +15,8 @@ import UserSubgreddiits from './Components/pages/UserSubgreddiits';
 import Unauthorized from './Components/pages/Unauthorized';
 import AllSubgreddiits from './Components/pages/AllSubgreddiits';
 
+import axios from 'axios';
+
 const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
   if (!user) {
     return <Navigate to={redirectPath} replace />;
@@ -33,83 +35,103 @@ const App = () => {
   useEffect(() => {
     const loggedInUser = (localStorage.getItem("token"));
     if (loggedInUser) {
-      const foundUser = (jwt_decode(loggedInUser))._doc;
-      setUser(foundUser);
+      const tempUser = jwt_decode(loggedInUser)._doc;
+      console.log("tempUser : ", tempUser);
+      // console.log("foundUser : ", foundUser);
+      axios.get(
+        "http://localhost:5000/users/id/" + tempUser._id,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": 'Bearer ' + localStorage.getItem('token')
+          }
+        }
+      )
+        .then(res => {
+          console.log("res.data ", res.data);
+          setUser(res.data);
+      })
+        .catch(err => {
+          console.log(err);
+      })
+
+      // setUser(foundUser);
       console.log("onload ", user);
     }
     setToRender(true);
-  }, []); 
+  }, []);
 
   if (!toRender) return (<>Loading...</>);
 
   return (
-      <>
-      {user && <Navbar user={user} setUser={setUser}/>}
+    <>
+      {user && <Navbar user={user} setUser={setUser} />}
       {/* <button onClick={handleTestingButton}>Test</button> */}
       <Routes>
         <Route path='/' element={
-          user ? 
-                <Navigate replace to="/profile" /> :
-                <AuthPage user={user} setUser={setUser} />
+          user ?
+            <Navigate replace to="/profile" /> :
+            <AuthPage user={user} setUser={setUser} />
         } />
 
         <Route path="/login" element={
-        user ? 
-              <Navigate replace to="/profile" /> :
-              <AuthPage user={user} setUser={setUser} />
+          user ?
+            <Navigate replace to="/profile" /> :
+            <AuthPage user={user} setUser={setUser} />
         } />
 
-        <Route 
-            path="/profile/*"   
-            element={<ProtectedRoute user={user}>
-                      <Profile user={user} perms={"AUTH"}/>
-                     </ProtectedRoute>}
+        <Route
+          path="/profile/*"
+          element={<ProtectedRoute user={user}>
+            <Profile user={user} setUser={setUser} perms={"AUTH"} />
+          </ProtectedRoute>}
         />
 
-        <Route 
-            path="/profile/:username/*"   
-            element={<ProtectedRoute user={user}>
-                    <Profile user={user} perms={"VIEW"}/>
-                    </ProtectedRoute>}
-        />
-            
-        <Route path="/profile/followers" 
-              element={<ProtectedRoute user={user}>
-                        <Followers user={user}/>
-                      </ProtectedRoute>} 
-        />
-        <Route path="/profile/following" 
-              element={<ProtectedRoute user={user}>
-                        <Following user={user}/>
-                      </ProtectedRoute>} 
+        <Route
+          path="/profile/:username/*"
+          element={<ProtectedRoute user={user}>
+            <Profile user={user} setUser={setUser} perms={"VIEW"} />
+          </ProtectedRoute>}
         />
 
-        <Route path="/subgreddiits/:subgreddiitName/*" 
-              element={<ProtectedRoute user={user}>
-                        <SubGreddiit />
-                      </ProtectedRoute>} 
+        <Route path="/profile/followers"
+          element={<ProtectedRoute user={user}>
+            <Followers user={user} />
+          </ProtectedRoute>}
+        />
+        <Route path="/profile/following"
+          element={<ProtectedRoute user={user}>
+            <Following user={user} />
+          </ProtectedRoute>}
         />
 
-        <Route path="/subgreddiits/my" 
-              element={<ProtectedRoute user={user}>
-                        <UserSubgreddiits user={user}/>
-                      </ProtectedRoute>} 
+        <Route path="/subgreddiits/:subgreddiitName/*"
+          element={<ProtectedRoute user={user}>
+            <SubGreddiit />
+          </ProtectedRoute>}
         />
 
-        <Route path="/subgreddiits/*" 
-              element={<ProtectedRoute user={user}>
-                        <AllSubgreddiits user={user}/>
-                      </ProtectedRoute>} 
+        <Route path="/subgreddiits/my"
+          element={<ProtectedRoute user={user}>
+            <UserSubgreddiits user={user} />
+          </ProtectedRoute>}
         />
-         
-        <Route path="/unauthorized/*" 
-              element={<ProtectedRoute user={user}>
-                        <Unauthorized />
-                      </ProtectedRoute>} 
+
+        <Route path="/subgreddiits/*"
+          element={<ProtectedRoute user={user}>
+            <AllSubgreddiits user={user} />
+          </ProtectedRoute>}
         />
-         {/* <Route path="/subgreddiits/sample" element={<SubGreddiit />}/> */}
+
+        <Route path="/unauthorized/*"
+          element={<ProtectedRoute user={user}>
+            <Unauthorized />
+          </ProtectedRoute>}
+        />
+        {/* <Route path="/subgreddiits/sample" element={<SubGreddiit />}/> */}
       </Routes>
-      </>
+    </>
   );
 }
 

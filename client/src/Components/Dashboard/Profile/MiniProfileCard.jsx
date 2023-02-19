@@ -1,16 +1,55 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 
+import axios from 'axios';
+
 export default function MiniProfileCard({ user, mode }) {
   console.log("MiniProfileCard : " + user, mode);
+  const [dummy, setDummy] = React.useState(0);
   const fullName = user.first_name + " " + user.last_name;
 
   const handleRemove = () => {
     console.log("Remove");
+    axios.post("http://localhost:8080/users/remove/", 
+    
+      JSON.stringify({"toRemove" : user._id}),
+
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        }
+      }
+    )
+      .then((response) => {
+        console.log(response.data);
+        setDummy(dummy ^ 1);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   const handleUnfollow = () => {
     console.log("Unfollow");
+    axios.post("https://localhost:8080/users/unfollow/" , 
+      
+      JSON.stringify({"toUnfollow" : user._id}), 
+
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        }
+      }
+    )
+      .then((response) => {
+        console.log(response.data);
+        setDummy(dummy ^ 1);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   return (

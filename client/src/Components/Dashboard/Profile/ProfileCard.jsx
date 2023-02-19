@@ -25,7 +25,7 @@ const style = {
   p: 4,
 };
 
-export default function ProfileCard({ user, perms }) {
+export default function ProfileCard({ user, setUser, perms }) {
   const navigate = useNavigate();
   const fullName = user.first_name + ' ' + user.last_name;
   const [loading, setLoading] = React.useState(true);
@@ -125,7 +125,7 @@ export default function ProfileCard({ user, perms }) {
         aria-describedby="modal-modal-description"
         >
         <Box sx={style}>
-          <EditProfileForm />
+          <EditProfileForm setUser={setUser}/>
         </Box>
       </Modal>
       <MDBContainer className="py-5 h-100">

@@ -138,19 +138,53 @@ exports.user_delete_post = function (req, res, next) {
 // Update user on POST
 // But the user cannot update the refs to their followers and following and other refs
 exports.user_update_post = function (req, res, next) {
-    const new_user = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        age: req.body.age,
-        contact_number: req.body.contact_number,
-    });
-    User.findByIdAndUpdate(req.user._id, new_user, {
+    User.findByIdAndUpdate(req.user._id,
+        {
+            first_name: req.body.firstName,
+            last_name: req.body.lastName,
+            age: req.body.age,
+            contact_number: req.body.contactNumber,
+        }, 
+        {
         new: true,
-    }, function (err, theuser) {
-        if (err) { return next(err); }
-    });
+        }, 
+        function (err, theuser) {
+            if (err) {console.log("Error in updating user: ", err);}
+            theuser.password = undefined;
+            res.json(theuser);
+        }
+    );
 }
 
+// Remove follower from user
+exports.user_remove_follower_post = function (req, res, next) {
+    console.log("user_remove_follower_post called");
+    const toRemove = req.body.toRemove;
+
+    User.findOne({username: req.user.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            user.followers.pull(toRemove);
+            user.save();
+            res.json(user);
+        }
+    })
+}
+
+// Remove following from user 
+exports.user_remove_following_post = function (req, res, next) {
+    console.log("user_remove_following_post called");
+    const toRemove = req.body.toUnfollow;
+
+    User.findOne({username: req.user.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            user.following.pull(toRemove);
+            user.save();
+            res.json(user);
+        }
+    })
+}
 
 
 // Handle user login on POST
