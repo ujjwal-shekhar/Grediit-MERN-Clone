@@ -35,11 +35,13 @@ export default function PostContainer({ subgreddiitName }) {
       <CssBaseline />
       <Container maxWidth="sm">
         {
-          (posts.length > 0) ? (posts.map((post) => {
+          (posts.length > 0) ? (posts.map((post, index) => {
+            console.log(subgreddiitName);
             return (
               <PostCard
-                key={post.id}
-                post={post}
+                key={index}
+                subgreddiitName={subgreddiitName}
+                postID={post}
               />
             )
           })) : (<h1>No posts yet</h1>)

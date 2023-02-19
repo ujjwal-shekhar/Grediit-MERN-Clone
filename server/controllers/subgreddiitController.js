@@ -173,7 +173,30 @@ exports.subgreddiit_create_post_content = function (req, res, next) {
 }
 
 
-// 
+// Get details of a post in a subgreddiit and check if the user is either a common_member
+// or a moderator of the subgreddiit
+
+exports.subgreddiit_post_details = function (req, res, next) {
+    console.log('subgreddiit_post_detail called');
+    Post.findOne({_id: req.params.id}, (err, post) => {
+        if (err) console.log(err);
+        else {
+            // Check if user is a moderator or a common_member of the req.params.name subg
+            SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+                if (err) console.log(err);
+                else {
+                    if (subgreddiit.moderators.includes(req.user._id)
+                    || subgreddiit.common_members.includes(req.user._id)) {
+                        res.json({post: post, isMember: true});
+                    }
+                    else {
+                        res.json({isMember: false});
+                    }
+                }
+            })
+        }
+    })
+}
 
 // Delete subgreddiit and everything, including Posts, Reports associated to it
 // exports.subgreddiit_delete = function (req, res, next) {

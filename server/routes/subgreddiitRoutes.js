@@ -23,4 +23,6 @@ router.get("/non_member_subgreddiits", verifyToken, subgreddiit_controller.subgr
 
 router.post("/SG/create/post", verifyToken, subgreddiit_controller.subgreddiit_create_post_content)
 
+router.get("/SG/:name/post/:post/details", verifyToken, subgreddiit_controller.subgreddiit_post_details)
+
 module.exports = router;

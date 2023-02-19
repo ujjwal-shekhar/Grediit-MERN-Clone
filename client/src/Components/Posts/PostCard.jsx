@@ -36,7 +36,9 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({ postID }) {
+export default function RecipeReviewCard({ subgreddiitName, postID }) {
+  console.log(subgreddiitName, postID)
+  const [post, setPost] = React.useState(null);
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
@@ -55,9 +57,26 @@ export default function RecipeReviewCard({ postID }) {
     setAnchorEl(null);
   };
 
-  // React.useEffect(() => {
-  //   axios.get
-  // }, [])
+  React.useEffect(() => {
+    console.log("Posts mounted")
+    axios.get(
+      `http://localhost:8080/subgreddiits/${subgreddiitName}/post/${postID}/details`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      .then((response) => {
+        console.log("hihsifhsidfahoifh");
+        console.log(response);
+
+        setPost(response.data.post);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [])
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -101,9 +120,7 @@ export default function RecipeReviewCard({ postID }) {
 
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
+            {/* {post.content} */}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -139,3 +156,42 @@ export default function RecipeReviewCard({ postID }) {
     </>
   );
 }   
+
+// import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+// import { Avatar, Card } from 'antd';
+// import React from 'react';
+// import axios from 'axios';
+
+// const { Meta } = Card;
+// const App = ({ post }) => (
+
+//   React.useEffect(() => {
+//     axios.get(
+//       'http://localhost:8080/'
+//     )
+//   }, []),
+
+//   <Card
+//     style={{
+//       width: 300,
+//     }}
+//     cover={
+//       <img
+//         alt="example"
+//         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+//       />
+//     }
+//     actions={[
+//       <SettingOutlined key="setting" />,
+//       <EditOutlined key="edit" />,
+//       <EllipsisOutlined key="ellipsis" />,
+//     ]}
+//   >
+//     <Meta
+//       // avatar={<Avatar src="https://joesch.moe/api/v1/random" />}
+//       title={post.title}
+//       description={post.content}
+//     />
+//   </Card>
+// );
+// export default App;
