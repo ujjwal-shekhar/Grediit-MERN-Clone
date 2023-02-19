@@ -10,7 +10,7 @@ import Following from './Components/pages/Following.jsx';
 import SubGreddiit from './Components/pages/SubGreddiit.jsx';
 
 import jwt_decode from 'jwt-decode';
-import MiniSubgreddiitCard from './Components/Subgreddiits/MiniSubgreddiitCard';
+import MiniSubgreddiitCard from './Components/Subgreddiits/SG_Page_Components/MiniSubgreddiitCard';
 import UserSubgreddiits from './Components/pages/UserSubgreddiits';
 import Unauthorized from './Components/pages/Unauthorized';
 import AllSubgreddiits from './Components/pages/AllSubgreddiits';

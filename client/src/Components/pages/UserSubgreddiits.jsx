@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import MiniSubgreddiitCard from '../Subgreddiits/MiniSubgreddiitCard.jsx'
+import MiniSubgreddiitCard from '../Subgreddiits/SG_Page_Components/MiniSubgreddiitCard.jsx'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 import Modal from '@mui/material/Modal';
-import CreateSGForm from '../Subgreddiits/SubgreddiitCreateForm';
+import CreateSGForm from '../Subgreddiits/SG_Page_Components/SubgreddiitCreateForm';
 
 import Loading from './Loading.jsx';
 
