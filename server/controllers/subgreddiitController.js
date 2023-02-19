@@ -146,14 +146,29 @@ exports.subgreddiit_non_member_list = function (req, res, next) {
 
 // Create post in subgreddit
 exports.subgreddiit_create_post_content = function (req, res, next) {
+    console.log('subgreddiit_create_post_content called');
     const post = new Post ({
         title: req.body.title,
         posted_by: req.user._id,
         posted_in: req.body.postedIn,
         content: req.body.content,    
     })
+
+    // Check if it has any banned keywords, if so, replace it with *
+    
     post.save()
-        .then(res => console.log(res))
+        .then(res => {
+            // Add the post to subgreddiit.posts with id=posted_in
+            SubGreddiit.findOneAndUpdate(
+                {_id: req.body.postedIn}, 
+                {$push: {posts: res._id}}, (err, subgreddiit) => {
+                if (err) console.log(err);
+                else {
+                    console.log(subgreddiit)
+                    console.log('Post added to subgreddiit');
+                }
+            })
+        })
         .catch(err => console.error(err))
 }
 

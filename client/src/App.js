@@ -29,14 +29,21 @@ const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
 const App = () => {
   // localStorage.clear()
   const [user, setUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [toRender, setToRender] = useState(false);
   const handleTestingButton = () => {
     console.log('user', user);
     // console.log((jwt_decode(localStorage.getItem("token"))._doc));
   }
   useEffect(() => {
-    const loggedInUser = (localStorage.getItem("token"));
-    if (loggedInUser) {
+    setTimeout(() => {
+      console.log("onload 1", user);
+      setLoggedInUser(localStorage.getItem("token"));
+
+    }, 3000)
+    console.log("loggedInUser", loggedInUser);
+    if (loggedInUser != null) {
+      console.log("entered")
       const tempUser = jwt_decode(loggedInUser)._doc;
       console.log("tempUser : ", tempUser);
       // console.log("foundUser : ", foundUser);
@@ -59,10 +66,10 @@ const App = () => {
       })
 
       // setUser(foundUser);
-      console.log("onload ", user);
+      console.log("onload 2", user);
     }
     const timer = setTimeout(() => {
-      console.log("onload ", user);
+      console.log("onload 3", user);
       setToRender(true);
     }, 1000);
     return () => clearTimeout(timer);

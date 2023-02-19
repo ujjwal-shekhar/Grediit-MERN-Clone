@@ -17,6 +17,7 @@ import Modal from '@mui/material/Modal';
 import CreateSGForm from '../Subgreddiits/SG_Page_Components/SubgreddiitCreateForm';
 
 import Loading from './Loading.jsx';
+import Button from 'antd/lib/button/button.js';
 
 
 import {
@@ -104,11 +105,14 @@ export default function UserSubgreddiits({ user }) {
     return (
         <>
         <div className='p-5 text-center bg-light'>
-        <h1 className='mb-3'>Heading</h1>
-        <h4 className='mb-3'>Subheading</h4>
-        <a className='btn btn-primary' href='' role='button'>
+        <h1 className='mb-3'>My Subgreddiits</h1>
+        <h4 className='mb-3'></h4>
+        <Button onClick={handleAddSG} variant="contained" color="primary" size="large">
+            Create Subgreddiit
+        </Button>
+        {/* <a className='btn btn-primary' onClick={handleAddSG} role='button'>
           Call to action
-        </a>
+        </a> */}
       </div>
         <Container>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4 mt-1'>
@@ -122,7 +126,7 @@ export default function UserSubgreddiits({ user }) {
                         })  
                     }
             </MDBRow>
-            <IconButton onClick={handleAddSG} sx={{
+            {/* <IconButton onClick={handleAddSG} sx={{
                 position: 'absolute',
                 bottom: 20,
                 right: 20,
@@ -131,7 +135,7 @@ export default function UserSubgreddiits({ user }) {
             }}>
                 <AddCircleOutlineIcon fontSize='large' color='primary' />
 
-            </IconButton>
+            </IconButton> */}
             <Modal
                 open={showSGForm}
                 onClose={handleClose}

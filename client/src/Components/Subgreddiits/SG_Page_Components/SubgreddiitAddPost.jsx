@@ -16,6 +16,7 @@ function CreatePostForm({ SG_ID }) {
     const [description, setDescription] = React.useState('');
     const [titleError, setTitleError] = React.useState([]);
     const [descriptionError, setDescriptionError] = React.useState([]); 
+    console.log("SG_ID: ", SG_ID);
 
     const submitDisable = 
         (title.length < 2) ||
@@ -37,7 +38,7 @@ function CreatePostForm({ SG_ID }) {
             "postedIn": SG_ID
         }
 
-        axios.post('http://localhost:8080/SG/create_post', JSON.stringify(formData), {
+        axios.post('http://localhost:8080/subgreddiits/SG/create/post', JSON.stringify(formData), {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

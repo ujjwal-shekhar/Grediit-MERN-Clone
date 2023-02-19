@@ -14,6 +14,7 @@ import Modal from '@mui/material/Modal';
 import axios from "axios";
 import SGUsers from "../Subgreddiits/SG_Page_Components/SG_Users";
 import SG_Joining_Requests from "../Subgreddiits/My_SG_Components/SG_Joining_Requests";
+import SubgreddiitPosts from "../Subgreddiits/SG_Page_Components/SubgreddiitPosts";
 import CreatePostForm from "../Subgreddiits/SG_Page_Components/SubgreddiitAddPost";
 
 import { Button } from "antd";
@@ -45,7 +46,8 @@ export default function SubGreddiit() {
       }
     )
       .then((res) => {
-        setSubgreddiit(res.data);
+        console.log("sg data : ", res.data.subgreddiit);
+        setSubgreddiit(res.data.subgreddiit);
         setPerms(res.data.isModerator);
         if (res.data.isModerator) {
           console.log()
@@ -75,6 +77,7 @@ export default function SubGreddiit() {
 
   const handleCreatePostButton = () => {
     console.log('Create Posts')
+    console.log(subgreddiitName + ' ' + subgreddiit._id)
     handleOpen();
   }
 
@@ -96,7 +99,9 @@ export default function SubGreddiit() {
       <div className='p-5 text-center bg-light'>
         <h1 className='mb-3'>Greddiit</h1>
         {/* <h4 className='mb-3'>Not Reddit</h4> */}
-        {<Button type="primary" onClick={handleCreatePostButton}>Create Post</Button>}
+        <Button onClick={handleCreatePostButton} variant="contained" color="primary" size="large">
+            Create Post
+        </Button>
       </div>
         
       <CssBaseline />
@@ -134,7 +139,7 @@ export default function SubGreddiit() {
             <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', width: '100%' }} >
               {
                 (pathname == `/subgreddiits/${subgreddiitName}/posts`) &&
-                <h1>Insert Posts</h1>
+                <SubgreddiitPosts subgreddiitName={subgreddiitName} />
               }
               {
                 (pathname == `/subgreddiits/${subgreddiitName}/mod/users`) &&
