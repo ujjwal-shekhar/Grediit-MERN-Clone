@@ -15,6 +15,8 @@ import UserSubgreddiits from './Components/pages/UserSubgreddiits';
 import Unauthorized from './Components/pages/Unauthorized';
 import AllSubgreddiits from './Components/pages/AllSubgreddiits';
 
+import Loading from './Components/pages/Loading';
+
 import axios from 'axios';
 
 const ProtectedRoute = ({ user, redirectPath = '/login', children }) => {
@@ -39,7 +41,7 @@ const App = () => {
       console.log("tempUser : ", tempUser);
       // console.log("foundUser : ", foundUser);
       axios.get(
-        "http://localhost:5000/users/id/" + tempUser._id,
+        "http://localhost:8080/users/" + tempUser.username,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -59,10 +61,14 @@ const App = () => {
       // setUser(foundUser);
       console.log("onload ", user);
     }
-    setToRender(true);
+    const timer = setTimeout(() => {
+      console.log("onload ", user);
+      setToRender(true);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
-  if (!toRender) return (<>Loading...</>);
+  if (!toRender) return (<Loading />);
 
   return (
     <>

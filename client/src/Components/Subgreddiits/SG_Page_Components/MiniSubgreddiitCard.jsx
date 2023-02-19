@@ -93,6 +93,15 @@ const App = ({ subgreddiit, perms }) => {
             })
           }
         </p>
+        <p>
+          Tags : {
+            subgreddiit.tags.map((tag, index) => {
+              return (
+                <span key={index}> {index ? "," : ""} {tag}  </span>
+              )
+            })
+          }
+        </p>
       </Card>
     </Space>
   );

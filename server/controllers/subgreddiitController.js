@@ -34,7 +34,7 @@ exports.subgreddiit_create = function (req, res, next) {
         description: req.body.description,
         moderators: [mongoose.Types.ObjectId(req.body.creatorID)],     
         posts: [],
-        tags: [],
+        tags: req.body.tags,
         banned_keywords: req.body.bannedKeywords,
         banned_members: [],
         common_members: []
