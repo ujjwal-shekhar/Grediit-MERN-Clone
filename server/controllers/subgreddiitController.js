@@ -1,5 +1,6 @@
 const SubGreddiit = require('../models/subgreddiit');
 const User = require('../models/user');
+const Post = require('../models/post');
 const mongoose = require('mongoose');
 
 exports.subgreddiit_list = function (req, res, next) {
@@ -141,6 +142,19 @@ exports.subgreddiit_non_member_list = function (req, res, next) {
             console.log(list_subgreddiits);
             res.json({ title: 'SubGreddiit List', subgreddiit_list: list_subgreddiits });
         });
+}
+
+// Create post in subgreddit
+exports.subgreddiit_create_post_content = function (req, res, next) {
+    const post = new Post ({
+        title: req.body.title,
+        posted_by: req.user._id,
+        posted_in: req.body.postedIn,
+        content: req.body.content,    
+    })
+    post.save()
+        .then(res => console.log(res))
+        .catch(err => console.error(err))
 }
 
 

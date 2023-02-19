@@ -9,9 +9,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import SubGreddiitModerationTabs from '../Subgreddiits/My_SG_Components/SGModerationTabs';
 import Loading from './Loading.jsx';
 
+import Modal from '@mui/material/Modal';
+
 import axios from "axios";
 import SGUsers from "../Subgreddiits/SG_Page_Components/SG_Users";
 import SG_Joining_Requests from "../Subgreddiits/My_SG_Components/SG_Joining_Requests";
+import CreatePostForm from "../Subgreddiits/SG_Page_Components/SubgreddiitAddPost";
+
+import { Button } from "antd";
 
 export default function SubGreddiit() {
   const [value, setValue] = React.useState('one');
@@ -20,6 +25,10 @@ export default function SubGreddiit() {
   const [subgreddiit, setSubgreddiit] = React.useState({});
   const [perms, setPerms] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
@@ -39,6 +48,7 @@ export default function SubGreddiit() {
         setSubgreddiit(res.data);
         setPerms(res.data.isModerator);
         if (res.data.isModerator) {
+          console.log()
           navigate(`/subgreddiits/${subgreddiitName}/mod/users`);
           setValue('two');
         } else {
@@ -63,6 +73,11 @@ export default function SubGreddiit() {
     }
   };
 
+  const handleCreatePostButton = () => {
+    console.log('Create Posts')
+    handleOpen();
+  }
+
   const handlePosts = () => {
     console.log("Posts");
   }
@@ -77,7 +92,13 @@ export default function SubGreddiit() {
 
   return (
     // <PostCard />
-    <React.Fragment>
+    <>
+      <div className='p-5 text-center bg-light'>
+        <h1 className='mb-3'>Greddiit</h1>
+        {/* <h4 className='mb-3'>Not Reddit</h4> */}
+        {<Button type="primary" onClick={handleCreatePostButton}>Create Post</Button>}
+      </div>
+        
       <CssBaseline />
       { (perms) && 
         <Box sx={{ bgcolor: 'white', width: '100%', marginBottom: '5px' }}>
@@ -88,6 +109,16 @@ export default function SubGreddiit() {
         </Box>
       }
       <Grid container spacing={2}>
+      <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          >
+            <Box>
+              <CreatePostForm SG_ID={subgreddiit._id}/>
+            </Box>
+        </Modal>
         <Grid item xs={4} sm={4} md={4}>
           <Item>
 
@@ -117,6 +148,6 @@ export default function SubGreddiit() {
           </Container>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   )
 }

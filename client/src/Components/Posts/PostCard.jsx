@@ -23,6 +23,8 @@ import Fade from '@mui/material/Fade';
 import Stack from '@mui/material/Stack';
 import ReportIcon from '@mui/icons-material/Report';
 
+import axios from 'axios';
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -34,9 +36,10 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({ PostID }) {
+export default function RecipeReviewCard({ postID }) {
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -51,6 +54,10 @@ export default function RecipeReviewCard({ PostID }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  // React.useEffect(() => {
+  //   axios.get
+  // }, [])
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;

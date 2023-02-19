@@ -22,15 +22,20 @@ const PostSchema = new Schema({
         maxLength: 1000,
         minLength: 10
     },
-    upvotes: {
-        type: Number,
-        default: 0
-    },
-    downvotes: {
-        type: Number,
-        default: 0
-    },
+    upvotes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    downvotes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    comments: [{
+        type: String,
+        minLength: 10,
+        maxLength: 1000
+    }]
 })
 
-const Post = mongoose.model('Post', UserSchema);
+const Post = mongoose.model('Post', PostSchema);
 module.exports = Post;

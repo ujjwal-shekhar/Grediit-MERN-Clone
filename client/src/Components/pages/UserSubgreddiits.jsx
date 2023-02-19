@@ -102,6 +102,14 @@ export default function UserSubgreddiits({ user }) {
     }
 
     return (
+        <>
+        <div className='p-5 text-center bg-light'>
+        <h1 className='mb-3'>Heading</h1>
+        <h4 className='mb-3'>Subheading</h4>
+        <a className='btn btn-primary' href='' role='button'>
+          Call to action
+        </a>
+      </div>
         <Container>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4 mt-1'>
                     {
@@ -129,12 +137,12 @@ export default function UserSubgreddiits({ user }) {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-            >
+                >
                 <Box sx={style}>
                     <CreateSGForm creator={user} />
                 </Box>
             </Modal>
         </Container>
-
+        </>
     )
 }

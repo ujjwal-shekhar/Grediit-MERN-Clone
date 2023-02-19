@@ -12,17 +12,25 @@ import NonMember_SG_List from '../Subgreddiits/All_SG_Components/NonMember_SG_Li
 
 export default function AllSubgreddiits({ user }) {
     return (
+        <>
+        <div className='p-5 text-center bg-light'>
+        <h1 className='mb-3'>Greddiit</h1>
+        {/* <h4 className='mb-3'>Not Reddit</h4> */}
+        <Box className='mt-2' sx={{width:'100%'}}>
+            <Space direction='vertical'>
+                <SearchBar />
+                <SGTags />
+            </Space>
+        </Box>
+        {/* <a className='btn btn-primary' href='' role='button'>
+          Call to action
+        </a> */}
+      </div>
         <Container>
-            <Box className='mt-2' sx={{width:'100%'}}>
-                <Space direction='vertical'>
-                    <SGTags />
-                    <SearchBar />
-                </Space>
-            </Box>
-    
             <Mod_SG_List user={user}/>
             <Member_SG_List user={user}/>
             <NonMember_SG_List user={user}/>
         </Container>
+        </>
     );
 }

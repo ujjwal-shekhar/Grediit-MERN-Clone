@@ -10,7 +10,7 @@ const App = ({ subgreddiit, perms }) => {
   }
   const handleOpen = () => {
     // console.log('Clicked');
-    if (perms === "MOD_MY" || perms === "MOD_ALL")
+    if (perms === "MOD_MY")
       navigate(`/subgreddiits/${subgreddiit.name}/mod/users`);
     else 
       navigate(`/subgreddiits/${subgreddiit.name}/`);
