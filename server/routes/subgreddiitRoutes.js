@@ -32,4 +32,10 @@ router.get("/SG/:name/join_request", verifyToken, subgreddiit_controller.subgred
 router.post("/SG/:name/join_request/accept", verifyToken, subgreddiit_controller.subgreddiit_accept_membership)
 router.post("/SG/:name/join_request/reject", verifyToken, subgreddiit_controller.subgreddiit_reject_membership)
 
+router.get("/SG/:name/reports", verifyToken, subgreddiit_controller.subgreddiit_get_all_reports)
+
+router.post("SG/:name/report/:report_id", verifyToken, subgreddiit_controller.subgreddiit_get_report_by_id)
+
+router.delete("SG/:name/post/:post
+
 module.exports = router;

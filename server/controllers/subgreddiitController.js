@@ -2,6 +2,7 @@ const SubGreddiit = require('../models/subgreddiit');
 const User = require('../models/user');
 const Post = require('../models/post');
 const mongoose = require('mongoose');
+const Report = require('../models/report');
 
 exports.subgreddiit_list = function (req, res, next) {
     console.log('subgreddiit_list called');
@@ -309,6 +310,56 @@ exports.subgreddiit_reject_membership = function (req, res, next) {
     })
 }
 
+// Get all reports in a subgreddiit
+exports.subgreddiit_get_all_reports = function (req, res, next) {
+    console.log('subgreddiit_get_reports called');
+    // Check if user is a moderator of the subgreddiit
+
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                console.log('User is a moderator of the subgreddiit');
+                Report.find({subgreddiit: subgreddiit._id}, (err, reports) => {
+                    if (err) console.log(err);
+                    else {
+                        console.log('Reports found');
+                        res.json({reports: reports});
+                    }
+                })
+            }
+            else {
+                console.log('User is not a moderator of the subgreddiit');
+                res.json({reports: []});
+            }
+        }
+    })
+}
+
+// exports.subgreddiit_get_report_by_id
+exports.subgreddiit_get_report_by_id = function (req, res, next) {
+    console.log('subgreddiit_get_report_by_id called');
+    // Check if user is a moderator of the subgreddiit
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                console.log('User is a moderator of the subgreddiit');
+                Report.findOne({_id: req.params.reports.id}, function (err, report) {
+                    if (err) console.log(err);
+                    else {
+                        console.log('Report found');
+                        res.json({report: report});
+                    }
+                })
+            }
+            else {
+                console.log('User is not a moderator of the subgreddiit');
+                res.json({report: null});
+            }
+        }
+    })
+}
 
 // Delete subgreddiit and everything, including Posts, Reports associated to it
 // exports.subgreddiit_delete = function (req, res, next) {

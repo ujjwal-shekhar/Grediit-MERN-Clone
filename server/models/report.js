@@ -17,8 +17,16 @@ const ReportSchema = new Schema({
     post : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
+    },
+    created_at: {
+        type: Date,
+        default: Date.now,
+    },
+    status:{
+        type: String,
+        default: "Pending",
     }
 })
 
-const Report = mongoose.model('Report', UserSchema);
+const Report = mongoose.model('Report', ReportSchema);
 module.exports = Report;

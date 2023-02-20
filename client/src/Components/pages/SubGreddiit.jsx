@@ -16,7 +16,7 @@ import SGUsers from "../Subgreddiits/SG_Page_Components/SG_Users";
 import SG_Joining_Requests from "../Subgreddiits/My_SG_Components/SG_Joining_Requests";
 import SubgreddiitPosts from "../Subgreddiits/SG_Page_Components/SubgreddiitPosts";
 import CreatePostForm from "../Subgreddiits/SG_Page_Components/SubgreddiitAddPost";
-
+import SG_Reports from "../Subgreddiits/My_SG_Components/SG_Reports";
 import { Button } from "antd";
 
 const style = {
@@ -161,6 +161,10 @@ export default function SubGreddiit() {
               {
                 (pathname == `/subgreddiits/${subgreddiitName}/mod/joining-requests`) &&
                 <SG_Joining_Requests subgreddiitName={subgreddiitName} />
+              }
+              {
+                (pathname == `/subgreddiits/${subgreddiitName}/mod/reported-page`) &&
+                <SG_Reports subgreddiitName={subgreddiitName} />
               }
             </Box>
           </Container>
