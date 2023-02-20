@@ -49,6 +49,25 @@ const ReportCard = ({ reportID, subgreddiitName }) => {
             })
     }
 
+    const handleBlockUser = () => {
+        axios.post(
+            `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/users/${report.userID}/block`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            },
+        )
+            .then((response) => {
+                console.log(response.data);
+                window.location.reload();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+
     return (
         <Card
             style={{
@@ -61,9 +80,9 @@ const ReportCard = ({ reportID, subgreddiitName }) => {
             //   />
             // }
             actions={[
-                <DeleteOutlined key="delete" onClick={handleDeletePost}/>,
-                <CheckOutlined key="ignore" onClick={handleIgnoreReport}/>,
-                <UserDeleteOutlined key="block" onClick={handleBlockUser}/>,
+                // <DeleteOutlined key="delete" onClick={handleDeletePost}/>,
+                // <CheckOutlined key="ignore" onClick={handleIgnoreReport}/>,
+                // <UserDeleteOutlined key="block" onClick={handleBlockUser}/>,
             ]}
         >
             <Meta

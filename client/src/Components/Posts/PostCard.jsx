@@ -25,6 +25,7 @@ import ReportIcon from '@mui/icons-material/Report';
 
 import Loading from '../pages/Loading';
 import CreateCommentForm from './CreateCommentForm';
+import CreateReportForm from '../Reports/CreateReportForm';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -65,8 +66,11 @@ export default function PostCard({ subgreddiitName, postID }) {
   const [loading, setLoading] = React.useState(true);
 
   const [openCommentForm, setOpenCommentForm] = React.useState(false);
+  const [openReportForm, setOpenReportForm] = React.useState(false);
   const handleOpenCommentForm = () => setOpenCommentForm(true);
   const handleCloseCommentForm = () => setOpenCommentForm(false);
+  const handleOpenReportForm = () => setOpenReportForm(true);
+  const handleCloseReportForm = () => setOpenReportForm(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -129,6 +133,8 @@ export default function PostCard({ subgreddiitName, postID }) {
   //     })
   // }
 
+  
+
   if (loading) {
     return <Loading />
   }
@@ -144,6 +150,17 @@ export default function PostCard({ subgreddiitName, postID }) {
         >
           <Box sx={style}>
               <CreateCommentForm postID={postID} subgreddiitName={subgreddiitName} />
+          </Box>
+
+      </Modal>
+      <Modal
+          open={openReportForm}
+          onClose={handleCloseReportForm}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+              <CreateReportForm postID={postID} postCreator={post.posted_by} subgreddiitName={subgreddiitName} subgreddiitID={post.posted_in}/>
           </Box>
 
       </Modal>
@@ -170,7 +187,7 @@ export default function PostCard({ subgreddiitName, postID }) {
                 }}
                 >
                 <Stack spacing={2}>
-                  <IconButton aria-label="Report">
+                  <IconButton aria-label="Report" onClick={handleOpenReportForm}>
                     <ReportIcon /> 
                     <Typography variant='overline' sx={{marginLeft : 1}}>Report Post</Typography>
                   </IconButton> 

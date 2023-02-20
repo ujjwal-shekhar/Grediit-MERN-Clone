@@ -10,6 +10,10 @@ const ReportSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User ',
     },
+    reported_in:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SubGrediit',
+    },
     concern: {
         type: String,
         required: true,

@@ -22,7 +22,7 @@ export default function ReportContainer({ subgreddiitName }) {
       }
     )
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.reports);
         setReports(response.data.reports);
       })
       .catch((err) => {
@@ -36,7 +36,7 @@ export default function ReportContainer({ subgreddiitName }) {
       <Container maxWidth="sm">
         {
             (reports.length > 0) ? (reports.map((report, index) => {
-                console.log(subgreddiitName);
+                console.log("Report yaha hai doston");
                 return (
                     <ReportCard
                     key={index}
@@ -46,19 +46,7 @@ export default function ReportContainer({ subgreddiitName }) {
                 )
                 }
             )) : (<h1>No reports yet</h1>)
-        }
-        {/* {
-          (posts.length > 0) ? (posts.map((post, index) => {
-            console.log(subgreddiitName);
-            return (
-              <PostCard
-                key={index}
-                subgreddiitName={subgreddiitName}
-                postID={post}
-              />
-            )
-          })) : (<h1>No posts yet</h1>)
-        } */}
+        } 
       </Container>
     </React.Fragment>
   );
