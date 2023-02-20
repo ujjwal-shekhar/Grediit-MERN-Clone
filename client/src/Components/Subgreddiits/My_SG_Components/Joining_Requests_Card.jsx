@@ -11,7 +11,7 @@ export default function MiniProfileCard({ userID, subgreddiitName }) {
 
     React.useEffect(() => {
         axios.get(
-            `http://localhost:8080/users/id/${user._id}`,
+            `http://localhost:8080/users/id/${userID}`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -20,7 +20,8 @@ export default function MiniProfileCard({ userID, subgreddiitName }) {
             }
         )
             .then((response) => {
-                setUser(response.data.user);
+                console.log(response.data);
+                setUser(response.data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -101,8 +102,8 @@ export default function MiniProfileCard({ userID, subgreddiitName }) {
                                         <MDBCardText>@{user.username}</MDBCardText>
 
                                         <div className="d-flex pt-1 ">
-                                            <MDBBtn outline className="me-1 flex-grow-1" color='Success' onClick={handleAccept}>Accept</MDBBtn>
-                                            <MDBBtn outline className="me-1 flex-grow-1" color='Danger' onClick={handleReject}>Reject</MDBBtn>
+                                            <MDBBtn outline className="me-1 flex-grow-1" color='success' onClick={handleAccept}>Accept</MDBBtn>
+                                            <MDBBtn outline className="me-1 flex-grow-1" color='danger' onClick={handleReject}>Reject</MDBBtn>
                                         </div>
                                     </div>
                                 </div>

@@ -7,9 +7,11 @@ import Loading from '../../pages/Loading.jsx';
 
 export default function MiniProfileCard({ userID, mode }) {
   // console.log("MiniProfileCard : " + user, mode);
-  console.log("MiniProfileCard : " + userID);
+  console.log("MiniProfileCard : " + userID  + " Mode: " + mode);
   const [loading, setLoading] = React.useState(true);
   const [user, setUser] = React.useState({});
+
+  // const 
   
   React.useEffect(() => {
     axios.get(
@@ -45,7 +47,6 @@ export default function MiniProfileCard({ userID, mode }) {
     return <Loading />
   }
 
-
   return (
     <div className="mb-2" style={{ backgroundColor: '#9de2ff' }}>
       <MDBContainer>
@@ -67,18 +68,7 @@ export default function MiniProfileCard({ userID, mode }) {
                     <MDBCardText>@{user.username}</MDBCardText>
 
                     <div className="d-flex pt-1 ">
-                      {
-                        (mode === "SG_USER") && (
-                          <>
-                          </>
-                        )
-                        (mode === "SG_JOIN_REQ") && (
-                          <>
-                          <MDBBtn outline className="me-1 flex-grow-1" color="success" onClick={handleAccept}>Accept</MDBBtn>
-                          <MDBBtn outline className="me-1 flex-grow-1" color="danger" onClick={handleReject}>Reject</MDBBtn>
-                          </>
-                        )
-                      }
+                      
                     </div>
                   </div>
                 </div>
