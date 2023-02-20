@@ -227,6 +227,23 @@ exports.subgreddiit_post_comment = function (req, res, next) {
     });  
 }
 
+// Add a user id to the requested_members array of the subgreddiit
+exports.subgreddiit_request_membership = function (req, res, next) {
+    console.log('subgreddiit_request_membership called');
+    SubGreddiit.findOneAndUpdate(
+        {name: req.params.name},
+        {$push: {requested_members: req.user._id}},
+        (err, subgreddiit) => {
+            if (err) console.log(err);
+            else {
+                console.log('User added to requested_members');
+                res.json({isRequested: true});
+            }
+        }
+    )
+}
+
+
 
 // Delete subgreddiit and everything, including Posts, Reports associated to it
 // exports.subgreddiit_delete = function (req, res, next) {

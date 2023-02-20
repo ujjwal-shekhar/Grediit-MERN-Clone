@@ -42,7 +42,7 @@ export default function Mod_SG_List({ user }) {
         <Container>
             <Box className='mt-2' sx={{width:'100%'}}>
                 <Space direction='vertical'>
-                    <MDBRow className='row-cols-1 row-cols-md-3 g-4 mt-1'>
+                    <MDBRow className='row-cols-1 row-cols-md-3 g-100 mt-1'>
                     {
                         modSG.map((sg) => {
                             return (

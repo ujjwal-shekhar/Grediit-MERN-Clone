@@ -3,6 +3,8 @@ import Button from 'antd/lib/button';
 
 import { useNavigate } from 'react-router-dom';
 
+import axios from 'axios';
+
 const App = ({ subgreddiit, perms }) => {
   const navigate = useNavigate();
   const handleDelete = () => {
@@ -17,7 +19,7 @@ const App = ({ subgreddiit, perms }) => {
   }
 
   const handleJoin = () => {
-    console.log('Clicked');
+    
   }
 
   const handleLeave = () => {

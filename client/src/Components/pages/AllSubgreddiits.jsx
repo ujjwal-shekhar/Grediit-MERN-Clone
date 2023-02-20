@@ -10,6 +10,8 @@ import Mod_SG_List from '../Subgreddiits/All_SG_Components/Mod_SG_List';
 import Member_SG_List from '../Subgreddiits/All_SG_Components/Member_SG_List';
 import NonMember_SG_List from '../Subgreddiits/All_SG_Components/NonMember_SG_List';
 
+import Divider from '@mui/material/Divider';
+
 export default function AllSubgreddiits({ user }) {
     return (
         <>
@@ -18,7 +20,7 @@ export default function AllSubgreddiits({ user }) {
         {/* <h4 className='mb-3'>Not Reddit</h4> */}
         <Box className='mt-2' sx={{width:'100%'}}>
             <Space direction='vertical'>
-                <SearchBar />
+                <SearchBar />   
                 <SGTags />
             </Space>
         </Box>
@@ -28,7 +30,9 @@ export default function AllSubgreddiits({ user }) {
       </div>
         <Container>
             <Mod_SG_List user={user}/>
+            <Divider />
             <Member_SG_List user={user}/>
+            <Divider />
             <NonMember_SG_List user={user}/>
         </Container>
         </>
