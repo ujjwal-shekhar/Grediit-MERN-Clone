@@ -205,7 +205,7 @@ exports.subgreddiit_post_comment = function (req, res, next) {
     // Push a comment to the post's comments array
     // Check if the user is a moderator or common member of the subgreddiit id in the req bodu
     
-    SubGreddiit.findOne({ _id: req.params.name }, (err, subgreddiit) => {
+    SubGreddiit.findOne({ name: req.params.name }, (err, subgreddiit) => {
         if (err) console.log(err);
         else {
             if (subgreddiit.moderators.includes(req.user._id) 

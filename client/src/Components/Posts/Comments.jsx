@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 export default function Comment({ content }) {
   return (
     <Card sx={{ maxWidth: 500 }}>
-        <CardHeader
+        {/* <CardHeader
             avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                 R
@@ -22,7 +22,7 @@ export default function Comment({ content }) {
             }
             // title="Shrimp and Chorizo Paella"
             // subheader="September 14, 2016"
-        />
+        /> */}
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {content}

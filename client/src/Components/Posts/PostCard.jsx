@@ -24,6 +24,11 @@ import Stack from '@mui/material/Stack';
 import ReportIcon from '@mui/icons-material/Report';
 
 import Loading from '../pages/Loading';
+import CreateCommentForm from './CreateCommentForm';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
 
 import axios from 'axios';
 
@@ -38,12 +43,28 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({ subgreddiitName, postID }) {
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  // bgcolor: 'background.paper',
+  // border: '2px solid #000',
+  // boxShadow: 24,
+  p: 4,
+};
+
+export default function PostCard({ subgreddiitName, postID }) {
   console.log(subgreddiitName, postID)
   const [post, setPost] = React.useState(null);
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+
+  const [openCommentForm, setOpenCommentForm] = React.useState(false);
+  const handleOpenCommentForm = () => setOpenCommentForm(true);
+  const handleCloseCommentForm = () => setOpenCommentForm(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -113,13 +134,24 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
   console.log("After the post card has loaded the post is : ", post);
   return (
     <>
+      <Modal
+          open={openCommentForm}
+          onClose={handleCloseCommentForm}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+              <CreateCommentForm postID={postID} subgreddiitName={subgreddiitName} />
+          </Box>
+
+      </Modal>
       <Card sx={{ maxWidth: 500  }}>
         <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-          }
+          // avatar={
+          //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          //     R
+          //   </Avatar>
+          // }
           action={
             <>
             <IconButton aria-label="settings" onClick={handleClick}>
@@ -145,7 +177,7 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
               </>
           }
           title={post.title}
-          subheader="September 14, 2016"
+          // subheader="September 14, 2016"
         />
 
         <CardContent>
@@ -161,7 +193,7 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
             <ArrowDownwardIcon />
           </IconButton>
 
-            <IconButton aria-label="Add Comment" onClick={handleAddComment}>
+            <IconButton aria-label="Add Comment" onClick={handleOpenCommentForm}>
               <Fade in={expanded}>
                 <AddCommentIcon />
               </Fade>

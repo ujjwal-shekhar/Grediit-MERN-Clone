@@ -19,6 +19,19 @@ import CreatePostForm from "../Subgreddiits/SG_Page_Components/SubgreddiitAddPos
 
 import { Button } from "antd";
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  // bgcolor: 'background.paper',
+  // border: '2px solid #000',
+  // boxShadow: 24,
+  p: 4,
+};
+
+
 export default function SubGreddiit() {
   const [value, setValue] = React.useState('one');
 
@@ -99,13 +112,23 @@ export default function SubGreddiit() {
       <div className='p-5 text-center bg-light'>
         <h1 className='mb-3'>Greddiit</h1>
         {/* <h4 className='mb-3'>Not Reddit</h4> */}
-        <Button onClick={handleCreatePostButton} variant="contained" color="primary" size="large">
-            Create Post
+        <Button onClick={handleOpen} variant="contained" color="primary" size="large">
+          Create Post
         </Button>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+          <Box sx={style}>
+            <CreatePostForm SG_ID={subgreddiit._id} />
+          </Box>
+        </Modal>
       </div>
-        
+
       <CssBaseline />
-      { (perms) && 
+      {(perms) &&
         <Box sx={{ bgcolor: 'white', width: '100%', marginBottom: '5px' }}>
           <Tabs value={value} onChange={handleChange} aria-label="nav tabs example" centered>
             <Tab label="Posts" onClick={handlePosts} value='one' />
@@ -114,16 +137,6 @@ export default function SubGreddiit() {
         </Box>
       }
       <Grid container spacing={2}>
-      <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          >
-            <Box>
-              <CreatePostForm SG_ID={subgreddiit._id}/>
-            </Box>
-        </Modal>
         <Grid item xs={4} sm={4} md={4}>
           <Item>
 
@@ -135,7 +148,7 @@ export default function SubGreddiit() {
         </Grid>
         <Grid item >
 
-          <Container   className="mt-4">
+          <Container className="mt-4">
             <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', width: '100%' }} >
               {
                 (pathname == `/subgreddiits/${subgreddiitName}/posts`) &&
@@ -143,11 +156,11 @@ export default function SubGreddiit() {
               }
               {
                 (pathname == `/subgreddiits/${subgreddiitName}/mod/users`) &&
-                <SGUsers subgreddiitName={subgreddiitName}/>
+                <SGUsers subgreddiitName={subgreddiitName} />
               }
               {
                 (pathname == `/subgreddiits/${subgreddiitName}/mod/joining-requests`) &&
-                <SG_Joining_Requests subgreddiitName={subgreddiitName}/>
+                <SG_Joining_Requests subgreddiitName={subgreddiitName} />
               }
             </Box>
           </Container>
