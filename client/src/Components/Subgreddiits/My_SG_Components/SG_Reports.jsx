@@ -36,12 +36,12 @@ export default function ReportContainer({ subgreddiitName }) {
       <Container maxWidth="sm">
         {
             (reports.length > 0) ? (reports.map((report, index) => {
-                console.log("Report yaha hai doston");
+                console.log("Report yaha hai doston : ", report);
                 return (
                     <ReportCard
                     key={index}
                     subgreddiitName={subgreddiitName}
-                    reportID={report}
+                    report={report}
                     />
                 )
                 }

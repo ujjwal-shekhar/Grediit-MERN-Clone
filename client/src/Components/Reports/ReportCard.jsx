@@ -5,30 +5,52 @@ import axios from 'axios';
 import React from 'react';
 
 const { Meta } = Card;
-const ReportCard = ({ reportID, subgreddiitName }) => {
+const ReportCard = ({ report, subgreddiitName }) => {
 
-    const [report, setReport] = React.useState({});
+    // const [report, setReport] = React.useState({});
     const [loading, setLoading] = React.useState(true);
 
-    React.useEffect(() => {
-        axios.get(
-            `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/reports/${reportID}`,
+    // React.useEffect(() => {
+    //     axios.get(
+    //         `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/reports/${reportID}`,
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': 'Bearer ' + localStorage.getItem('token')
+    //             }
+    //         }
+    //     )
+    //         .then((response) => {
+    //             console.log(response.data);
+    //             setReport(response.data.report);
+    //             setLoading(false);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    // }, [])
+
+    const handleIgnoreReport = () => {
+        axios.post(
+            `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/reports/${report.reportID}/ignore`,
             {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
-            }
+            },
         )
             .then((response) => {
                 console.log(response.data);
-                setReport(response.data.report);
-                setLoading(false);
+                window.location.reload();
             })
+
             .catch((err) => {
                 console.log(err);
             })
-    }, [])
+    }
+
+    
 
     const handleDeletePost = () => {
         axios.delete(
@@ -80,15 +102,15 @@ const ReportCard = ({ reportID, subgreddiitName }) => {
             //   />
             // }
             actions={[
-                // <DeleteOutlined key="delete" onClick={handleDeletePost}/>,
-                // <CheckOutlined key="ignore" onClick={handleIgnoreReport}/>,
-                // <UserDeleteOutlined key="block" onClick={handleBlockUser}/>,
+                <DeleteOutlined key="delete" onClick={handleDeletePost}/>,
+                <CheckOutlined key="ignore" onClick={handleIgnoreReport}/>,
+                <UserDeleteOutlined key="block" onClick={handleBlockUser}/>,
             ]}
         >
             <Meta
                 //   avatar={<Avatar src="https://joesch.moe/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
+                title={report.posted_by}
+                description={report.concern}
             />
         </Card>
     )
