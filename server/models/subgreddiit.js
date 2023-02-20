@@ -17,13 +17,13 @@ const SubGreddiitSchema = new Schema({
     },
     tags: [{
         type: String,
-        maxLength: 10,
-        minLength: 1
+        // maxLength: 10,
+        // minLength: 1
     }],
     banned_keywords: [{
         type: String,
-        maxLength: 10,
-        minLength: 1
+        // maxLength: 10,
+        // minLength: 1
     }],
     banned_members: [{
         type: mongoose.Schema.Types.ObjectId,
