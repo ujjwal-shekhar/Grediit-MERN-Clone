@@ -23,6 +23,8 @@ import Fade from '@mui/material/Fade';
 import Stack from '@mui/material/Stack';
 import ReportIcon from '@mui/icons-material/Report';
 
+import Loading from '../pages/Loading';
+
 import axios from 'axios';
 
 const ExpandMore = styled((props) => {
@@ -41,7 +43,7 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
   const [post, setPost] = React.useState(null);
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -58,9 +60,9 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
   };
 
   React.useEffect(() => {
-    console.log("Posts mounted")
+    console.log("PostCard mounted")
     axios.get(
-      `http://localhost:8080/subgreddiits/${subgreddiitName}/post/${postID}/details`,
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/details`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -69,9 +71,10 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
       })
       .then((response) => {
         console.log("hihsifhsidfahoifh");
-        console.log(response);
+        console.log(response.data.post);
 
         setPost(response.data.post);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +84,33 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
+  // const handleAddComment = () => {
+  //   console.log("clicked add comment")
+  //   axios.post(
+  //     `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/comment`,
+  //     JSON.stringify({
+  //       content: "This is a comment"
+  //     }),
+  //     {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer ' + localStorage.getItem('token')
+  //       }
+  //     }
+  //   )
+  //     .then((response) => {
+  //       console.log(response)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
+
+  if (loading) {
+    return <Loading />
+  }
+  
+  console.log("After the post card has loaded the post is : ", post);
   return (
     <>
       <Card sx={{ maxWidth: 500  }}>
@@ -114,13 +144,13 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
               </Popover>
               </>
           }
-          title="Shrimp and Chorizo Paella"
+          title={post.title}
           subheader="September 14, 2016"
         />
 
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            {/* {post.content} */}
+            {post.content}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -131,7 +161,7 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
             <ArrowDownwardIcon />
           </IconButton>
 
-            <IconButton aria-label="Add Comment">
+            <IconButton aria-label="Add Comment" onClick={handleAddComment}>
               <Fade in={expanded}>
                 <AddCommentIcon />
               </Fade>
@@ -149,7 +179,13 @@ export default function RecipeReviewCard({ subgreddiitName, postID }) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Comment />
+            {
+              post.comments.map((comment) => {
+                return (
+                  <Comment content={comment}/>
+                )
+              })
+            }
           </CardContent>
         </Collapse>
       </Card>

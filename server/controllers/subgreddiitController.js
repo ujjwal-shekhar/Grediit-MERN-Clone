@@ -178,7 +178,8 @@ exports.subgreddiit_create_post_content = function (req, res, next) {
 
 exports.subgreddiit_post_details = function (req, res, next) {
     console.log('subgreddiit_post_detail called');
-    Post.findOne({_id: req.params.id}, (err, post) => {
+    Post.findOne({_id: req.params.post}, (err, post) => {
+        console.log("The post we got : ", post)
         if (err) console.log(err);
         else {
             // Check if user is a moderator or a common_member of the req.params.name subg
@@ -187,6 +188,7 @@ exports.subgreddiit_post_details = function (req, res, next) {
                 else {
                     if (subgreddiit.moderators.includes(req.user._id)
                     || subgreddiit.common_members.includes(req.user._id)) {
+                        console.log("The user is a member of the subgreddiit");
                         res.json({post: post, isMember: true});
                     }
                     else {
@@ -197,6 +199,34 @@ exports.subgreddiit_post_details = function (req, res, next) {
         }
     })
 }
+
+// Post a comment in sub greddiit
+exports.subgreddiit_post_comment = function (req, res, next) {
+    // Push a comment to the post's comments array
+    // Check if the user is a moderator or common member of the subgreddiit id in the req bodu
+    
+    SubGreddiit.findOne({ _id: req.params.name }, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id) 
+            || subgreddiit.common_members.includes(req.user._id)) {
+                Post.findOneAndUpdate(
+                    { _id: req.params.post },
+                    { $push: { comments: req.body.content } },
+                    (err, post) => {
+                        if (err) console.log(err);
+                        else {
+                            res.json({ "success": true });
+                        }
+                    })
+                }
+            else {
+                res.json({ "success": false });
+            }
+        }
+    });  
+}
+
 
 // Delete subgreddiit and everything, including Posts, Reports associated to it
 // exports.subgreddiit_delete = function (req, res, next) {

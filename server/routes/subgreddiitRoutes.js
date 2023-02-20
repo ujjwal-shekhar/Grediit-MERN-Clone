@@ -25,4 +25,6 @@ router.post("/SG/create/post", verifyToken, subgreddiit_controller.subgreddiit_c
 
 router.get("/SG/:name/post/:post/details", verifyToken, subgreddiit_controller.subgreddiit_post_details)
 
+router.post("/SG/:name/post/:post/comment", verifyToken, subgreddiit_controller.subgreddiit_post_comment)
+
 module.exports = router;
