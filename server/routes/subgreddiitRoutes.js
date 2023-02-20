@@ -27,4 +27,9 @@ router.get("/SG/:name/post/:post/details", verifyToken, subgreddiit_controller.s
 
 router.post("/SG/:name/post/:post/comment", verifyToken, subgreddiit_controller.subgreddiit_post_comment)
 
+router.get("/SG/:name/join_request", verifyToken, subgreddiit_controller.subgreddiit_request_membership)
+
+router.post("/SG/:name/join_request/accept", verifyToken, subgreddiit_controller.subgreddiit_accept_membership)
+router.post("/SG/:name/join_request/reject", verifyToken, subgreddiit_controller.subgreddiit_reject_membership)
+
 module.exports = router;

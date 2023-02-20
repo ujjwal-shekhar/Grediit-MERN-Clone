@@ -1,11 +1,13 @@
 import { Card, Space } from 'antd';
 import Button from 'antd/lib/button';
 
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
 const App = ({ subgreddiit, perms }) => {
+  const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
   const handleDelete = () => {
     console.log('Clicked');
@@ -19,7 +21,24 @@ const App = ({ subgreddiit, perms }) => {
   }
 
   const handleJoin = () => {
-    
+    console.log('Clicked Join');
+    setProcessing(true);
+    axios.get(
+      `http://localhost:8080/subgreddiits/SG/${subgreddiit.name}/join_request`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    setProcessing(false);
   }
 
   const handleLeave = () => {
@@ -58,7 +77,7 @@ const App = ({ subgreddiit, perms }) => {
     } else if (perms === "NON_MEMBER") {
       return (
         <Space>
-          <Button type="primary" onClick={handleJoin}>Join</Button>
+          <Button type="primary" onClick={handleJoin} loading={processing}>Join</Button>
           <Button type="primary" disabled={true} onClick={handleOpen}>Open</Button>
         </Space>
       )

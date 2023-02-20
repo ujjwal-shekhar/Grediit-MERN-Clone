@@ -243,6 +243,71 @@ exports.subgreddiit_request_membership = function (req, res, next) {
     )
 }
 
+exports.subgreddiit_accept_membership = function (req, res, next) {
+    console.log('subgreddiit_accept_membership called');
+    // Check if user is a moderator of the subgreddiit
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                console.log('User is a moderator of the subgreddiit');
+                SubGreddiit.findOneAndUpdate(
+                    {name: req.params.name},
+                    {$pull: {requested_members: req.body.userId}},
+                    (err, subgreddiit) => {
+                        if (err) console.log(err);
+                        else {
+                            console.log('User removed from requested_members');
+                            SubGreddiit.findOneAndUpdate(
+                                {name: req.params.name},
+                                {$push: {common_members: req.body.userId}},
+                                (err, subgreddiit) => {
+                                    if (err) console.log(err);
+                                    else {
+                                        console.log('User added to common_members');
+                                        res.json({isAccepted: true});
+                                    }
+                                }
+                            )
+                        }
+                    }
+                )
+            }
+            else {
+                console.log('User is not a moderator of the subgreddiit');
+                res.json({isAccepted: false});
+            }
+        }
+    })
+}
+
+exports.subgreddiit_reject_membership = function (req, res, next) {
+    console.log('subgreddiit_reject_membership called');
+    // Check if user is a moderator of the subgreddiit
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                console.log('User is a moderator of the subgreddiit');
+                SubGreddiit.findOneAndUpdate(
+                    {name: req.params.name},
+                    {$pull: {requested_members: req.body.userId}},
+                    (err, subgreddiit) => {
+                        if (err) console.log(err);
+                        else {
+                            console.log('User removed from requested_members');
+                            res.json({isRejected: true});
+                        }
+                    }
+                )
+            }
+            else {
+                console.log('User is not a moderator of the subgreddiit');
+                res.json({isRejected: false});
+            }
+        }
+    })
+}
 
 
 // Delete subgreddiit and everything, including Posts, Reports associated to it

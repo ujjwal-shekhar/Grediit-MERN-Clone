@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
-import MiniProfileCard from '../../Dashboard/Profile/MiniProfileCard';
+// import MiniProfileCard from '../../Dashboard/Profile/MiniProfileCard';
+import JoiningRequestsCard from '../../Subgreddiits/My_SG_Components/Joining_Requests_Card';
 import Loading from '../../pages/Loading.jsx';
 
 import Divider from '@mui/material/Divider';
@@ -12,7 +13,7 @@ export default function SGUsers({ subgreddiitName }) {
     const [requestedMembers, setRequestedMembers] = React.useState([]);
     React.useEffect(() => {
         axios.get(
-            `http://localhost:8080/subgreddiits/${subgreddiitName}/members_list`,
+            `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/members_list`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -22,12 +23,13 @@ export default function SGUsers({ subgreddiitName }) {
         )
             .then((response) => {
                 setRequestedMembers(response.data.requested_members);
+                console.log("Requested members : ", response.data.requested_members)
                 setLoading(false);
             })
             .catch((err) => {
                 console.log(err);
             })
-    }, [])
+    }, []) 
 
     if (loading) {
         return <Loading />
@@ -37,7 +39,8 @@ export default function SGUsers({ subgreddiitName }) {
         <React.Fragment>
             {
                 requestedMembers.map((member, index) => {
-                    return <MiniProfileCard key={index} userID={member} />
+                    return <JoiningRequestsCard key={index} 
+                    userID={member} subgreddiitName={subgreddiitName}/>
                 })
             }
         </React.Fragment>
