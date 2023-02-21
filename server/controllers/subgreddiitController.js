@@ -394,6 +394,35 @@ exports.subgreddiit_create_report = function (req, res, next) {
     })
 }
 
+// Ignore a report by setting its status to ignored
+exports.subgreddiit_ignore_report = function (req, res, next) {
+    console.log('subgreddiit_ignore_report called');
+    // Check if user is a moderator of the subgreddiit
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                console.log('User is a moderator of the subgreddiit');
+                Report.findOneAndUpdate(
+                    {_id: req.params.reports_id},
+                    {status: 'ignored'},
+                    (err, report) => {
+                        if (err) console.log(err);
+                        else {
+                            console.log('Report ignored');
+                            res.json({isIgnored: true});
+                        }
+                    }
+                )
+            }
+            else {
+                console.log('User is not a moderator of the subgreddiit');
+                res.json({isIgnored: false});
+            }
+        }
+    })
+}
+
 
 // Delete subgreddiit and everything, including Posts, Reports associated to it
 // exports.subgreddiit_delete = function (req, res, next) {

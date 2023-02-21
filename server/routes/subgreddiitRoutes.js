@@ -33,6 +33,9 @@ router.post("/SG/:name/join_request/accept", verifyToken, subgreddiit_controller
 router.post("/SG/:name/join_request/reject", verifyToken, subgreddiit_controller.subgreddiit_reject_membership)
 
 router.get("/SG/:name/reports", verifyToken, subgreddiit_controller.subgreddiit_get_all_reports)
+router.post("/SG/:name/reports/:report_id/ignore", verifyToken, subgreddiit_controller.subgreddiit_ignore_report)
+router.post("/SG/:name/reports/:report_id/block", verifyToken, subgreddiit_controller.subgreddiit_block_report)
+router.post("/SG/:name/reports/:report_id/delete", verifyToken, subgreddiit_controller.subgreddiit_delete_report)
 
 router.get("/SG/:name/report/:report_id", verifyToken, subgreddiit_controller.subgreddiit_get_report_by_id)
 // router.post("SG/:name/report/:report_id", verifyToken, subgreddiit_controller.subgreddiit_get_report_by_id)
