@@ -558,3 +558,48 @@ exports.subgreddiit_leave = function (req, res, next) {
         }
     })
 }
+
+// Upvote or downvote by pulling/pushing 
+// The user can either upvote or downvote
+// Not both, and the users are stored in the aprr array
+
+exports.subgreddiit_post_vote = function(req, res, next) {
+    console.log('subgreddiit post up down vote called');
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id) 
+            ||  subgreddiit.common_members.includes(req.user._id)) {
+                if (req.body.vote_type === "UPVOTE") {
+                    Post.findOneAndUpdate(
+                        {_id: req.params.postID},
+                        {$pull: {downvotes: req.user._id}, 
+                        $push: {upvotes: req.user._id}},
+                        (err, post) => {
+                            if (err) console.log(err);
+                            else {
+                                console.log('Post upvoted');
+                                res.json({isUpvoted: true});
+                            }
+                        }
+                    )
+                } else if (req.body.vote_type === "DOWNVOTE") {
+                    Post.findOneAndUpdate(
+                        {_id: req.params.postID},
+                        {$pull: {upvotes: req.user._id}, 
+                        $push: {downvotes: req.user._id}},
+                        (err, post) => {
+                            if (err) console.log(err);
+                            else {
+                                console.log('Post downvoted');
+                                res.json({isDownvoted: true});
+                            }
+                        }
+                    )
+                }
+            } else {
+                console.log('User is not allowed to view posts')
+            }
+        }
+    })
+}

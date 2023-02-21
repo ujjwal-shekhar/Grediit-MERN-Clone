@@ -49,4 +49,6 @@ router.post("/SG/:name/post/:postID/create/report", verifyToken, subgreddiit_con
 
 router.get("/SG/:name/leave", verifyToken, subgreddiit_controller.subgreddiit_leave);
 
+router.post("/SG/:name/post/:postID/vote", verifyToken, subgreddiit_controller.subgreddiit_post_vote)
+
 module.exports = router;

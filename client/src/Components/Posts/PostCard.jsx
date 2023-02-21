@@ -111,6 +111,50 @@ export default function PostCard({ subgreddiitName, postID }) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
+  const handleUpvote = () => {
+    console.log("clicked upvote")
+    axios.post(
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/vote`,
+      JSON.stringify({
+        "vote_type": "UPVOTE"
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const handleDownvote = () => {
+    console.log("clicked downvote")
+    axios.post(
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/vote`,
+      JSON.stringify({
+        "vote_type": "DOWNVOTE"
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   // const handleAddComment = () => {
   //   console.log("clicked add comment")
   //   axios.post(
@@ -203,12 +247,18 @@ export default function PostCard({ subgreddiitName, postID }) {
           <Typography variant="body2" color="text.secondary">
             {post.content}
           </Typography>
+          {/*Display upvote and downvote*/}
+          <Typography variant="body2" color="text.secondary">
+            Upvotes : {post.upvotes.length}
+            <br></br>
+            Downvotes : {post.downvotes.length}
+          </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="Upvote">
+          <IconButton aria-label="Upvote" onClick={handleUpvote}>
             <ArrowUpwardIcon />
           </IconButton>
-          <IconButton aria-label="Downvote">
+          <IconButton aria-label="Downvote" onClick={handleDownvote}>
             <ArrowDownwardIcon />
           </IconButton>
 
