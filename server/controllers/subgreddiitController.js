@@ -603,3 +603,70 @@ exports.subgreddiit_post_vote = function(req, res, next) {
         }
     })
 }
+
+// Add the post to the saved posts
+// But only if the user is a common member of the subgreddiit
+// or the user is a moderator of the subgreddiit
+// Add only if the post is not already saved
+
+exports.subgreddiit_save_post = function(req, res, next) {
+    console.log('subgreddiit save post called');
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)
+            ||  subgreddiit.common_members.includes(req.user._id)) {
+                if (!req.user.saved_posts.includes(req.params.postID)) {
+                    User.findOneAndUpdate(
+                        {_id: req.user._id},
+                        {$push: {saved_posts: req.params.postID}},
+                        (err, user) => {
+                            if (err) console.log(err);
+                            else {
+                                console.log('Post saved');
+                                res.json({isSaved: true});
+                            }
+                        }
+                    )
+                } else {
+                    console.log('Post is already saved');
+                    res.json({isSaved: false});
+                }
+            }
+        }
+    })
+}
+
+// Follow the poster of a post
+// Add the poster to the user's following list
+// Add the user to the poster's followers list
+// Check 
+// exports.subgreddiit_save_post = function(req, res, next) {
+//     console.log('subgreddiit save post called');
+//     Post.findOne({_id: req.params.postID}, (err, post) => {
+//         if (err) console.log(err);
+//         else {
+//             User.findOneAndUpdate(
+//                 {_id: req.body.poster},
+//                 {$push: {followers: req.user._id}},
+//                 (err, user) => {
+//                     if (err) console.log(err);
+//                     else {
+//                         console.log('User added to poster\'s followers');
+//                         User.findOneAndUpdate(
+//                             {_id: req.user._id},
+//                             {$push: {following: req.body.poster}},
+//                             (err, user) => {
+//                                 if (err) console.log(err);
+//                                 else {
+//                                     console.log('Poster added to user\'s following');
+//                                     res.json({isSaved: true});
+//                                 }
+//                             }
+//                         )
+//                     }
+//                 }
+//             )
+//         }
+//     })
+// }

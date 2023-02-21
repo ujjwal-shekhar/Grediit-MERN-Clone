@@ -22,6 +22,8 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import Fade from '@mui/material/Fade';
 import Stack from '@mui/material/Stack';
 import ReportIcon from '@mui/icons-material/Report';
+import SaveIcon from '@mui/icons-material/Save';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import Loading from '../pages/Loading';
 import CreateCommentForm from './CreateCommentForm';
@@ -155,29 +157,13 @@ export default function PostCard({ subgreddiitName, postID }) {
       })
   }
 
-  // const handleAddComment = () => {
-  //   console.log("clicked add comment")
-  //   axios.post(
-  //     `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/comment`,
-  //     JSON.stringify({
-  //       content: "This is a comment"
-  //     }),
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': 'Bearer ' + localStorage.getItem('token')
-  //       }
-  //     }
-  //   )
-  //     .then((response) => {
-  //       console.log(response)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
+  const handleSavePost = () => {
+    console.log("clicked save")
+  }
 
-  
+  const handleFollowPoster = () => {
+    console.log("clicked follow")
+  }
 
   if (loading) {
     return <Loading />
@@ -234,6 +220,14 @@ export default function PostCard({ subgreddiitName, postID }) {
                   <IconButton aria-label="Report" onClick={handleOpenReportForm}>
                     <ReportIcon /> 
                     <Typography variant='overline' sx={{marginLeft : 1}}>Report Post</Typography>
+                  </IconButton> 
+                  <IconButton aria-label="Save" onClick={handleSavePost}>
+                    <SaveIcon /> 
+                    <Typography variant='overline' sx={{marginLeft : 1}}>Save a Post</Typography>
+                  </IconButton> 
+                  <IconButton aria-label="Follow" onClick={handleFollowPoster}>
+                    <PersonAddIcon /> 
+                    <Typography variant='overline' sx={{marginLeft : 1}}>Follow the user</Typography>
                   </IconButton> 
                 </Stack>
               </Popover>
