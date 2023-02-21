@@ -20,6 +20,9 @@ router.get('/:username', user_controller.user_detail);
 // Get the profile page
 router.get('/id/:id', verifyToken, user_controller.user_detail_id);
 
+// Add follower by id
+// router.post('/add/follower/:id', verifyToken, user_controller.user_add_follower_post);
+
 // Get followers of a user
 router.get('/:username/followers', verifyToken, user_controller.user_followers_get);
 
@@ -32,6 +35,10 @@ router.get(
     '/:username/followers/add/:follower',
     verifyToken,
     user_controller.user_add_follower_post
+)
+
+router.get(
+    'post/'
 )
 
 // Get user following and follower counts

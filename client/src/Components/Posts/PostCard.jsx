@@ -162,7 +162,9 @@ export default function PostCard({ subgreddiitName, postID }) {
   }
 
   const handleFollowPoster = () => {
-    console.log("clicked follow")
+    // axios.get(
+    //   `http://localhost:8080/add/follower/${post.posted_by}`,
+    // )
   }
 
   if (loading) {

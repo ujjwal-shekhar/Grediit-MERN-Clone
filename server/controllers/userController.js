@@ -32,6 +32,8 @@ exports.user_detail_id = function (req, res, next) {
 }
 
 
+
+
 // Display user create form on GET
 exports.user_create_get = function (req, res, next) {
     console.log('user_create_get called');
@@ -258,6 +260,21 @@ exports.user_following_followers_count_get = function (req, res, next) {
     })
 }
 
+// // Add a user by id in the post request to the user's list of following
+// exports.user_add_follower_post_by_id = function (req, res, next) {
+//     User.findById(req.params.id,  (err, user) => {
+//         if (err) console.log(err);
+//         else {
+//             User.findByIdAndUpdate(
+//                 req.user._id,
+//                 {$push: {following: user._id}},
+//                 (err, user) => {
+//                     if (err) console.log(err);
+                    
+//                 }
+//             )
+//     })
+// }
 // Add a user in the post request to the user's list of followers
 exports.user_add_follower_post = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
