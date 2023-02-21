@@ -41,6 +41,10 @@ const SubGreddiitSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
+    blocked_members: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'

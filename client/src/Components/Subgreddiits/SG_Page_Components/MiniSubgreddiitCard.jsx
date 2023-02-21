@@ -60,7 +60,25 @@ const App = ({ subgreddiit, perms }) => {
 
   const handleLeave = () => {
     console.log('Clicked');
+    setProcessing(true);
+    axios.get(
+      `http://localhost:8080/subgreddiits/SG/${subgreddiit.name}/leave`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    setProcessing(false);
   }
+  
 
   const toReturn = () => {
     if (perms === "MOD_MY") {
@@ -80,7 +98,7 @@ const App = ({ subgreddiit, perms }) => {
     } else if (perms === "MEMBER") {
       return (
         <Space>
-          <Button type="primary" danger onClick={handleDelete}>Leave</Button>
+          <Button type="primary" danger onClick={handleLeave}>Leave</Button>
           <Button type="primary" onClick={handleOpen}>Open</Button>
         </Space>
       )

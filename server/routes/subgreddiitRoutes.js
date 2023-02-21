@@ -47,5 +47,6 @@ router.get("/SG/:name/report/:report_id", verifyToken, subgreddiit_controller.su
 router.post("/SG/:name/post/:postID/create/report", verifyToken, subgreddiit_controller.subgreddiit_create_report)
 // router.delete("SG/:name/post/:post
 
+router.get("/SG/:name/leave", verifyToken, subgreddiit_controller.subgreddiit_leave);
 
 module.exports = router;

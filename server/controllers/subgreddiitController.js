@@ -526,3 +526,35 @@ exports.subgreddiit_delete = function (req, res, next) {
         }
     })
 }
+
+// Leave sg, this will remove the user from an sg common member and 
+// put them in the banned_members list
+
+exports.subgreddiit_leave = function (req, res, next) {
+    console.log('subgreddiit_leave called');
+    // Check if user is a common member of the subgreddiit
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.common_members.includes(req.user._id)) {
+                console.log('User is a common member of the subgreddiit');
+                // Remove user from common_members and add to banned_members
+                SubGreddiit.findOneAndUpdate(
+                    {name: req.params.name},
+                    {$pull: {common_members: req.user._id}, $push: {banned_members: req.user._id}},
+                    (err, subgreddiit) => {
+                        if (err) console.log(err);
+                        else {
+                            console.log('User removed from common_members and added to banned_members');
+                            res.json({isLeft: true});
+                        }
+                    }
+                )
+            }
+            else {
+                console.log('User is not a common member of the subgreddiit');
+                res.json({isLeft: false});
+            }
+        }
+    })
+}
