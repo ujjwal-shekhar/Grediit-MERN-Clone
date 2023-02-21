@@ -10,14 +10,14 @@ const verifyToken = async (req, res, next) => {
         if (token.startsWith('Bearer ')) {
             token = token.slice(7, token.length);
         }
-        console.log("before decoded : " + token);
+        // console.log("before decoded : " + token);
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         // console.log("decoded");
         // console.log("decoded: " + decoded._doc.first_name);
         req.user = decoded._doc;
 
-        console.log("user id for the user " + req.user._id)
+        // console.log("user id for the user " + req.user._id)
 
         next();
 

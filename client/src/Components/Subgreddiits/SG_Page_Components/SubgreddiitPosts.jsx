@@ -22,7 +22,7 @@ export default function PostContainer({ subgreddiitName }) {
       }
     )
       .then((response) => {
-        console.log(response.data);
+        console.log("Posts found in " + subgreddiitName + " : " + response.data);
         setPosts(response.data.posts);
       })
       .catch((err) => {

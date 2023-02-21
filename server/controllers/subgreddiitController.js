@@ -404,9 +404,10 @@ exports.subgreddiit_ignore_report = function (req, res, next) {
             if (subgreddiit.moderators.includes(req.user._id)) {
                 console.log('User is a moderator of the subgreddiit');
                 Report.findOneAndUpdate(
-                    {_id: req.params.reports_id},
-                    {status: 'ignored'},
+                    {_id: req.params.report_id},
+                    {status: 'Ignored'},
                     (err, report) => {
+                        console.log(report)
                         if (err) console.log(err);
                         else {
                             console.log('Report ignored');
@@ -423,6 +424,40 @@ exports.subgreddiit_ignore_report = function (req, res, next) {
     })
 }
 
+// Delete post by id and everything, including Reports associated to it
+exports.subgreddiit_delete_post = function (req, res, next) {
+    console.log('subgreddiit_delete_post called');
+    // Check if user is a moderator subgreddiit and pull the post from the subgreddiit
+    SubGreddiit.findOneAndUpdate(
+        {name: req.params.name},
+        {$pull: {posts: req.params.postID}},
+        (err, subgreddiit) => {
+            if (err) console.log(err);
+            else {
+                if (subgreddiit.moderators.includes(req.user._id)) {
+                    console.log('User is a moderator of the subgreddiit');
+                    Report.deleteMany({post: req.params.postID}, (err) => {
+                        if (err) console.log(err);
+                        else {
+                            console.log('Reports deleted');
+                            Post.findOneAndDelete({_id: req.params.postID}, (err, post) => {
+                                if (err) console.log(err);
+                                else {
+                                    console.log('Post deleted');
+                                    res.json({isDeleted: true});
+                                }
+                            })
+                        }
+                    })
+                }
+                else {
+                    console.log('User is not a moderator of the subgreddiit');
+                    res.json({isDeleted: false});
+                }
+            }
+        }
+    )
+}
 
 // Delete subgreddiit and everything, including Posts, Reports associated to it
 // exports.subgreddiit_delete = function (req, res, next) {

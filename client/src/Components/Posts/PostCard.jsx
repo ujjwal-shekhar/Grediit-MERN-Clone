@@ -231,9 +231,9 @@ export default function PostCard({ subgreddiitName, postID }) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             {
-              post.comments.map((comment) => {
+              post.comments.map((comment, index) => {
                 return (
-                  <Comment content={comment}/>
+                  <Comment key={index} content={comment}/>
                 )
               })
             }
