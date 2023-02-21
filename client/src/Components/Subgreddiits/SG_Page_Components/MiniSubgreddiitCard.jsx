@@ -10,7 +10,24 @@ const App = ({ subgreddiit, perms }) => {
   const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
   const handleDelete = () => {
-    console.log('Clicked');
+    console.log('Clicked DELETE SG button');
+    setProcessing(true);
+    axios.delete(
+      `http://localhost:8080/subgreddiits/SG/${subgreddiit.name}/delete`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    setProcessing(false);
   }
   const handleOpen = () => {
     // console.log('Clicked');
@@ -101,6 +118,7 @@ const App = ({ subgreddiit, perms }) => {
         style={{
           width: 300,
         }}
+        loading={processing}
       >
         <p>Description : {subgreddiit.description}</p>
         <p>Number of People : {subgreddiit.moderators.length + subgreddiit.common_members.length}</p>

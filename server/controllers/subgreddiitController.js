@@ -459,14 +459,70 @@ exports.subgreddiit_delete_post = function (req, res, next) {
     )
 }
 
-// Delete subgreddiit and everything, including Posts, Reports associated to it
-// exports.subgreddiit_delete = function (req, res, next) {
-//     console.log('subgreddiit_delete called');
-//     SubGreddiit.findOneAndDelete({name: req.params.name}, (err, subgreddiit) => {
-//         if (err) console.log(err);
-//         else {
-//             console.log('Subgreddiit deleted');
-//             res.json({isDeleted: true});
-//         }
-//     }
-// }
+// Delete the reports with reported_in as the sg name
+// Remove these posts from user's saved_posts, created_posts
+// Delete the posts with posts_in as the sg name
+// Remove the subgreddiit from the user's mod_subgreddiits, view_subgreddiits,
+// Finally delete the subgrediit
+
+exports.subgreddiit_delete = function (req, res, next) {
+    console.log('subgreddiit_delete called');
+    console.log(req.params.name)
+    // Check if user is a moderator of the subgreddiit
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            console.log("Subgreddiit found")
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                console.log('User is a moderator of the subgreddiit');
+                // Delete the reports with reported_in as the sg name
+                Report.deleteMany({reported_in: subgreddiit._id}, (err) => {
+                    if (err) console.log(err);
+                    else {
+                        console.log('Reports deleted');
+                        // Remove these posts from user's saved_posts, created_posts
+                        User.updateMany(
+                            {},
+                            {$pull: {saved_posts: {$in: subgreddiit.posts}, created_posts: {$in: subgreddiit.posts}}},
+                            (err) => {
+                                if (err) console.log(err);
+                                else {
+                                    console.log('Posts removed from users');
+                                    // Delete the posts with posts_in as the sg name
+                                    Post.deleteMany({posted_in: subgreddiit._id}, (err) => {
+                                        if (err) console.log(err);
+                                        else {
+                                            console.log('Posts deleted');
+                                            // Remove the subgreddiit from the user's mod_subgreddiits, view_subgreddiits,
+                                            User.updateMany(
+                                                {},
+                                                {$pull: {mod_subgreddiits: subgreddiit._id, view_subgreddiits: subgreddiit._id}},
+                                                (err) => {
+                                                    if (err) console.log(err);
+                                                    else {
+                                                        console.log('Subgreddiit removed from users');
+                                                        // Finally delete the subgrediit
+                                                        SubGreddiit.findOneAndDelete({name: req.params.name}, (err) => {
+                                                            if (err) console.log(err);
+                                                            else {
+                                                                console.log('Subgreddiit deleted');
+                                                                res.json({isDeleted: true});
+                                                            }
+                                                        })
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    })
+                                }
+                            }
+                        )
+                    }
+                })
+            } else {
+                console.log('User is not a moderator of the subgreddiit');
+                res.json({isDeleted: false});
+            }
+        }
+    })
+}

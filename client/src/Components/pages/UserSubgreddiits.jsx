@@ -110,9 +110,6 @@ export default function UserSubgreddiits({ user }) {
         <Button onClick={handleAddSG} variant="contained" color="primary" size="large">
             Create Subgreddiit
         </Button>
-        {/* <a className='btn btn-primary' onClick={handleAddSG} role='button'>
-          Call to action
-        </a> */}
       </div>
         <Container>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4 mt-1'>

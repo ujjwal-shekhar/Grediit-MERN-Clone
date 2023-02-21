@@ -37,6 +37,7 @@ router.get("/SG/:name/reports", verifyToken, subgreddiit_controller.subgreddiit_
 
 router.delete("/SG/:name/post/:postID", verifyToken, subgreddiit_controller.subgreddiit_delete_post)
 
+router.delete("/SG/:name/delete", verifyToken, subgreddiit_controller.subgreddiit_delete)
 // router.post("/SG/:name/reports/:report_id/block", verifyToken, subgreddiit_controller.subgreddiit_block_report)
 // router.post("/SG/:name/reports/:report_id/delete", verifyToken, subgreddiit_controller.subgreddiit_delete_report)
 
