@@ -119,7 +119,9 @@ export default function UserSubgreddiits({ user }) {
                             return <MDBCol key={sg._id} >    
                                 <MiniSubgreddiitCard 
                                 tags={null}
-                                subgreddiit={sg} perms={"MOD_MY"} />
+                                searchValue={null}
+                                subgreddiit={sg} 
+                                perms={"MOD_MY"} />
                             </MDBCol>
                         })  
                     }

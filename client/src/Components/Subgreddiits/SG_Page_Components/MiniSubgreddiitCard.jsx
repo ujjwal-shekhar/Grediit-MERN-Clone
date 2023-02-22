@@ -131,9 +131,18 @@ const App = ({ subgreddiit, perms, tags, searchValue }) => {
 
   const options = {
     includeScore: true,
-    keys: ['sg.name']
+    keys: ['name']
   }
   const fuse = new Fuse([subgreddiit], options);
+
+  if (searchValue !== "" || searchValue !== null){
+    const result = fuse.search(searchValue);
+    console.log("SearchValue" + searchValue + "Result : ", result);
+    if (result.length !== 0) {
+      console.log("Result isnt null : ", result);
+      if (result[0].score > 0.6) return null;  
+    }
+  } 
 
   if (tags !== null) {
     // check if tags in sg tags
