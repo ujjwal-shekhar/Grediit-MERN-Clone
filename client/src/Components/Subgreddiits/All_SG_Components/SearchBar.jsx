@@ -1,12 +1,13 @@
 import { Input, Space } from 'antd';
 const { Search } = Input;
 
-const onSearch = (value) => {
-    console.log(value);
-}
 
-const App = () => (
-    <Space direction="vertical">
+const App = ({ searchValue, setSearchValue }) => {
+    const onSearch = (value) => {
+        setSearchValue(value);
+    }
+
+    return (<Space direction="vertical">
         <Search
             placeholder="Search Greddiit"
             allowClear
@@ -14,6 +15,7 @@ const App = () => (
             size="large"
             onSearch={onSearch}
         />
-    </Space>
-);
+    </Space>)
+}
+
 export default App;

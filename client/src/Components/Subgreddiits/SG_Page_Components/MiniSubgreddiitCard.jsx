@@ -5,11 +5,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
+import Fuse from 'fuse.js'
 
-const App = ({ subgreddiit, perms, tags }) => {
+const App = ({ subgreddiit, perms, tags, searchValue }) => {
   console.log(tags);
   const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
+
   const handleDelete = () => {
     console.log('Clicked DELETE SG button');
     setProcessing(true);
@@ -126,6 +128,13 @@ const App = ({ subgreddiit, perms, tags }) => {
       )
     }
   }
+
+  const options = {
+    includeScore: true,
+    keys: ['sg.name']
+  }
+  const fuse = new Fuse([subgreddiit], options);
+
 
   // check if tags in sg tags
   const checkTags = () => {

@@ -9,7 +9,7 @@ import { MDBRow } from 'mdb-react-ui-kit';
 
 import axios from 'axios';
 
-export default function Member_SG_List({ user, tags }) {
+export default function Member_SG_List({ user, tags, searchValue }) {
     const [loading, setLoading] = useState(true);
     const [memberSG, setMemberSG] = useState([]);
     useEffect(() => {
@@ -46,6 +46,7 @@ export default function Member_SG_List({ user, tags }) {
                             return (
                                 <MiniSubgreddiitCard 
                                 key={sg._id}
+                                searchValue={searchValue}
                                 tags={tags}
                                 subgreddiit={sg} 
                                 perms={"MEMBER"}/>

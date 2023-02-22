@@ -14,6 +14,7 @@ import Divider from '@mui/material/Divider';
 
 export default function AllSubgreddiits({ user }) {
     const [tags, setTags] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
     return (
         <>
         <div className='p-5 text-center bg-light'>
@@ -21,7 +22,7 @@ export default function AllSubgreddiits({ user }) {
         {/* <h4 className='mb-3'>Not Reddit</h4> */}
         <Box className='mt-2' sx={{width:'100%'}}>
             <Space direction='vertical'>
-                <SearchBar />   
+                <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>   
                 <SGTags tags={tags} setTags={setTags}/>
             </Space>
         </Box>
@@ -30,11 +31,11 @@ export default function AllSubgreddiits({ user }) {
         </a> */}
       </div>
         <Container>
-            <Mod_SG_List user={user} tags={tags}/>
+            <Mod_SG_List user={user} tags={tags} searchValue={searchValue}/>
             <Divider />
-            <Member_SG_List user={user} tags={tags}/>
+            <Member_SG_List user={user} tags={tags} searchValue={searchValue}/>
             <Divider />
-            <NonMember_SG_List user={user} tags={tags}/>
+            <NonMember_SG_List user={user} tags={tags} searchValue={searchValue}/>
         </Container>
         </>
     );
