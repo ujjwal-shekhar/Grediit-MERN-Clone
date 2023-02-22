@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
-const App = ({ subgreddiit, perms }) => {
+const App = ({ subgreddiit, perms, tags }) => {
+  console.log(tags);
   const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
   const handleDelete = () => {
@@ -124,6 +125,23 @@ const App = ({ subgreddiit, perms }) => {
         </Space>
       )
     }
+  }
+
+  // check if tags in sg tags
+  const checkTags = () => {
+    if (tags.length === 0) {
+      return true;
+    }
+    for (let i = 0; i < tags.length; i++) {
+      if (subgreddiit.tags.includes(tags[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  if (!checkTags()) {
+    return null;
   }
 
   return (

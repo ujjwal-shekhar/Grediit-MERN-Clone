@@ -9,7 +9,7 @@ import { MDBRow } from 'mdb-react-ui-kit';
 
 import axios from 'axios';
 
-export default function Mod_SG_List({ user }) {
+export default function Mod_SG_List({ user, tags }) {
     const [loading, setLoading] = useState(true);
     const [modSG, setModSG] = useState([]);
     useEffect(() => {
@@ -38,6 +38,8 @@ export default function Mod_SG_List({ user }) {
         return <Loading />
     }
 
+    console.log("tags : ", tags);
+
     return (
         <Container>
             <Box className='mt-2' sx={{width:'100%'}}>
@@ -46,8 +48,11 @@ export default function Mod_SG_List({ user }) {
                     {
                         modSG.map((sg) => {
                             return (
-                                <MiniSubgreddiitCard key={sg._id}
-                                subgreddiit={sg} perms={"MOD_ALL"}/>
+                                <MiniSubgreddiitCard 
+                                key={sg._id}
+                                subgreddiit={sg} 
+                                tags={tags}
+                                perms={"MOD_ALL"}/>
                             )
                         })
                     }

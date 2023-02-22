@@ -13,6 +13,7 @@ import NonMember_SG_List from '../Subgreddiits/All_SG_Components/NonMember_SG_Li
 import Divider from '@mui/material/Divider';
 
 export default function AllSubgreddiits({ user }) {
+    const [tags, setTags] = useState([]);
     return (
         <>
         <div className='p-5 text-center bg-light'>
@@ -21,7 +22,7 @@ export default function AllSubgreddiits({ user }) {
         <Box className='mt-2' sx={{width:'100%'}}>
             <Space direction='vertical'>
                 <SearchBar />   
-                <SGTags />
+                <SGTags tags={tags} setTags={setTags}/>
             </Space>
         </Box>
         {/* <a className='btn btn-primary' href='' role='button'>
@@ -29,11 +30,11 @@ export default function AllSubgreddiits({ user }) {
         </a> */}
       </div>
         <Container>
-            <Mod_SG_List user={user}/>
+            <Mod_SG_List user={user} tags={tags}/>
             <Divider />
-            <Member_SG_List user={user}/>
+            <Member_SG_List user={user} tags={tags}/>
             <Divider />
-            <NonMember_SG_List user={user}/>
+            <NonMember_SG_List user={user} tags={tags}/>
         </Container>
         </>
     );

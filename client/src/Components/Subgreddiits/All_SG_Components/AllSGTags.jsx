@@ -1,9 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Input, Space, Tag, theme, Tooltip } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-const App = () => {
+const App = ({ tags, setTags }) => {
   const { token } = theme.useToken();
-  const [tags, setTags] = useState(['Unremovable', 'Tag 2', 'Tag 3']);
+  // const [tags, setTags] = useState(['Tag 2', 'Tag 3']);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [editInputIndex, setEditInputIndex] = useState(-1);
@@ -76,7 +76,7 @@ const App = () => {
           const tagElem = (
             <Tag
               key={tag}
-              closable={index !== 0}
+              closable={true}
               style={{
                 userSelect: 'none',
               }}
