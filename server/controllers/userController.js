@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const SubGreddiit = require('../models/subgreddiit');
+const Post = require('../models/post');
 const jwt = require('jsonwebtoken');
 
 // Display a list of users
@@ -306,3 +307,29 @@ exports.user_add_follower_post = function (req, res, next) {
     })
 };
 
+// Get saved_posts
+exports.user_saved_posts_get = function (req, res, next) {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            Post.find({_id: user.saved_posts}, (err, posts) => {
+                if (err) console.log(err);
+                else {
+                    res.json(posts);
+                }
+            })
+        }
+    })
+}
+
+// Remove saved post from user
+exports.user_remove_saved_post = function (req, res, next) {
+    User.findOne({username: req.user.username}, (err, user) => {
+        if (err) console.log(err);
+        else {
+            user.saved_posts.pull(req.params.postID);
+            user.save();
+            res.json(user);
+        }
+    })
+}

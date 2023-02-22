@@ -636,37 +636,3 @@ exports.subgreddiit_save_post = function(req, res, next) {
         }
     })
 }
-
-// Follow the poster of a post
-// Add the poster to the user's following list
-// Add the user to the poster's followers list
-// Check 
-// exports.subgreddiit_save_post = function(req, res, next) {
-//     console.log('subgreddiit save post called');
-//     Post.findOne({_id: req.params.postID}, (err, post) => {
-//         if (err) console.log(err);
-//         else {
-//             User.findOneAndUpdate(
-//                 {_id: req.body.poster},
-//                 {$push: {followers: req.user._id}},
-//                 (err, user) => {
-//                     if (err) console.log(err);
-//                     else {
-//                         console.log('User added to poster\'s followers');
-//                         User.findOneAndUpdate(
-//                             {_id: req.user._id},
-//                             {$push: {following: req.body.poster}},
-//                             (err, user) => {
-//                                 if (err) console.log(err);
-//                                 else {
-//                                     console.log('Poster added to user\'s following');
-//                                     res.json({isSaved: true});
-//                                 }
-//                             }
-//                         )
-//                     }
-//                 }
-//             )
-//         }
-//     })
-// }

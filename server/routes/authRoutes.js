@@ -38,7 +38,13 @@ router.get(
 )
 
 router.get(
-    'post/'
+    '/:username/saved_posts', verifyToken,
+    user_controller.user_saved_posts_get
+)
+
+router.delete(
+    '/:username/remove_saved_post/:postID', verifyToken,
+    user_controller.user_saved_posts_get
 )
 
 // Get user following and follower counts
