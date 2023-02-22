@@ -118,6 +118,7 @@ export default function UserSubgreddiits({ user }) {
                             // console.log(sg._id)
                             return <MDBCol key={sg._id} >    
                                 <MiniSubgreddiitCard 
+                                tags={null}
                                 subgreddiit={sg} perms={"MOD_MY"} />
                             </MDBCol>
                         })  

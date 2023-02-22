@@ -135,22 +135,23 @@ const App = ({ subgreddiit, perms, tags, searchValue }) => {
   }
   const fuse = new Fuse([subgreddiit], options);
 
-
-  // check if tags in sg tags
-  const checkTags = () => {
-    if (tags.length === 0) {
-      return true;
-    }
-    for (let i = 0; i < tags.length; i++) {
-      if (subgreddiit.tags.includes(tags[i])) {
+  if (tags !== null) {
+    // check if tags in sg tags
+    const checkTags = () => {
+      if (tags.length === 0) {
         return true;
       }
+      for (let i = 0; i < tags.length; i++) {
+        if (subgreddiit.tags.includes(tags[i])) {
+          return true;
+        }
+      }
+      return false;
     }
-    return false;
-  }
-
-  if (!checkTags()) {
-    return null;
+  
+    if (!checkTags()) {
+      return null;
+    }
   }
 
   return (
