@@ -14,6 +14,7 @@ import MiniSubgreddiitCard from './Components/Subgreddiits/SG_Page_Components/Mi
 import UserSubgreddiits from './Components/pages/UserSubgreddiits';
 import Unauthorized from './Components/pages/Unauthorized';
 import AllSubgreddiits from './Components/pages/AllSubgreddiits';
+import SavedPosts from './Components/pages/SavedPosts';
 
 import Loading from './Components/pages/Loading';
 
@@ -129,11 +130,18 @@ const App = () => {
           </ProtectedRoute>}
         />
 
+        <Route path="/saved_posts/*"
+          element={<ProtectedRoute user={user}>
+            <SavedPosts user={user}/>
+          </ProtectedRoute>}
+        />
+
         <Route path="/unauthorized/*"
           element={<ProtectedRoute user={user}>
             <Unauthorized />
           </ProtectedRoute>}
         />
+
         {/* <Route path="/subgreddiits/sample" element={<SubGreddiit />}/> */}
       </Routes>
     </>

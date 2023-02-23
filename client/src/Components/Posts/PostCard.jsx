@@ -160,6 +160,24 @@ export default function PostCard({ subgreddiitName, postID }) {
 
   const handleSavePost = () => {
     console.log("clicked save")
+    axios.post(
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/save`,
+      JSON.stringify({
+        "save": true
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   const handleFollowPoster = () => {

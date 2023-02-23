@@ -333,3 +333,18 @@ exports.user_remove_saved_post = function (req, res, next) {
         }
     })
 }
+
+// // Add a post to the user's list of saved posts
+// exports.user_add_saved_post = function (req, res, next) {
+//     User.findOne({username: req.user.username}, (err, user) => {
+//         if (err) console.log(err);
+//         else {
+//             // add only if post is not already saved
+//             if (!user.saved_posts.includes(req.params.postID)) {
+//                 user.saved_posts.push(req.params.postID);
+//                 user.save();
+//                 res.json(user);
+//             }
+//         }
+//     })
+// }

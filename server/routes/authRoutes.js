@@ -42,6 +42,11 @@ router.get(
     user_controller.user_saved_posts_get
 )
 
+// router.put(
+//     '/:username/add_saved_post/:postID', verifyToken,
+//     user_controller.user_add_saved_post
+// )
+
 router.delete(
     '/:username/remove_saved_post/:postID', verifyToken,
     user_controller.user_saved_posts_get
