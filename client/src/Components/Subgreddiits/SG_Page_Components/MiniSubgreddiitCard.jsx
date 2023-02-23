@@ -134,13 +134,19 @@ const App = ({ subgreddiit, perms, tags, searchValue }) => {
     keys: ['name']
   }
   
-  if (searchValue !== "" || searchValue !== null){
+  if (searchValue !== "" && searchValue !== null){
     const fuse = new Fuse([subgreddiit], options);
+    // console.log("Search Value : ", searchValue);
     const result = fuse.search(searchValue);
-    console.log("SearchValue" + searchValue + "Result : ", result);
+  //   console.log("SearchValue" + searchValue + "Result : ", result);
     if (result.length !== 0) {
       console.log("Result isnt null : ", result);
-      if (result[0].score > 0.6) return null;  
+      if (result[0].score > 0.6) {
+        console.log("Result is bad bro : ", result)
+        return null;
+      } 
+    } else {
+      return null;
     }
   } 
 
