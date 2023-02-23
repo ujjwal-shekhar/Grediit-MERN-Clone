@@ -11,7 +11,7 @@ import Divider from '@mui/material/Divider';
 export default function SGUsers({ subgreddiitName }) {
     const [loading, setLoading] = React.useState(true);
     const [common_members, setCommonMembers] = React.useState([]);
-    const [banned_members, setBannedMembers] = React.useState([]);
+    const [blocked_members, setBlockedMembers] = React.useState([]);
     const [moderators, setModerators] = React.useState([]);
     React.useEffect(() => {
         axios.get(
@@ -19,12 +19,13 @@ export default function SGUsers({ subgreddiitName }) {
             {
                 headers: {
                     'Content-Type': 'application/json', 
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
             }
         )
             .then((response) => {
                 setCommonMembers(response.data.common_members);
-                setBannedMembers(response.data.banned_members);
+                setBlockedMembers(response.data.blocked_members);
                 setModerators(response.data.mods);
                 setLoading(false);
             })
@@ -47,8 +48,8 @@ export default function SGUsers({ subgreddiitName }) {
             console.log(member);
                 return <MiniSGUserCard key={index} userID={member} />
             })}
-            <Divider>Banned Members</Divider>
-            {banned_members.map((member, index) => {
+            <Divider>Blocked Members</Divider>
+            {blocked_members.map((member, index) => {
                 return <MiniSGUserCard key={index} userID={member} />
             })}
         </React.Fragment>

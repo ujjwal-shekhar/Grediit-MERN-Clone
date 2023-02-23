@@ -122,7 +122,7 @@ exports.subgreddiit_members = function (req, res, next) {
         else {
             res.json({
                 "common_members" : subgreddiit.common_members,
-                "banned_members" : subgreddiit.banned_members,
+                "blocked_members" : subgreddiit.blocked_members,
                 "requested_members" : subgreddiit.requested_members,
                 "mods" : subgreddiit.moderators
             });
