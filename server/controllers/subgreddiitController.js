@@ -379,7 +379,8 @@ exports.subgreddiit_get_report_by_id = function (req, res, next) {
                     else {
                         console.log('Report found');
                         // If the report was created more than 10 days before, delete it
-                        if (report.created_at < Date.now() - 10 * 24 * 60 * 60 * 1000) {
+                        const timeThreshold = 10 * 24 * 60 * 60 * 1000;
+                        if (report.created_at < Date.now() - timeThreshold) {
                             Report.findOneAndDelete({_id: req.params.reports_id}, (err, report) => {
                                 if (err) console.log(err);
                                 else {
@@ -776,6 +777,7 @@ exports.subgreddiit_check_blocked = function(req, res, next) {
                     if (err) console.log(err);
                     else {
                         console.log('User is blocked');
+                        user.username = "Blocked User";
                         res.json({isBlocked: true, user: user});
                     }
                 }
