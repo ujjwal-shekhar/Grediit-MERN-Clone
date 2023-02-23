@@ -349,7 +349,19 @@ exports.subgreddiit_get_report_by_id = function (req, res, next) {
                     if (err) console.log(err);
                     else {
                         console.log('Report found');
-                        res.json({report: report});
+                        // If the report was created more than 10 days before, delete it
+                        if (report.created_at < Date.now() - 10 * 24 * 60 * 60 * 1000) {
+                            Report.findOneAndDelete({_id: req.params.reports_id}, (err, report) => {
+                                if (err) console.log(err);
+                                else {
+                                    console.log('Report deleted');
+                                    res.json({report: null});
+                                }
+                            })
+                        } else {
+                            res.json({report: report});
+                        } 
+
                     }
                 })
             }

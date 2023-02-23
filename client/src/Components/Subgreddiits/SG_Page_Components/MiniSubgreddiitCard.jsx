@@ -8,7 +8,7 @@ import axios from 'axios';
 import Fuse from 'fuse.js'
 
 const App = ({ subgreddiit, perms, tags, searchValue }) => {
-  console.log(tags);
+  // console.log(tags);
   const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
 
@@ -133,9 +133,9 @@ const App = ({ subgreddiit, perms, tags, searchValue }) => {
     includeScore: true,
     keys: ['name']
   }
-  const fuse = new Fuse([subgreddiit], options);
-
+  
   if (searchValue !== "" || searchValue !== null){
+    const fuse = new Fuse([subgreddiit], options);
     const result = fuse.search(searchValue);
     console.log("SearchValue" + searchValue + "Result : ", result);
     if (result.length !== 0) {
