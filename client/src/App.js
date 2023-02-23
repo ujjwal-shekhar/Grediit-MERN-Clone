@@ -8,6 +8,7 @@ import Navbar from './Components/Dashboard/Navbar/Navbar.jsx';
 import Followers from './Components/pages/Followers.jsx';
 import Following from './Components/pages/Following.jsx';
 import SubGreddiit from './Components/pages/SubGreddiit.jsx';
+import ChatRoom from './Components/pages/ChatRoom.jsx';
 
 import jwt_decode from 'jwt-decode';
 import MiniSubgreddiitCard from './Components/Subgreddiits/SG_Page_Components/MiniSubgreddiitCard';
@@ -133,6 +134,11 @@ const App = () => {
         <Route path="/saved_posts/*"
           element={<ProtectedRoute user={user}>
             <SavedPosts user={user}/>
+          </ProtectedRoute>}
+        />
+        <Route path="/chat_room/*"
+          element={<ProtectedRoute user={user}>
+            <ChatRoom user={user}/>
           </ProtectedRoute>}
         />
 

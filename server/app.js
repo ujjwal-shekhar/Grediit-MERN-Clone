@@ -24,8 +24,10 @@ app.use(cookieParser());
 /* Routes */
 const authRoutes = require("./routes/authRoutes");
 const subgreddiitRoutes = require("./routes/subgreddiitRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 app.use("/users", authRoutes);
 app.use("/subgreddiits", subgreddiitRoutes);
+app.use("/chats", chatRoutes);
 
 // const subgreddiitRoutes = require("./routes/subgreddiitRoutes");
 // app.use("/subgreddiits", subgreddiitRoutes);
