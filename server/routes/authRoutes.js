@@ -47,10 +47,10 @@ router.get(
 //     user_controller.user_add_saved_post
 // )
 
-router.delete(
-    '/:username/remove_saved_post/:postID', verifyToken,
-    user_controller.subgreddiit_remove_saved_post
-)
+// router.delete(
+//     '/:username/remove_saved_post/:postID', verifyToken,
+//     user_controller.subgreddiit_remove_saved_post
+// )
 
 // Get user following and follower counts
 router.get('/:username/socials/count', verifyToken, user_controller.user_following_followers_count_get);

@@ -122,7 +122,7 @@ export default function SubGreddiit() {
         aria-describedby="modal-modal-description"
       >
           <Box sx={style}>
-            <CreatePostForm SG_ID={subgreddiit._id} />
+            <CreatePostForm SG_ID={subgreddiit._id} banned_keywords={subgreddiit.banned_keywords}/>
           </Box>
         </Modal>
       </div>

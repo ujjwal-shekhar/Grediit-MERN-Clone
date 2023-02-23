@@ -10,7 +10,7 @@ import {
     from 'mdb-react-ui-kit';
 import axios from 'axios';
 
-function CreatePostForm({ SG_ID }) {
+function CreatePostForm({ SG_ID, banned_keywords }) {
     const [checked, setChecked] = React.useState(false);
     const [title, setTitle] = React.useState('');
     const [description, setDescription] = React.useState('');
@@ -35,7 +35,8 @@ function CreatePostForm({ SG_ID }) {
         const formData = {
             "title": title,
             "content": description,
-            "postedIn": SG_ID
+            "postedIn": SG_ID,
+            "banned_keywords": banned_keywords
         }
 
         axios.post('http://localhost:8080/subgreddiits/SG/create/post', JSON.stringify(formData), {
@@ -48,7 +49,10 @@ function CreatePostForm({ SG_ID }) {
             .then(function (res) {
                 // console.log("Response Received after post creation: ", res);
                 // setUser(res.data);
-                // console.log(res.data);
+                console.log(res.data);
+                if (res.data.foundBannedKeyword) {
+                    window.alert("Banned Keyword Found");
+                }
             })
             .catch(function (err) {
                 console.log("ErrorCaught : ", err);

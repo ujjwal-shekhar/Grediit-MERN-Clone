@@ -262,6 +262,9 @@ export default function PostCard({ post }) {
           <PostCreator postCreator={post.posted_by} subgreddiitName={subgreddiitName}/>
           <Typography variant="body2" color="text.secondary">
             {post.content}
+            <br></br>
+            SubGreddiit : {subgreddiitName}
+            <br></br>
           </Typography>
           {/*Display upvote and downvote*/}
           <Typography variant="body2" color="text.secondary">
