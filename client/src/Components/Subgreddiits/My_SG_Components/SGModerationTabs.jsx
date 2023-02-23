@@ -9,26 +9,25 @@ export default function Component ({ subgreddiitName }) {
 
     React.useEffect(() => {
         const handleKeyDown = (event) => {
-            switch (event.key) {
-              case 'u':
-                navigate(`/subgreddiits/${subgreddiitName}/mod/users`);
-                setValueVertical("one");
-                break;
-                case 'j':
-                  navigate(`/subgreddiits/${subgreddiitName}/mod/joining-requests`);
-                  setValueVertical("two");
-                  break;
-                case 's':
-                  navigate(`/subgreddiits/${subgreddiitName}/mod/stats`);
-                  setValueVertical("three");
-                  break;
-                case 'r':
-                  // go to Comments page
-                  setValueVertical("four");
-                navigate(`/subgreddiits/${subgreddiitName}/mod/reported-page`);
-                break;
-              default:
-                break;
+          switch (event.key) {
+            case 'u':
+              navigate(`/subgreddiits/${subgreddiitName}/mod/users`);
+              setValueVertical("one");
+              break;
+            case 'j':
+              navigate(`/subgreddiits/${subgreddiitName}/mod/joining-requests`);
+              setValueVertical("two");
+              break;
+            case 's':
+              navigate(`/subgreddiits/${subgreddiitName}/mod/stats`);
+              setValueVertical("three");
+              break;
+            case 'r':
+              setValueVertical("four");
+              navigate(`/subgreddiits/${subgreddiitName}/mod/reported-page`);
+              break;
+            default:
+              break;
             }
           };
       
