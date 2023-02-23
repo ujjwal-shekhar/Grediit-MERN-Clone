@@ -5,10 +5,11 @@ import axios from 'axios';
 const PostCreator = ({ postCreator, subgreddiitName }) => {
     const [loading, setLoading] = React.useState(false);
     const [username, setUsername] = React.useState('');
+    const [blocked, setBlocked] = React.useState(false);
     React.useEffect(() => {
         console.log('Post Creator Mounted');
         axios.post(
-            `http://localhost:8080/subgreddiits/SG/${postCreator}/check_blocked`,
+            `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/check_blocked`,
             JSON.stringify({
                 toCheck: postCreator
             }),
@@ -20,9 +21,9 @@ const PostCreator = ({ postCreator, subgreddiitName }) => {
             }
         )
             .then(res => {
-                console.log('Post Creator Data: ', res.data.username);
-                // setUsername(res.data.username);
-                if (res.data.)
+                console.log('Post Creator Data: ', res.data.user.username);
+                setUsername(res.data.user.username);
+                setBlocked(res.data.isBlocked);
                 setLoading(false);
             })
             .catch(err => {

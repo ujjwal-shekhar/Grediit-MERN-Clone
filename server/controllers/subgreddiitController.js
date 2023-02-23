@@ -231,17 +231,32 @@ exports.subgreddiit_post_comment = function (req, res, next) {
 // Add a user id to the requested_members array of the subgreddiit
 exports.subgreddiit_request_membership = function (req, res, next) {
     console.log('subgreddiit_request_membership called');
-    SubGreddiit.findOneAndUpdate(
-        {name: req.params.name},
-        {$push: {requested_members: req.user._id}},
-        (err, subgreddiit) => {
-            if (err) console.log(err);
+    // Add a user to requested members only if they aren't already 
+    // a member or a moderator of the subgreddiit or a requested member
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)
+            || subgreddiit.common_members.includes(req.user._id)
+            || subgreddiit.requested_members.includes(req.user._id)) {
+                console.log('User is already a member of the subgreddiit');
+                res.json({isRequested: false});
+            }
             else {
-                console.log('User added to requested_members');
-                res.json({isRequested: true});
+                SubGreddiit.findOneAndUpdate(
+                    {name: req.params.name},
+                    {$push: {requested_members: req.user._id}},
+                    (err, subgreddiit) => {
+                        if (err) console.log(err);
+                        else {
+                            console.log('User added to requested_members');
+                            res.json({isRequested: true});
+                        }
+                    }
+                )
             }
         }
-    )
+    })  
 }
 
 exports.subgreddiit_accept_membership = function (req, res, next) {
@@ -252,29 +267,43 @@ exports.subgreddiit_accept_membership = function (req, res, next) {
         else {
             if (subgreddiit.moderators.includes(req.user._id)) {
                 console.log('User is a moderator of the subgreddiit');
-                SubGreddiit.findOneAndUpdate(
-                    {name: req.params.name},
-                    {$pull: {requested_members: req.body.userId}},
-                    (err, subgreddiit) => {
-                        if (err) console.log(err);
+                // Pull the user from requested members and push it to common members
+                // Do this only if the member isn't part of moderatroes or common members
+                SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+                    if (err) console.log(err);
+                    else {
+                        if (subgreddiit.moderators.includes(req.body.userId)
+                        || subgreddiit.common_members.includes(req.body.userId)) {
+                            console.log('User is already a member of the subgreddiit');
+                            res.json({isAccepted: false});
+                        }
                         else {
-                            console.log('User removed from requested_members');
+                            console.log('User is not a member of the subgreddiit');
                             SubGreddiit.findOneAndUpdate(
                                 {name: req.params.name},
-                                {$push: {common_members: req.body.userId}},
+                                {$pull: {requested_members: req.body.userId}},
                                 (err, subgreddiit) => {
                                     if (err) console.log(err);
                                     else {
-                                        console.log('User added to common_members');
-                                        res.json({isAccepted: true});
+                                        console.log('User removed from requested_members');
+                                        SubGreddiit.findOneAndUpdate(
+                                            {name: req.params.name},
+                                            {$push: {common_members: req.body.userId}},
+                                            (err, subgreddiit) => {
+                                                if (err) console.log(err);
+                                                else {
+                                                    console.log('User added to common_members');
+                                                    res.json({isAccepted: true});
+                                                }
+                                            }
+                                        )
                                     }
                                 }
                             )
                         }
                     }
-                )
-            }
-            else {
+                })
+            } else {
                 console.log('User is not a moderator of the subgreddiit');
                 res.json({isAccepted: false});
             }
@@ -730,13 +759,39 @@ exports.subgreddiit_check_blocked = function(req, res, next) {
     SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
         if (err) console.log(err);
         else {
+            console.log(subgreddiit)
+            // if (subgreddiit.blocked_members.includes(req.body.toCheck)) {
+            //     console.log('User is blocked');
+            //     res.json({isBlocked: true});
+            // } else {
+            //     console.log('User is not blocked');
+            //     res.json({isBlocked: false});
+            // }
+            // Check if user is a blocked and return the isBlocked 
+            // Also fetch the user from the db and send in response
+            // so that the user can be added to the blocked members list
+            // of the subgreddiit
             if (subgreddiit.blocked_members.includes(req.body.toCheck)) {
-                console.log('User is blocked');
-                res.json({isBlocked: true});
+                User.findOne({_id: req.body.toCheck}, (err, user) => {
+                    if (err) console.log(err);
+                    else {
+                        console.log('User is blocked');
+                        res.json({isBlocked: true, user: user});
+                    }
+                }
+            )
             } else {
                 console.log('User is not blocked');
-                res.json({isBlocked: false});
+                User.findOne({_id: req.body.toCheck}, (err, user) => {
+                    if (err) console.log(err);
+                    else {
+                        console.log('User is blocked');
+                        res.json({isBlocked: false, user: user});
+                    }
+                })
             }
+
+
         }
     })
 }

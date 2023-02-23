@@ -6,10 +6,10 @@ const subgreddiit_controller = require("../controllers/subgreddiitController");
 
 router.get("/", subgreddiit_controller.subgreddiit_list);
 
-// router.get("/create", verifyToken, subgreddiit_controller.subgreddiit_create_test);
 router.post("/create", verifyToken, subgreddiit_controller.subgreddiit_create);
 
 router.get("/mod_subgreddiits_list", verifyToken, subgreddiit_controller.subgreddiit_moderator_list);
+router.get("/non_member_subgreddiits", verifyToken, subgreddiit_controller.subgreddiit_non_member_list);
 
 router.get("/SG/:name/perms", verifyToken, subgreddiit_controller.subgreddiit_moderator_check)
 
@@ -18,8 +18,6 @@ router.get("/SG/:name", verifyToken, subgreddiit_controller.subgreddiit_detail);
 router.get("/SG/:name/members_list", subgreddiit_controller.subgreddiit_members);
 
 router.get("/SG/:name/posts", verifyToken, subgreddiit_controller.subgreddiit_posts);
-
-router.get("/non_member_subgreddiits", verifyToken, subgreddiit_controller.subgreddiit_non_member_list);
 
 router.post("/SG/create/post", verifyToken, subgreddiit_controller.subgreddiit_create_post_content)
 
@@ -39,14 +37,10 @@ router.get("/SG/:name/reports", verifyToken, subgreddiit_controller.subgreddiit_
 router.delete("/SG/:name/post/:postID", verifyToken, subgreddiit_controller.subgreddiit_delete_post)
 
 router.delete("/SG/:name/delete", verifyToken, subgreddiit_controller.subgreddiit_delete)
-// router.post("/SG/:name/reports/:report_id/block", verifyToken, subgreddiit_controller.subgreddiit_block_report)
-// router.post("/SG/:name/reports/:report_id/delete", verifyToken, subgreddiit_controller.subgreddiit_delete_report)
 
 router.get("/SG/:name/report/:report_id", verifyToken, subgreddiit_controller.subgreddiit_get_report_by_id)
-// router.post("SG/:name/report/:report_id", verifyToken, subgreddiit_controller.subgreddiit_get_report_by_id)
 
 router.post("/SG/:name/post/:postID/create/report", verifyToken, subgreddiit_controller.subgreddiit_create_report)
-// router.delete("SG/:name/post/:post
 
 router.get("/SG/:name/leave", verifyToken, subgreddiit_controller.subgreddiit_leave);
 
