@@ -664,11 +664,11 @@ exports.subgreddiit_block_report = function(req, res, next) {
         else {
             if (subgreddiit.moderators.includes(req.user._id)) {
                 // Check if the user is already blocked
-                if (!subgreddiit.blocked_members.includes(req.params.userID)) {
+                if (!subgreddiit.blocked_members.includes(req.body.blocked_user)) {
                     // Add the user to the blocked_members list
                     SubGreddiit.findOneAndUpdate(
                         {name: req.params.name},
-                        {$push: {blocked_members: req.params.userID}},
+                        {$push: {blocked_members: req.body.blocked_user}},
                         (err, subgreddiit) => {
                             if (err) console.log(err);
                             else {
@@ -676,7 +676,7 @@ exports.subgreddiit_block_report = function(req, res, next) {
                                 // Remove the user from the common_members list
                                 SubGreddiit.findOneAndUpdate(
                                     {name: req.params.name},
-                                    {$pull: {common_members: req.params.userID}},
+                                    {$pull: {common_members: req.body.blocked_user}},
                                     (err, subgreddiit) => {
                                         if (err) console.log(err);
                                         else {
@@ -689,8 +689,20 @@ exports.subgreddiit_block_report = function(req, res, next) {
                                                     if (err) 
                                                         console.log(err);
                                                     else {
-                                                        console.log('Status of posts set to blocked');
-                                                        res.json({isBlocked: true});
+                                                        // console.log('Status of posts set to blocked');
+                                                        // res.json({isBlocked: true});
+                                                        // Change the status of report to blocked
+                                                        Report.findOneAndUpdate(
+                                                            {_id: req.params.report_id},
+                                                            {status: "Blocked"},
+                                                            (err, report) => {
+                                                                if (err) console.log(err);
+                                                                else {
+                                                                    console.log('Report status set to blocked');
+                                                                    res.json({isBlocked: true});
+                                                                }
+                                                            }
+                                                        )
                                                     }
                                                 }
                                             )
@@ -704,6 +716,26 @@ exports.subgreddiit_block_report = function(req, res, next) {
                     console.log('User is already blocked');
                     res.json({isBlocked: false});
                 }
+            }
+        }
+    })
+}
+
+// Check if a user is in blocked members list
+// If the user is in the blocked members list
+// then the user is not allowed to view the subgreddiit
+
+exports.subgreddiit_check_blocked = function(req, res, next) {
+    console.log('subgreddiit check blocked called');
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.blocked_members.includes(req.body.toCheck)) {
+                console.log('User is blocked');
+                res.json({isBlocked: true});
+            } else {
+                console.log('User is not blocked');
+                res.json({isBlocked: false});
             }
         }
     })

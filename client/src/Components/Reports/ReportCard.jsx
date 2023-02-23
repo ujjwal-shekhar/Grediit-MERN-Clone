@@ -155,7 +155,7 @@ const ReportCard = ({ report, subgreddiitName }) => {
         )
             .then((response) => {
                 console.log(response.data);
-                window.location.reload();
+                // window.location.reload();
             })
             .catch((err) => {
                 console.log(err);
@@ -205,6 +205,10 @@ const ReportCard = ({ report, subgreddiitName }) => {
     }
 
     console.log("Report Card : ", report)
+
+    if (report.status !== "Pending") {
+        return null;
+    }
 
     return (
         <Card

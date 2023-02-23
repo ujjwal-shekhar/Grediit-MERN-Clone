@@ -54,4 +54,6 @@ router.post("/SG/:name/post/:postID/vote", verifyToken, subgreddiit_controller.s
 
 router.post("/SG/:name/post/:postID/save", verifyToken, subgreddiit_controller.subgreddiit_save_post)
 
+router.post("/SG/:name/check_blocked", verifyToken, subgreddiit_controller.subgreddiit_check_blocked);
+
 module.exports = router;

@@ -244,7 +244,7 @@ export default function PostCard({ subgreddiitName, postID }) {
 
         <CardContent>
           <h5>Creator: </h5>
-          <PostCreator postCreator={post.posted_by} blocked={post.blocked}/>
+          <PostCreator postCreator={post.posted_by} subgreddiitName={subgreddiitName}/>
           <Typography variant="body2" color="text.secondary">
             {post.content}
           </Typography>
