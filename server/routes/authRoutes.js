@@ -14,11 +14,11 @@ router.post('/create', user_controller.user_create_post);
 // Validate user login using POST method
 router.post('/login', user_controller.user_login_post);
 
-// Get details of a user by their id
-router.get('/:username', user_controller.user_detail);
-
 // Get the profile page
 router.get('/id/:id', verifyToken, user_controller.user_detail_id);
+
+// Get details of a user by their id
+router.get('/:username', user_controller.user_detail);
 
 // Add follower by id
 // router.post('/add/follower/:id', verifyToken, user_controller.user_add_follower_post);

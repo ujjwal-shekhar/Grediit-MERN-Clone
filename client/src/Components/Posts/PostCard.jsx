@@ -35,6 +35,7 @@ import Modal from '@mui/material/Modal';
 
 import axios from 'axios';
 
+import PostCreator from './PostCreator';
 
 
 const ExpandMore = styled((props) => {
@@ -103,7 +104,6 @@ export default function PostCard({ subgreddiitName, postID }) {
         console.log(response.data.post);
 
         setPost(response.data.post);
-        console.log("Post fetched : ", post);
         setLoading(false);
       })
       .catch((err) => {
@@ -171,33 +171,35 @@ export default function PostCard({ subgreddiitName, postID }) {
   if (loading) {
     return <Loading />
   }
-  
+
+  console.log("Post fetched : ", post);
+
   console.log("After the post card has loaded the post is : ", post);
   return (
     <>
       <Modal
-          open={openCommentForm}
-          onClose={handleCloseCommentForm}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-              <CreateCommentForm postID={postID} subgreddiitName={subgreddiitName} />
-          </Box>
+        open={openCommentForm}
+        onClose={handleCloseCommentForm}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <CreateCommentForm postID={postID} subgreddiitName={subgreddiitName} />
+        </Box>
 
       </Modal>
       <Modal
-          open={openReportForm}
-          onClose={handleCloseReportForm}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-              <CreateReportForm postID={postID} postCreator={post.posted_by} subgreddiitName={subgreddiitName} subgreddiitID={post.posted_in}/>
-          </Box>
+        open={openReportForm}
+        onClose={handleCloseReportForm}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <CreateReportForm postID={postID} postCreator={post.posted_by} subgreddiitName={subgreddiitName} subgreddiitID={post.posted_in} />
+        </Box>
 
       </Modal>
-      <Card sx={{ maxWidth: 500  }}>
+      <Card sx={{ maxWidth: 500 }}>
         <CardHeader
           // avatar={
           //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -206,9 +208,9 @@ export default function PostCard({ subgreddiitName, postID }) {
           // }
           action={
             <>
-            <IconButton aria-label="settings" onClick={handleClick}>
-              <MoreVertIcon />
-            </IconButton>
+              <IconButton aria-label="settings" onClick={handleClick}>
+                <MoreVertIcon />
+              </IconButton>
               <Popover
                 id={id}
                 open={Boolean(anchorEl)}
@@ -218,29 +220,31 @@ export default function PostCard({ subgreddiitName, postID }) {
                   vertical: 'bottom',
                   horizontal: 'left',
                 }}
-                >
+              >
                 <Stack spacing={2}>
                   <IconButton aria-label="Report" onClick={handleOpenReportForm}>
-                    <ReportIcon /> 
-                    <Typography variant='overline' sx={{marginLeft : 1}}>Report Post</Typography>
-                  </IconButton> 
+                    <ReportIcon />
+                    <Typography variant='overline' sx={{ marginLeft: 1 }}>Report Post</Typography>
+                  </IconButton>
                   <IconButton aria-label="Save" onClick={handleSavePost}>
-                    <SaveIcon /> 
-                    <Typography variant='overline' sx={{marginLeft : 1}}>Save a Post</Typography>
-                  </IconButton> 
+                    <SaveIcon />
+                    <Typography variant='overline' sx={{ marginLeft: 1 }}>Save a Post</Typography>
+                  </IconButton>
                   <IconButton aria-label="Follow" onClick={handleFollowPoster}>
-                    <PersonAddIcon /> 
-                    <Typography variant='overline' sx={{marginLeft : 1}}>Follow the user</Typography>
-                  </IconButton> 
+                    <PersonAddIcon />
+                    <Typography variant='overline' sx={{ marginLeft: 1 }}>Follow the user</Typography>
+                  </IconButton>
                 </Stack>
               </Popover>
-              </>
+            </>
           }
           title={post.title}
-          // subheader="September 14, 2016"
+        // subheader="September 14, 2016"
         />
 
         <CardContent>
+          <h5>Creator: </h5>
+          <PostCreator postCreator={post.posted_by} blocked={post.blocked}/>
           <Typography variant="body2" color="text.secondary">
             {post.content}
           </Typography>
@@ -249,6 +253,7 @@ export default function PostCard({ subgreddiitName, postID }) {
             Upvotes : {post.upvotes.length}
             <br></br>
             Downvotes : {post.downvotes.length}
+            <br></br>
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -259,11 +264,11 @@ export default function PostCard({ subgreddiitName, postID }) {
             <ArrowDownwardIcon />
           </IconButton>
 
-            <IconButton aria-label="Add Comment" onClick={handleOpenCommentForm}>
-              <Fade in={expanded}>
-                <AddCommentIcon />
-              </Fade>
-            </IconButton>
+          <IconButton aria-label="Add Comment" onClick={handleOpenCommentForm}>
+            <Fade in={expanded}>
+              <AddCommentIcon />
+            </Fade>
+          </IconButton>
 
           <ExpandMore
             expand={expanded}
@@ -280,7 +285,7 @@ export default function PostCard({ subgreddiitName, postID }) {
             {
               post.comments.map((comment, index) => {
                 return (
-                  <Comment key={index} content={comment}/>
+                  <Comment key={index} content={comment} />
                 )
               })
             }
@@ -289,7 +294,7 @@ export default function PostCard({ subgreddiitName, postID }) {
       </Card>
     </>
   );
-}   
+}
 
 // import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 // import { Avatar, Card } from 'antd';
