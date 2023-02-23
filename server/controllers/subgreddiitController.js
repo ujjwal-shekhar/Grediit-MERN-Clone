@@ -648,3 +648,63 @@ exports.subgreddiit_save_post = function(req, res, next) {
         }
     })
 }
+
+// Subgreddiit block user
+// Only moderators can block users
+// The user is added to the blocked_members list
+// The user is removed from the common_members list
+// You are given the report id, fetch the corresponding post
+// from the report get the post
+// set status to blocked of every post posted by the user corresponding
+
+exports.subgreddiit_block_report = function(req, res, next) {
+    console.log('subgreddiit block user called');
+    SubGreddiit.findOne({name: req.params.name}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)) {
+                // Check if the user is already blocked
+                if (!subgreddiit.blocked_members.includes(req.params.userID)) {
+                    // Add the user to the blocked_members list
+                    SubGreddiit.findOneAndUpdate(
+                        {name: req.params.name},
+                        {$push: {blocked_members: req.params.userID}},
+                        (err, subgreddiit) => {
+                            if (err) console.log(err);
+                            else {
+                                console.log('User added to blocked_members');
+                                // Remove the user from the common_members list
+                                SubGreddiit.findOneAndUpdate(
+                                    {name: req.params.name},
+                                    {$pull: {common_members: req.params.userID}},
+                                    (err, subgreddiit) => {
+                                        if (err) console.log(err);
+                                        else {
+                                            console.log('User removed from common_members');
+                                            // Set the status of every post posted by the user to blocked
+                                            Post.updateMany(
+                                                {reported_by: {$in: [req.body.blocked_user]}},
+                                                {blocked: true},
+                                                (err, data) => {
+                                                    if (err) 
+                                                        console.log(err);
+                                                    else {
+                                                        console.log('Status of posts set to blocked');
+                                                        res.json({isBlocked: true});
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    )
+                } else {
+                    console.log('User is already blocked');
+                    res.json({isBlocked: false});
+                }
+            }
+        }
+    })
+}

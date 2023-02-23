@@ -141,9 +141,10 @@ const ReportCard = ({ report, subgreddiitName }) => {
 
     const handleBlockUser = () => {
         axios.post(
-            `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/users/${report.userID}/block`,
+            `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/reports/${report._id}/block`,
             JSON.stringify({
-                "status": "blocked"
+                "status": "blocked",
+                "blocked_user": reportedUser._id
             }),
             {
                 headers: {

@@ -34,7 +34,11 @@ const PostSchema = new Schema({
         type: String,
         minLength: 10,
         maxLength: 1000
-    }]
+    }],
+    blocked: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const Post = mongoose.model('Post', PostSchema);

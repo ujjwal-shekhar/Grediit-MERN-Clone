@@ -65,6 +65,7 @@ export default function PostCard({ subgreddiitName, postID }) {
   const [post, setPost] = React.useState(null);
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [blocked, setBlocked] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
 
   const [openCommentForm, setOpenCommentForm] = React.useState(false);
@@ -103,6 +104,8 @@ export default function PostCard({ subgreddiitName, postID }) {
         console.log(response.data.post);
 
         setPost(response.data.post);
+        setBlocked(response.data.post['blocked']);
+        console.log("Post fetched : ", post.blocked);
         setLoading(false);
       })
       .catch((err) => {
