@@ -2,6 +2,8 @@ import React from "react";
 import { Card, Button, Space } from "antd";
 import axios from "axios";
 
+import SavedPostCard from "../Posts/SavedPostCard";
+
 const App = ({ user }) => {
     const [loading, setLoading] = React.useState(false);
     const [savedPosts, setSavedPosts] = React.useState([]);
@@ -46,9 +48,9 @@ const App = ({ user }) => {
             })
         }
 
-    // return (
-
-    // )
-}
+    return (
+        
+    )
+}   
 
 export default App;
