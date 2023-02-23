@@ -11,6 +11,8 @@ router.post("/create", verifyToken, subgreddiit_controller.subgreddiit_create);
 router.get("/mod_subgreddiits_list", verifyToken, subgreddiit_controller.subgreddiit_moderator_list);
 router.get("/non_member_subgreddiits", verifyToken, subgreddiit_controller.subgreddiit_non_member_list);
 
+router.get("/ID/:id", verifyToken, subgreddiit_controller.subgreddiit_get_by_id);
+
 router.get("/SG/:name/perms", verifyToken, subgreddiit_controller.subgreddiit_moderator_check)
 
 router.get("/SG/:name", verifyToken, subgreddiit_controller.subgreddiit_detail);

@@ -797,3 +797,22 @@ exports.subgreddiit_check_blocked = function(req, res, next) {
         }
     })
 }
+
+// Get Subgreddiit by id
+// Only return if it user is a moderator or a common member
+
+exports.subgreddiit_get_by_id = function(req, res, next) {
+    console.log('subgreddiit get by id called');
+    SubGreddiit.findOne({_id: req.params.id}, (err, subgreddiit) => {
+        if (err) console.log(err);
+        else {
+            if (subgreddiit.moderators.includes(req.user._id)
+            ||  subgreddiit.common_members.includes(req.user._id)) {
+                res.json(subgreddiit);
+            }
+        }
+    })
+}
+
+// Remove a saved post from a user
+// Only the user can remove a saved post

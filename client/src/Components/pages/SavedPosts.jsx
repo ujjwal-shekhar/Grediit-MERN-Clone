@@ -3,6 +3,7 @@ import { Card, Button, Space } from "antd";
 import axios from "axios";
 
 import SavedPostCard from "../Posts/SavedPostCard";
+import Loading from "../pages/Loading";
 
 const App = ({ user }) => {
     const [loading, setLoading] = React.useState(false);
@@ -30,27 +31,41 @@ const App = ({ user }) => {
         setLoading(false);
     }, []);
 
-    const handleDelete = (post) => {
-        axios.delete(
-            `http://localhost:8080/users/${user.username}/remove_saved_post/${post.id}`,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                }
-            }
-        )
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        }
+    // const handleDelete = (post) => {
+    //     axios.delete(
+    //         `http://localhost:8080/users/${user.username}/remove_saved_post/${post.id}`,
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': 'Bearer ' + localStorage.getItem('token')
+    //             }
+    //         }
+    //     )
+    //         .then((response) => {
+    //             console.log(response);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
+    // }
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
-        
+        <>
+        {
+            savedPosts.map(post => {
+                return (
+                    <SavedPostCard 
+                    key={post._id}
+                    post={post} />
+                )
+            })
+        }
+        </>
     )
-}   
+}
 
 export default App;

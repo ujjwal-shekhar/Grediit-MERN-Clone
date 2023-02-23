@@ -61,11 +61,10 @@ const style = {
   p: 4,
 };
 
-export default function PostCard({ subgreddiitName, postID }) {
-  console.log(subgreddiitName, postID)
-  const [post, setPost] = React.useState(null);
+export default function PostCard({ post }) {
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [subgreddiitName, setSubgreddiitName] = React.useState('');
   const [loading, setLoading] = React.useState(true);
 
   const [openCommentForm, setOpenCommentForm] = React.useState(false);
@@ -92,7 +91,7 @@ export default function PostCard({ subgreddiitName, postID }) {
   React.useEffect(() => {
     console.log("PostCard mounted")
     axios.get(
-      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/details`,
+      `http://localhost:8080/subgreddiits/ID/${post.posted_in}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -100,10 +99,8 @@ export default function PostCard({ subgreddiitName, postID }) {
         }
       })
       .then((response) => {
-        console.log("hihsifhsidfahoifh");
-        console.log(response.data.post);
-
-        setPost(response.data.post);
+        console.log("SG RES : ", response)
+        setSubgreddiitName(response.data.name);
         setLoading(false);
       })
       .catch((err) => {
@@ -117,7 +114,7 @@ export default function PostCard({ subgreddiitName, postID }) {
   const handleUpvote = () => {
     console.log("clicked upvote")
     axios.post(
-      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/vote`,
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${post._id}/vote`,
       JSON.stringify({
         "vote_type": "UPVOTE"
       }),
@@ -139,7 +136,7 @@ export default function PostCard({ subgreddiitName, postID }) {
   const handleDownvote = () => {
     console.log("clicked downvote")
     axios.post(
-      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/vote`,
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${post._id}/vote`,
       JSON.stringify({
         "vote_type": "DOWNVOTE"
       }),
@@ -158,10 +155,10 @@ export default function PostCard({ subgreddiitName, postID }) {
       })
   }
 
-  const handleSavePost = () => {
+  const handleUnsavePost = () => {
     console.log("clicked save")
     axios.post(
-      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/save`,
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${post._id}/unsave`,
       JSON.stringify({
         "save": true
       }),
@@ -202,7 +199,7 @@ export default function PostCard({ subgreddiitName, postID }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CreateCommentForm postID={postID} subgreddiitName={subgreddiitName} />
+          <CreateCommentForm postID={post._id} subgreddiitName={subgreddiitName} />
         </Box>
 
       </Modal>
@@ -213,7 +210,7 @@ export default function PostCard({ subgreddiitName, postID }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CreateReportForm postID={postID} postCreator={post.posted_by} subgreddiitName={subgreddiitName} subgreddiitID={post.posted_in} />
+          <CreateReportForm postID={post._id} postCreator={post.posted_by} subgreddiitName={subgreddiitName} subgreddiitID={post.posted_in} />
         </Box>
 
       </Modal>
@@ -244,7 +241,7 @@ export default function PostCard({ subgreddiitName, postID }) {
                     <ReportIcon />
                     <Typography variant='overline' sx={{ marginLeft: 1 }}>Report Post</Typography>
                   </IconButton>
-                  <IconButton aria-label="Unsave" onClick={handleSavePost}>
+                  <IconButton aria-label="Unsave" onClick={handleUnsavePost}>
                     <SaveIcon />
                     <Typography variant='overline' sx={{ marginLeft: 1 }}>Unsave a Post</Typography>
                   </IconButton>

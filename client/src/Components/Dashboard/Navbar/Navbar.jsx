@@ -17,13 +17,14 @@ import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import Person4Icon from '@mui/icons-material/Person4Rounded';
 import HomeIcon from '@mui/icons-material/Home';
 import RedditIcon from '@mui/icons-material/Reddit';
+import StarsIcon from '@mui/icons-material/Stars';
 import axios from 'axios';
 
 const pages_sg_mod = ['Users', 'Joining Requests', 'Stats', 'Reports'];
 const pages_sg  = ['Home', 'My SubGreddiits', 'Logout'];
 const pages_profile = ['Profile', 'Home', 'My SubGreddiits', 'Logout'];  
 const settings = ['Profile', 'Home', 'My SubGreddiits', 'Logout'];
-const pages = ['Profile Page', 'My SubGreddiits', 'Subgreddiits']
+const pages = ['Profile Page', 'My SubGreddiits', 'Subgreddiits', 'Saved Posts']
 
 const Navbar = ({ user, setUser }) => {
   const navigate = useNavigate();
@@ -72,6 +73,10 @@ const Navbar = ({ user, setUser }) => {
   }
   const handleProfile = () => {
     navigate('/profile');
+    handleCloseNavMenu();
+  }
+  const handleSavePost = () => {
+    navigate('/saved_posts');
     handleCloseNavMenu();
   }
 
@@ -171,17 +176,10 @@ const Navbar = ({ user, setUser }) => {
               <RedditIcon sx={{color: 'white'}} />
               <Typography sx={{ my: 2, color: 'white', display: 'block' }}>Subgreddiits</Typography>
             </IconButton>
-            {/* {pages.map((page) => (
-              <IconButton>
-              </IconButton>
-              // <Button
-              //   key={page}
-              //   onClick={handleCloseNavMenu}
-              //   sx={{ my: 2, color: 'white', display: 'block' }}
-              // >
-              //   {page}
-              // </Button>
-            ))} */}
+            <IconButton onClick={handleSavePost}>
+              <StarsIcon sx={{color: 'white'}} />
+              <Typography sx={{ my: 2, color: 'white', display: 'block' }}>Saved Posts</Typography>
+            </IconButton>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
