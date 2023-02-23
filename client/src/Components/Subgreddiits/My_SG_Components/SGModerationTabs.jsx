@@ -12,15 +12,19 @@ export default function Component ({ subgreddiitName }) {
             switch (event.key) {
               case 'u':
                 navigate(`/subgreddiits/${subgreddiitName}/mod/users`);
+                setValueVertical("one");
                 break;
-              case 'j':
-                navigate(`/subgreddiits/${subgreddiitName}/mod/joining-requests`);
-                break;
-              case 'p':
-                navigate(`/subgreddiits/${subgreddiitName}/mod/stats`);
-                break;
-              case 'c':
-                // go to Comments page
+                case 'j':
+                  navigate(`/subgreddiits/${subgreddiitName}/mod/joining-requests`);
+                  setValueVertical("two");
+                  break;
+                case 's':
+                  navigate(`/subgreddiits/${subgreddiitName}/mod/stats`);
+                  setValueVertical("three");
+                  break;
+                case 'r':
+                  // go to Comments page
+                  setValueVertical("four");
                 navigate(`/subgreddiits/${subgreddiitName}/mod/reported-page`);
                 break;
               default:
