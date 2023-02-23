@@ -8,6 +8,34 @@ export default function Component ({ subgreddiitName }) {
     const [valueVertical, setValueVertical] = React.useState('one');
 
     React.useEffect(() => {
+        const handleKeyDown = (event) => {
+            switch (event.key) {
+              case 'u':
+                navigate(`/subgreddiits/${subgreddiitName}/mod/users`);
+                break;
+              case 'j':
+                navigate(`/subgreddiits/${subgreddiitName}/mod/joining-requests`);
+                break;
+              case 'p':
+                navigate(`/subgreddiits/${subgreddiitName}/mod/stats`);
+                break;
+              case 'c':
+                // go to Comments page
+                navigate(`/subgreddiits/${subgreddiitName}/mod/reported-page`);
+                break;
+              default:
+                break;
+            }
+          };
+      
+          document.addEventListener('keydown', handleKeyDown);
+      
+          return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+          };
+    }, [])
+
+    React.useEffect(() => {
         navigate(`/subgreddiits/${subgreddiitName}/mod/users`);
     }, [])
 
