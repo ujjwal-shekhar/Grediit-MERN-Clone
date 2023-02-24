@@ -5,6 +5,8 @@ import BlockIcon from '@mui/icons-material/Block';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import BlockButton from './BlockButton';
+
 import axios from 'axios';
 import React from 'react';
 
@@ -206,7 +208,7 @@ const ReportCard = ({ report, subgreddiitName }) => {
 
     console.log("Report Card : ", report)
 
-    if (report.status !== "Pending") {
+    if (report.status !== "Pending" && report.status !== "Blocked") {
         return null;
     }
 
@@ -215,11 +217,15 @@ const ReportCard = ({ report, subgreddiitName }) => {
             style={{
                 width: 300,
             }}
-            // title={"Report Posted by hooman"}
+            extra={[
+                <BlockButton key="block" onClick={handleBlockUser} />,
+            ]}
+            title={"Reported Post"}
             actions={(report.status !== "Ignored") && [
                 <DeleteOutlined key="delete" onClick={handleDeletePost} />,
                 <EyeInvisibleOutlined key="ignore" onClick={handleIgnoreReport} />,
-                <UserDeleteOutlined  key="block" onClick={handleBlockUser} />,
+                // <UserDeleteOutlined  key="block" onClick={handleBlockUser} />,
+                
             ]}
 
             tabList={tabList}
