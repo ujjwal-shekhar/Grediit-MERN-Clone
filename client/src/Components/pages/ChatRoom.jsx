@@ -40,6 +40,8 @@ export default function App({ user }) {
                     console.log(err);
                 })
             }, 1000);
+
+        return () => clearInterval(interval);
     }, [])
 
     if (loading) {

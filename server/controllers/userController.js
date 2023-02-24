@@ -69,8 +69,9 @@ exports.user_create_post = (req, res, next) => {
 // Get user's subgreddiits that they moderate
 exports.user_mod_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
+        // console.log("User validation : ", req.user._id == user._id)
         if (err) console.log(err);
-        else if (req.user._id !== user._id) {
+        else if (req.user._id != user._id) {
             res.status(401).json({message: 'You are not authorized to view this'});
         }
         else {
@@ -88,7 +89,7 @@ exports.user_mod_subgreddiits_get = function (req, res, next) {
 exports.user_members_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
         if (err) console.log(err);
-        else if (req.user._id !== user._id) {
+        else if (req.user._id != user._id) {
             res.status(401).json({message: 'You are not authorized to view this'});
         }
         else {
@@ -107,7 +108,7 @@ exports.user_members_subgreddiits_get = function (req, res, next) {
 exports.user_requested_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
         if (err) console.log(err);
-        else if (req.user._id !== user._id) {
+        else if (req.user._id != user._id) {
             res.status(401).json({message: 'You are not authorized to view this'});
         }
         else {
@@ -126,7 +127,7 @@ exports.user_requested_subgreddiits_get = function (req, res, next) {
 exports.user_banned_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
         if (err) console.log(err);
-        else if (req.user._id !== user._id) {
+        else if (req.user._id != user._id) {
             res.status(401).json({message: 'You are not authorized to view this'});
         }
         else {
