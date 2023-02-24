@@ -2,52 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { UserDeleteOutlined, StopOutlined } from '@ant-design/icons';
 
 
-const BlockButton = ({ onClick }) => {
+const BlockButton = ({ onClick, alreadyBlocked }) => {
     // When block button is pressed it changes to another button with
     // a countdown like “Cancel in 3 secs” (where 3 will change to 2
     //    after 1 second and so on). If the timer reaches 0, the user is
     //     blocked, otherwise the moderator can press cancel to abort.
 
-    const [count, setCount] = useState(3);
-    const [isBlocked, setIsBlocked] = useState(false);
+    const [countDown, setCountDown] = useState(3);
+    const [isBlocked, setIsBlocked] = useState(alreadyBlocked);
 
-    useEffect(() => {
-        if (count === 0) {
-            setIsBlocked(true);
-            onClick();
-        }
-    }
-        , [count]);
+    
 
-    const handleBlock = () => {
-        const interval = setInterval(() => {
-            setCount((prevCount) => prevCount - 1);
-        }, 1000);
+    // const [count, setCount] = useState(3);
+    // const [isBlocked, setIsBlocked] = useState(alreadyBlocked);
 
-        if (isBlocked) {
-            clearInterval(interval);
-        }
+    // useEffect(() => {
+    //     if (count === 0) {
+    //         setIsBlocked(true);
+    //         onClick();
+    //     }
+    // }, [count]);
 
-        if (count === 0) {
-            clearInterval(interval);
-        }
+    // const handleBlock = () => {
+    //     const interval = setInterval(() => {
+    //         setCount(prevCount => prevCount - 1);
+    //     }, 1000);   
 
-        return () => clearInterval(interval);
-    }
+    //     if ((isBlocked) || (count === 0)) {
+    //         clearInterval(interval);
+    //     }
 
-    return (
-        <div>
-            {isBlocked ? (
-                <UserDeleteOutlined />
-            ) : (
-                <StopOutlined onClick={onClick}/>
-                // <button onClick={handleBlock}>
-                //     Block
-                // </button>
-            )}
-            {count}
-        </div>
-    );
+    //     return () => clearInterval(interval);
+    // }
+
+    // return (
+    //     <div>
+    //         {isBlocked ? (
+    //             <UserDeleteOutlined onClick={onClick}/>
+    //         ) : (
+    //             <StopOutlined >
+    //             {count}
+    //             </StopOutlined>
+    //         )}
+    //     </div>
+    // );
 };
 
 export default BlockButton;

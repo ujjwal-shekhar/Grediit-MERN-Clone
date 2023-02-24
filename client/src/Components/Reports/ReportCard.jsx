@@ -194,6 +194,9 @@ const ReportCard = ({ report, subgreddiitName }) => {
         ),
     }
 
+    
+
+
     if (loading) {
         return (
             <Card
@@ -218,14 +221,15 @@ const ReportCard = ({ report, subgreddiitName }) => {
                 width: 300,
             }}
             extra={[
-                <BlockButton key="block" onClick={handleBlockUser} />,
+                <BlockButton key="block" onClick={handleBlockUser} 
+                alreadyBlocked={report.status === "Blocked"}/>,
             ]}
+
             title={"Reported Post"}
+
             actions={(report.status !== "Ignored") && [
                 <DeleteOutlined key="delete" onClick={handleDeletePost} />,
                 <EyeInvisibleOutlined key="ignore" onClick={handleIgnoreReport} />,
-                // <UserDeleteOutlined  key="block" onClick={handleBlockUser} />,
-                
             ]}
 
             tabList={tabList}

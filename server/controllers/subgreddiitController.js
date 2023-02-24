@@ -853,3 +853,23 @@ exports.subgreddiit_create_post_content = function (req, res, next) {
 
 // Remove a saved post from a user
 // Only the user can remove a saved post
+
+exports.subgreddiit_unsave_post = function (req, res, next) {
+    console.log('user remove saved post called');
+    User.findOne({ _id: req.user._id }, (err, user) => {
+        if (err) console.log(err);
+        else {
+            User.findOneAndUpdate(
+                { _id: req.user._id },
+                { $pull: { saved_posts: req.params.postID } },
+                (err, user) => {
+                    if (err) console.log(err);
+                    else {
+                        console.log('Post removed from saved posts');
+                        res.json({ isRemoved: true });
+                    }
+                }
+            )
+        }
+    })
+}

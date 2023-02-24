@@ -47,7 +47,7 @@ const App = ({ user }) => {
                 <h1 className='mb-3'>Saved Posts</h1>
             </div>
             <CssBaseline />
-            <Container maxWidth="md">
+            <Container maxWidth="xs">
                 <Space direction="vertical" >
                 {
                     savedPosts.map(post => {

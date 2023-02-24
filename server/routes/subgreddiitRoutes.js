@@ -49,6 +49,7 @@ router.get("/SG/:name/leave", verifyToken, subgreddiit_controller.subgreddiit_le
 router.post("/SG/:name/post/:postID/vote", verifyToken, subgreddiit_controller.subgreddiit_post_vote)
 
 router.post("/SG/:name/post/:postID/save", verifyToken, subgreddiit_controller.subgreddiit_save_post)
+router.post("/SG/:name/post/:postID/unsave", verifyToken, subgreddiit_controller.subgreddiit_unsave_post)
 
 router.post("/SG/:name/check_blocked", verifyToken, subgreddiit_controller.subgreddiit_check_blocked);
 
