@@ -5,6 +5,7 @@ import { Space } from 'antd';
 
 import SearchBar from '../Subgreddiits/All_SG_Components/SearchBar';
 import SGTags from '../Subgreddiits/All_SG_Components/AllSGTags';
+import SortFilterDropdown from '../Subgreddiits/All_SG_Components/SortFilterDropdown'
 
 import Mod_SG_List from '../Subgreddiits/All_SG_Components/Mod_SG_List';
 import Member_SG_List from '../Subgreddiits/All_SG_Components/Member_SG_List';
@@ -16,6 +17,7 @@ import Divider from '@mui/material/Divider';
 export default function AllSubgreddiits({ user }) {
     const [tags, setTags] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    const [sortFilter, setSortFilter] = useState([]);
     return (
         <>
         <div className='p-5 text-center bg-light'>
@@ -23,7 +25,10 @@ export default function AllSubgreddiits({ user }) {
         {/* <h4 className='mb-3'>Not Reddit</h4> */}
         <Box className='mt-2' sx={{width:'100%'}}>
             <Space direction='vertical'>
-                <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>   
+                <Space>
+                    <SortFilterDropdown sortFilter={sortFilter} setSortFilter={setSortFilter}/>
+                    <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>   
+                </Space>
                 <SGTags tags={tags} setTags={setTags}/>
             </Space>
         </Box>
