@@ -44,19 +44,46 @@ exports.chat_details = function(req, res) {
 
 // Post a new chat message
 exports.chat_create = function(req, res) {
-    // Create a new chat
-    let chat = new Chat({
-        chat_sender: req.user._id,
-        chat_recipient: req.body.chat_recipient,
-        chat_content: req.body.chat_content
-    });
-
-    // Save the chat
-    chat.save(function(err) {
-        if (err) {
-            res.status(500).json({message: 'Error saving chat'});
+    console.log("req.body is : ", req.body)
+    User.findOne({username: req.body.recipient}, function(err, user) {
+        if (err || !user) {
+            res.status(500).json({message: 'Error fetching user'});
+            console.log("welp user nahi mila")
         } else {
-            res.status(200).json({message: 'Chat saved successfully'});
+            // Create a new chat
+            console.log("User that we found was : ", user)
+            let chat = new Chat({
+                chat_sender: req.user._id,
+                chat_recipient: user._id,
+                chat_content: req.body.content
+            });
+            
+            chat.save(function(err) {
+                if (err) {
+                    res.status(500).json({message: 'Error saving chat', err: err});
+                } else {
+                    res.status(200).json({message: 'Chat saved successfully'});
+                }
+            })
         }
     })
+}
+
+// Check if user is the sender
+exports.is_sender = function(req, res) {
+    // Fetch the chat if the sender or recipient is the current user
+    Chat.findOne(
+        {_id: req.params.id},
+        function(err, chat) {
+            if (err) {
+                res.status(500).json({message: 'Error fetching chat'});
+            } else {
+                if (chat.chat_sender == req.user._id) {
+                    res.status(200).json({message: 'User is the sender'});
+                } else {
+                    res.status(200).json({message: 'User is not the sender'});
+                }
+            }
+        }
+    )
 }

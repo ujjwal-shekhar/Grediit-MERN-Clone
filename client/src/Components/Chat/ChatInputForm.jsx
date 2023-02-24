@@ -56,7 +56,7 @@ const App = ({ user }) => {
         }
       )
       .then((res) => {
-        console.log(res);
+        console.log("Chat input submitted and received res as : ", res);
       })
       .catch((err) => {
         console.log(err);
@@ -69,14 +69,14 @@ const App = ({ user }) => {
         <Grid item xs={8}>
           <Item>
             <li className="bg-white mb-3">
-              <MDBTextArea label="Message" id="textAreaExample" rows={4} handleChange={handleContentChange}/>
+              <MDBTextArea label="Message" id="textAreaExample" rows={4} onChange={handleContentChange}/>
             </li>
           </Item>
         </Grid>
         <Grid item xs={4}>
           <Item>
             <li className="bg-white mb-3">
-              <MDBTextArea label="Receiver" id="textAreaExample" rows={4} handleChange={handleRecipientChange}/>
+              <MDBTextArea label="Receiver" id="textAreaExample" rows={4} onChange={handleRecipientChange}/>
             </li>
           </Item>
         </Grid>

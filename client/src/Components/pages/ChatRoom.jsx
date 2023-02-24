@@ -13,8 +13,7 @@ import {
 } from "mdb-react-ui-kit";
 
 import ChatInputForm from "../Chat/ChatInputForm";
-import ChatReceiver from "../Chat/ChatReceiver";
-import ChatSender from "../Chat/ChatSender";
+import ChatList from "../Chat/ChatList";
 
 import Loading from "./Loading";
 
@@ -32,8 +31,8 @@ export default function App({ user }) {
                 }
             })
             .then((res) => {
-                console.log(res);
-                setChats(res.data.chats);
+                console.log("Chats list : ", res.data);
+                setChats(res.data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -47,14 +46,14 @@ export default function App({ user }) {
         )
     }
 
+    console.log("Chats list : after axios", chats);
+
     return (
         <MDBContainer fluid className="py-5" style={{ backgroundColor: "#eee" }} >
             <MDBRow>
                 <MDBCol md="6" lg="7" xl="8">
                     <MDBTypography listUnStyled>
-                        <ChatSender />
-                        <ChatReceiver />
-
+                        <ChatList chats={chats} />
                         <ChatInputForm user={user} />
                     </MDBTypography>
                 </MDBCol>
