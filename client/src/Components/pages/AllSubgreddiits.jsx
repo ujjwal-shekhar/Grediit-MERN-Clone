@@ -17,7 +17,9 @@ import Divider from '@mui/material/Divider';
 export default function AllSubgreddiits({ user }) {
     const [tags, setTags] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const [sortFilter, setSortFilter] = useState([]);
+    const [sortFilter, setSortFilter] = useState({});
+    console.log(sortFilter);
+    // SortFilter will be like {pos:pos, val:val}
     return (
         <>
         <div className='p-5 text-center bg-light'>
