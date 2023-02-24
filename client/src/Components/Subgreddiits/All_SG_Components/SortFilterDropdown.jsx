@@ -11,6 +11,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 const App = ({ sortFilter, setSortFilter }) => {
     const [nameMode, setNameMode] = useState(null)
     const [followersSort, setFollowersSort] = useState(false)
+    const [creationSort, setCreationSort] = useState(false)
     const handleNameChange = () => {
         if (nameMode === 'Ascending') {
             setNameMode('Descending')
@@ -42,6 +43,22 @@ const App = ({ sortFilter, setSortFilter }) => {
     const handleFollowers = () => {
         if (followersSort) {
             setFollowersSort(false)
+            for (let i = 0; i < Object.keys(sortFilter).length; i++) {
+                sortFilter[i] = sortFilter[i].pos--;
+                if (sortFilter[i].val.includes('Followers')) {
+                    delete sortFilter[i];
+                }
+            }
+            setSortFilter(sortFilter)
+        } else {
+            setFollowersSort(true)
+            sortFilter[Object.keys(sortFilter).length]
+                = { pos: Object.keys(sortFilter).length, val: 'Followers' }
+        }
+    }
+    const handleCreation = () => {
+        if (creationSort) {
+            setCreationSort(false)
             for (let i = 0; i < Object.keys(sortFilter).length; i++) {
                 if (sortFilter[i].val.includes('Followers')) {
                     delete sortFilter[i];
@@ -90,6 +107,15 @@ const App = ({ sortFilter, setSortFilter }) => {
             label: (
                 <a target="_blank" rel="noopener noreferrer" onClick={handleFollowers}>
                     Followers (Descending)
+                </a>
+            ),
+            icon: followersSortIcon,
+        },
+        {
+            key: '3',
+            label: (
+                <a target="_blank" rel="noopener noreferrer" onClick={handleCreation}>
+                    Creation Date (Newest first)
                 </a>
             ),
             icon: followersSortIcon,

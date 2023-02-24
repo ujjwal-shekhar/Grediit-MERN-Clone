@@ -59,14 +59,7 @@ export default function UserSubgreddiits({ user }) {
     const [showSGForm, setShowSGForm] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
     const [sgList, setSGList] = React.useState([]);
-    const subgreddiit = {
-        name: 'test',
-        description: 'LOREM IPSUM DOLOR SIT AMET',
-        moderators: ['test'],
-        banned_keywords: ['test1', 'test2', 'test3'],
-        posts: ['test1', 'test2', 'test3'],
-        common_members: ['test1', 'test2', 'test3'],
-    }
+
     const handleAddSG = () => {
         console.log("Add SG");
         setShowSGForm(true);
