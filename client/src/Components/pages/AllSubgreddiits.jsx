@@ -9,6 +9,7 @@ import SGTags from '../Subgreddiits/All_SG_Components/AllSGTags';
 import Mod_SG_List from '../Subgreddiits/All_SG_Components/Mod_SG_List';
 import Member_SG_List from '../Subgreddiits/All_SG_Components/Member_SG_List';
 import NonMember_SG_List from '../Subgreddiits/All_SG_Components/NonMember_SG_List';
+import BannedMember_SG_List from '../Subgreddiits/All_SG_Components/BannedMember_SG_List';
 
 import Divider from '@mui/material/Divider';
 
@@ -36,6 +37,8 @@ export default function AllSubgreddiits({ user }) {
             <Member_SG_List user={user} tags={tags} searchValue={searchValue}/>
             <Divider />
             <NonMember_SG_List user={user} tags={tags} searchValue={searchValue}/>
+            <Divider />
+            <BannedMember_SG_List user={user} tags={tags} searchValue={searchValue}/>
         </Container>
         </>
     );

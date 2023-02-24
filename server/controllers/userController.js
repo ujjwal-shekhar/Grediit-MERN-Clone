@@ -70,6 +70,9 @@ exports.user_create_post = (req, res, next) => {
 exports.user_mod_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
         if (err) console.log(err);
+        else if (req.user._id !== user._id) {
+            res.status(401).json({message: 'You are not authorized to view this'});
+        }
         else {
             SubGreddiit.find({moderators: user._id}, (err, subgreddiits) => {
                 if (err) console.log(err);
@@ -85,6 +88,9 @@ exports.user_mod_subgreddiits_get = function (req, res, next) {
 exports.user_members_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
         if (err) console.log(err);
+        else if (req.user._id !== user._id) {
+            res.status(401).json({message: 'You are not authorized to view this'});
+        }
         else {
             // Find all subgreddiits with user in common_members
             SubGreddiit.find({common_members: user._id}, (err, subgreddiits) => {
@@ -101,6 +107,9 @@ exports.user_members_subgreddiits_get = function (req, res, next) {
 exports.user_requested_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
         if (err) console.log(err);
+        else if (req.user._id !== user._id) {
+            res.status(401).json({message: 'You are not authorized to view this'});
+        }
         else {
             // Find all subgreddiits with user in requested_member
             SubGreddiit.find({requested_members: user._id}, (err, subgreddiits) => {
@@ -117,6 +126,9 @@ exports.user_requested_subgreddiits_get = function (req, res, next) {
 exports.user_banned_subgreddiits_get = function (req, res, next) {
     User.findOne({username: req.params.username}, (err, user) => {
         if (err) console.log(err);
+        else if (req.user._id !== user._id) {
+            res.status(401).json({message: 'You are not authorized to view this'});
+        }
         else {
             // Find all subgreddiits with user in banned_members
             SubGreddiit.find({banned_members: user._id}, (err, subgreddiits) => {
