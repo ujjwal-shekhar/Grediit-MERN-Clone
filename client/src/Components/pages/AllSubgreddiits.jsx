@@ -33,11 +33,11 @@ export default function AllSubgreddiits({ user }) {
       </div>
         <Container>
             <Mod_SG_List user={user} tags={tags} searchValue={searchValue}/>
-            <Divider />
+            {/* <Divider /> */}
             <Member_SG_List user={user} tags={tags} searchValue={searchValue}/>
-            <Divider />
+            {/* <Divider /> */}
             <NonMember_SG_List user={user} tags={tags} searchValue={searchValue}/>
-            <Divider />
+            {/* <Divider /> */}
             <BannedMember_SG_List user={user} tags={tags} searchValue={searchValue}/>
         </Container>
         </>
