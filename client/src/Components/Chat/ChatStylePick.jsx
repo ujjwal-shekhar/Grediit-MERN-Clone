@@ -5,11 +5,17 @@ import ChatSender from "../Chat/ChatSender";
 
 import axios from "axios";
 
+import Loading from "../pages/Loading";
+
 const ChatStyle = ({ chat }) => {
     const [isSender, setIsSender] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
+
+    console.log("ChatStylePick mounted with : ", chat);
+
     React.useEffect(() => {
         axios.get(
-            `http://localhost:8080/isSender/${chat}`, 
+            `http://localhost:8080/chats/isSender/${chat._id}`, 
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -24,7 +30,16 @@ const ChatStyle = ({ chat }) => {
         .catch((err) => {
             console.log(err);
         })
+        setLoading(false);
     }, [])
+
+    if (loading) {
+        return (
+            <Loading />
+        )
+    }
+
+    console.log("ChatStylePick : ", chat);
 
     if (isSender) {
         return (

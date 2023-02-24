@@ -23,21 +23,23 @@ export default function App({ user }) {
     const [chats, setChats] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     React.useEffect(() => {
-        axios
-            .get("http://localhost:8080/chats/all", {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem("token")
-                }
-            })
-            .then((res) => {
-                console.log("Chats list : ", res.data);
-                setChats(res.data);
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        const interval = setInterval(() => {      
+            axios
+                .get("http://localhost:8080/chats/all", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    }
+                })
+                .then((res) => {
+                    console.log("Chats list : ", res.data);
+                    setChats(res.data);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            }, 1000);
     }, [])
 
     if (loading) {

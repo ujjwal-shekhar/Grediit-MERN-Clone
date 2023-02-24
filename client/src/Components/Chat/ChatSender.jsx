@@ -12,20 +12,46 @@ import {
     MDBCardHeader,
 } from "mdb-react-ui-kit";
 
-const ChatSender = ({ user }) => {
+import Loading from "../pages/Loading";
+
+import axios from "axios";
+
+const ChatSender = ({ chat }) => {
+    const [recipient, setRecipient] = React.useState("");
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        // Get the details of the chat.chat_recipient
+        axios
+            .get("http://localhost:8080/users/id/" + chat.chat_recipient, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then((res) => {
+                console.log("Chat recipient details : ", res.data);
+                setRecipient(res.data.username);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        setLoading(false);
+    }, [])
+
+    if (loading) {
+        return <Loading />
+    }
+
     return (
-        <li class="d-flex justify-content-between mb-4">
+        <li className="d-flex justify-content-between mb-4">
             <MDBCard className="w-100">
                 <MDBCardHeader className="d-flex justify-content-between p-3">
-                    <p class="fw-bold mb-0">Lara Croft</p>
-                    {/* <p class="text-muted small mb-0">
-                        <MDBIcon far icon="clock" /> 13 mins ago
-                    </p> */}
+                    <p className="fw-bold mb-0">to {recipient}</p>
                 </MDBCardHeader>
                 <MDBCardBody>
                     <p className="mb-0">
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium.
+                        {chat.chat_content}
                     </p>
                 </MDBCardBody>
             </MDBCard>
