@@ -42,6 +42,10 @@ const App = ({ subgreddiit, perms, tags, searchValue }) => {
 
   const handleJoin = () => {
     console.log('Clicked Join');
+    if (perms === "LEFT") {
+      alert("You can't join a subgreddiit you've left");
+      return;
+    }
     setProcessing(true);
     axios.get(
       `http://localhost:8080/subgreddiits/SG/${subgreddiit.name}/join_request`,
@@ -108,7 +112,7 @@ const App = ({ subgreddiit, perms, tags, searchValue }) => {
     } else if (perms === "LEFT") {
       return (
         <Space>
-          <Button type="primary" danger disabled={true} onClick={handleDelete}>Join</Button>
+          <Button type="primary" danger onClick={handleJoin}>Join</Button>
           <Button type="primary" onClick={handleOpen}>Open</Button>
         </Space>
       )
