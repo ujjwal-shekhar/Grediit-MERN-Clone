@@ -46,10 +46,10 @@ export default function ProfileCard({ user, setUser, perms }) {
       }
     )
      .then((response) => {
-        console.log(response.data);
+        console.log("ProfileCARD ME DEKHHK : ", response.data);
         setFollowersCount(response.data.followers);
         setFollowingCount(response.data.following);
-        setDiceBearImg(`https://api.dicebear.com/5.x/pixel-art/svg?seed=${response.data.username}`)
+        setDiceBearImg(`https://api.dicebear.com/5.x/open-peeps/svg?seed=${user.username}`)
         setLoading(false);
       })
       .catch((err) => {
