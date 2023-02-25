@@ -22,7 +22,10 @@ const ReportCard = ({ report, subgreddiitName }) => {
     const [reportedUser, setReportedUser] = React.useState({});
     const [reportedPost, setReportedPost] = React.useState({});
     const [reporter, setReporter] = React.useState({})  ;
-    const [isBlocked, setIsBlocked] = React.useState(report.status === 'Blocked' ? true : false);
+    const [isBlocked, setIsBlocked] = React.useState(report.status === 'Blocked' 
+                                                                ? true : false);
+
+
 
     const tabList = [
         {
@@ -212,7 +215,7 @@ const ReportCard = ({ report, subgreddiitName }) => {
         )
     }
 
-    console.log("Report Card : ", report)
+    console.log("Report Card : ", report, "Is Blocked : ", isBlocked)
 
     // if (report.status !== "Pending" && report.status !== "Blocked") {
     //     return null;
@@ -227,11 +230,9 @@ const ReportCard = ({ report, subgreddiitName }) => {
                 report.status !== "Ignored" &&
                 [
                 isBlocked ?
-                    <PersonOffIcon disable={true} />
+                    <PersonOffIcon key="blocked" disable={true} />
                     :
                     <BlockButton key="block" handleBlockUser={handleBlockUser}/>,
-
-                
             ]}
 
             title={"Reported Post"}

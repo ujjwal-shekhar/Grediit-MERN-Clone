@@ -72,14 +72,15 @@ export default function Mod_SG_List({ user, tags, searchValue, sortFilter }) {
 
     // Sort the modSG array
     if (sortFilter.length === 1) {
-        modSG.sort(
+        console.log("Sorting by modSG")
+        modSG = modSG.sort(
             sortFilter
             .map((item) => {
                 return (a, b) => itemComp(a, b, item);
             }
         )[0]);
     } else if (sortFilter.length === 2) {
-        modSG.sort(
+        modSG = modSG.sort(
             sortFilter
             .map((item) => {
                 return (a, b) => itemComp(a, b, item);
@@ -91,7 +92,7 @@ export default function Mod_SG_List({ user, tags, searchValue, sortFilter }) {
                 })[1]
             );
     } else if (sortFilter.length === 3) {
-        modSG.sort(
+        modSG = modSG.sort(
             sortFilter
             .map((item) => {
                 return (a, b) => itemComp(a, b, item);
