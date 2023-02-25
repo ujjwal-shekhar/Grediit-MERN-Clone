@@ -13,62 +13,54 @@ const App = ({ sortFilter, setSortFilter }) => {
     const [followersSort, setFollowersSort] = useState(false)
     const [creationSort, setCreationSort] = useState(false)
     const handleNameChange = () => {
-        if (nameMode === 'Ascending') {
-            setNameMode('Descending')
-            for (let i = 0; i < Object.keys(sortFilter).length; i++) {
-                if (sortFilter[i].val.includes('AscendingName')) {
-                    delete sortFilter[i];
-                }
-            }
-            sortFilter[Object.keys(sortFilter).length]
-                = { pos: Object.keys(sortFilter).length, val: 'DescendingName' }
-
-        } else if (nameMode === null) {
-            setNameMode('Ascending')
-
-            sortFilter[Object.keys(sortFilter).length]
-                = { pos: Object.keys(sortFilter).length, val: 'AscendingName' }
-        } else {
+        if (nameMode === 'AscendingName') {
+            setNameMode('DescendingName')
+            let tempFilter = sortFilter.filter((item) => {
+                return item.val !== 'AscendingName'
+            })
+            sortFilter.push('DescendingName')
+            setSortFilter(tempFilter);
+        } else if (nameMode === 'DescendingName') {
             setNameMode(null)
-            for (let i = 0; i < Object.keys(sortFilter).length; i++) {
-                if (sortFilter[i].val.includes('DescendingName')) {
-                    delete sortFilter[i];
-                }
-            }
-            setSortFilter(sortFilter)
+            let tempFilter = sortFilter.filter((item) => {
+                return item.val !== 'DescendingName'
+            })
+            setSortFilter(tempFilter);
+        } else {
+            setNameMode('Ascending')
+            let tempFilter = sortFilter.filter((item) => {
+                return item.val !== 'AscendingName'
+            })
+            tempFilter.push('AscendingName')
+            setSortFilter(tempFilter);
         }
-        console.log('Sort and filtering : ', sortFilter)
     }
 
     const handleFollowers = () => {
         if (followersSort) {
-            setFollowersSort(false)
-            for (let i = 0; i < Object.keys(sortFilter).length; i++) {
-                sortFilter[i] = sortFilter[i].pos--;
-                if (sortFilter[i].val.includes('Followers')) {
-                    delete sortFilter[i];
-                }
-            }
-            setSortFilter(sortFilter)
+            setFollowersSort(false);
+            let tempFilter = sortFilter.filter((item) => {
+                return item.val !== 'Followers'
+            })
+            setSortFilter(tempFilter);
         } else {
             setFollowersSort(true)
-            sortFilter[Object.keys(sortFilter).length]
-                = { pos: Object.keys(sortFilter).length, val: 'Followers' }
+            sortFilter.push('Followers')
         }
     }
     const handleCreation = () => {
         if (creationSort) {
             setCreationSort(false)
-            for (let i = 0; i < Object.keys(sortFilter).length; i++) {
-                if (sortFilter[i].val.includes('Followers')) {
-                    delete sortFilter[i];
-                }
-            }
-            setSortFilter(sortFilter)
+            let tempFilter = sortFilter.filter((item) => {
+                return item.val !== 'CreationDate'
+            })
+            setSortFilter(tempFilter)
         } else {
-            setFollowersSort(true)
-            sortFilter[Object.keys(sortFilter).length]
-                = { pos: Object.keys(sortFilter).length, val: 'Followers' }
+            setCreationSort(true)
+            let tempFilter = sortFilter.filter((item) => {
+                return item.val !== 'CreationDate'
+            })
+            setSortFilter(tempFilter)
         }
     }
 
