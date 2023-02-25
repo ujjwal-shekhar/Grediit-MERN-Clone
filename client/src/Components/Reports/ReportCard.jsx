@@ -214,16 +214,18 @@ const ReportCard = ({ report, subgreddiitName }) => {
 
     console.log("Report Card : ", report)
 
-    if (report.status !== "Pending" && report.status !== "Blocked") {
-        return null;
-    }
+    // if (report.status !== "Pending" && report.status !== "Blocked") {
+    //     return null;
+    // }
 
     return (
         <Card
             style={{
                 width: 300,
             }}
-            extra={[
+            extra={
+                report.status !== "Ignored" &&
+                [
                 isBlocked ?
                     <PersonOffIcon disable={true} />
                     :
