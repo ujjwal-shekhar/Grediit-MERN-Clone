@@ -32,7 +32,7 @@ export default function MiniProfileCard({ user, mode }) {
 
   const handleUnfollow = () => {
     console.log("Unfollow");
-    axios.post("https://localhost:8080/users/unfollow/" , 
+    axios.post("http://localhost:8080/users/unfollow/" , 
       
       JSON.stringify({"toUnfollow" : user._id}), 
 

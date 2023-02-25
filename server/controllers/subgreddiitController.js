@@ -881,7 +881,7 @@ exports.subgreddiit_follow_post = function (req, res, next) {
         if (err) console.log(err);
         else {
             if (!user.following.includes(req.body.postCreator)
-                || user._id != req.body.postCreator) {
+                && user._id != req.body.postCreator) {
                 User.findOneAndUpdate(
                     { _id: req.user._id },
                     { $push: { following: req.body.postCreator } },

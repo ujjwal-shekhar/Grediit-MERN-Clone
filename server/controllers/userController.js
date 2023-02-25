@@ -177,14 +177,25 @@ exports.user_remove_follower_post = function (req, res, next) {
     console.log("user_remove_follower_post called");
     const toRemove = req.body.toRemove;
 
-    User.findOne({username: req.user.username}, (err, user) => {
-        if (err) console.log(err);
-        else {
-            user.followers.pull(toRemove);
-            user.save();
-            res.json(user);
+    User.findOneAndUpdate(
+        {_id: req.user._id},
+        {$pull: {followers: toRemove}},
+        (err, user) => {
+            if (err) console.log(err);
+            else {
+                User.findOneAndUpdate(
+                    {_id: toRemove},
+                    {$pull: {following: req.user._id}},
+                    (err, follower) => {
+                        if (err) console.log(err);
+                        else {
+                            res.json(follower);
+                        }
+                    }
+                )
+            }
         }
-    })
+    )
 }
 
 // Remove following from user 
@@ -192,16 +203,28 @@ exports.user_remove_following_post = function (req, res, next) {
     console.log("user_remove_following_post called");
     const toRemove = req.body.toUnfollow;
 
-    User.findOne({username: req.user.username}, (err, user) => {
-        if (err) console.log(err);
-        else {
-            user.following.pull(toRemove);
-            user.save();
-            res.json(user);
-        }
-    })
-}
+    console.log("toRemove: ", toRemove)
 
+    User.findOneAndUpdate(
+        {_id: req.user._id},
+        {$pull: {following: toRemove}},
+        (err, user) => {
+            if (err) console.log(err);
+            else {
+                User.findOneAndUpdate(
+                    {_id: toRemove},
+                    {$pull: {followers: req.user._id}},
+                    (err, following) => {
+                        if (err) console.log(err);
+                        else {
+                            res.json(following);
+                        }
+                    }
+                )
+            }
+        }
+    )
+}
 
 // Handle user login on POST
 exports.user_login_post = async (req, res, next) => {

@@ -64,7 +64,6 @@ router.post('/remove/', verifyToken, user_controller.user_remove_follower_post);
 // Remove user following on put
 router.post('/unfollow/', verifyToken, user_controller.user_remove_following_post);
 
-
 // Get user mod_subgreddiits
 router.get('/:username/mod_subgreddiits', verifyToken, user_controller.user_mod_subgreddiits_get);
 
