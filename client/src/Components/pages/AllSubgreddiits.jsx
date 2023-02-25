@@ -27,12 +27,12 @@ export default function AllSubgreddiits({ user }) {
         {/* <h4 className='mb-3'>Not Reddit</h4> */}
         <Box className='mt-2' sx={{width:'100%'}}>
             <Space direction='vertical'>
-                <Space>
                     <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>   
-                    <SortFilterDropdown sortFilter={sortFilter} setSortFilter={setSortFilter}/>
-                </Space>
-                <button onClick={() => console.log(sortFilter)}>Check</button>
+                <Space size={'large'}>
                 <SGTags tags={tags} setTags={setTags}/>
+                <SortFilterDropdown sortFilter={sortFilter} setSortFilter={setSortFilter}/>
+                {/* <button onClick={() => console.log(sortFilter)}>Check</button> */}
+                </Space>
             </Space>
         </Box>
         {/* <a className='btn btn-primary' href='' role='button'>
@@ -40,13 +40,13 @@ export default function AllSubgreddiits({ user }) {
         </a> */}
       </div>
         <Container>
-            <Mod_SG_List user={user} tags={tags} searchValue={searchValue}/>
+            <Mod_SG_List user={user} tags={tags} searchValue={searchValue} sortFilter={sortFilter}/>
             {/* <Divider /> */}
-            <Member_SG_List user={user} tags={tags} searchValue={searchValue}/>
+            <Member_SG_List user={user} tags={tags} searchValue={searchValue} sortFilter={sortFilter}/>
             {/* <Divider /> */}
-            <NonMember_SG_List user={user} tags={tags} searchValue={searchValue}/>
+            <NonMember_SG_List user={user} tags={tags} searchValue={searchValue} sortFilter={sortFilter}/>
             {/* <Divider /> */}
-            <BannedMember_SG_List user={user} tags={tags} searchValue={searchValue}/>
+            <BannedMember_SG_List user={user} tags={tags} searchValue={searchValue} sortFilter={sortFilter}/>
         </Container>
         </>
     );

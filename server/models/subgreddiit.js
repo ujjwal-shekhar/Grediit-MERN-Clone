@@ -53,6 +53,10 @@ const SubGreddiitSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Report'
     }],
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
 })
 
 const SubGreddiit = mongoose.model('SubGreddiit', SubGreddiitSchema);

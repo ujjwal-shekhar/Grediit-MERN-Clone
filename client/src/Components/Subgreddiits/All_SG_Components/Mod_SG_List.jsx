@@ -9,7 +9,25 @@ import { MDBRow } from 'mdb-react-ui-kit';
 
 import axios from 'axios';
 
-export default function Mod_SG_List({ user, tags, searchValue }) {
+const itemComp = (a, b, type) => {
+    if (type === 'AscendingName') {
+        return a.name.localeCompare(b.name);
+    }
+    else if (type === 'DescendingName') {
+        return b.name.localeCompare(a.name);
+    }
+    else if (type === 'Followers') {
+        return b.common_members.length - a.common_members.length;
+    }
+    else if (type === 'CreationDate') {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+    else {
+        return 0;
+    }
+}
+
+export default function Mod_SG_List({ user, tags, searchValue, sortFilter }) {
     const [loading, setLoading] = useState(true);
     const [modSG, setModSG] = useState([]);
     useEffect(() => {
@@ -27,6 +45,7 @@ export default function Mod_SG_List({ user, tags, searchValue }) {
                 console.log("response received as : ", response.data);
                 
                 setModSG(response.data);
+                console.log("modSG : ", modSG);
                 setLoading(false);
             })
             .catch((error) => {
@@ -37,6 +56,60 @@ export default function Mod_SG_List({ user, tags, searchValue }) {
     if (loading) {
         return <Loading />
     }
+
+    // SortFilter is an array
+    // It has elements list 'AscendingName'. 'Followers', 'CreationDate', etc
+    // If it has 'AscendingName', then sort by name in ascending order
+    // If it has 'DescendingName', then sort by name in descending order
+    // If it has 'Followers', then sort by followers in descending order
+    // If it has 'CreationDate', then sort by creation date by newest first
+    // Take care of the case when there are multiple elements in the array
+    // If there are multiple elements, then sort by the first element in the array
+    // and then do a stable sort by the second element in the array and so on
+    // If there are no elements in the array, then do not sort
+    // If there is only one element in the array, then sort by that element
+
+
+    // Sort the modSG array
+    if (sortFilter.length === 1) {
+        modSG.sort(
+            sortFilter
+            .map((item) => {
+                return (a, b) => itemComp(a, b, item);
+            }
+        )[0]);
+    } else if (sortFilter.length === 2) {
+        modSG.sort(
+            sortFilter
+            .map((item) => {
+                return (a, b) => itemComp(a, b, item);
+            })[0])
+            .sort(
+                sortFilter
+                .map((item) => {
+                    return (a, b) => itemComp(a, b, item);
+                })[1]
+            );
+    } else if (sortFilter.length === 3) {
+        modSG.sort(
+            sortFilter
+            .map((item) => {
+                return (a, b) => itemComp(a, b, item);
+            })[0])
+            .sort(
+                sortFilter
+                .map((item) => {
+                    return (a, b) => itemComp(a, b, item);
+                })[1]
+                .sort(
+                    sortFilter
+                    .map((item) => {
+                        return (a, b) => itemComp(a, b, item);
+                    })[2]
+                )
+        )
+    }
+
 
     console.log("tags : ", tags);
 

@@ -140,8 +140,7 @@ const App = ({ sortFilter, setSortFilter }) => {
         >
             <a onClick={(e) => e.preventDefault()}>
                 <Space>
-                    <DownOutlined />
-                    Sort & Filter
+                    Sort <DownOutlined />
                 </Space>
             </a>
         </Dropdown>
