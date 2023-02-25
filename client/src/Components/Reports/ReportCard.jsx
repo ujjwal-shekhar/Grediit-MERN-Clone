@@ -4,6 +4,7 @@ import { Avatar, Card } from 'antd';
 import BlockIcon from '@mui/icons-material/Block';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
 
 import BlockButton from './BlockButton';
 
@@ -20,7 +21,8 @@ const ReportCard = ({ report, subgreddiitName }) => {
     const [loading, setLoading] = React.useState(true);
     const [reportedUser, setReportedUser] = React.useState({});
     const [reportedPost, setReportedPost] = React.useState({});
-    const [reporter, setReporter] = React.useState({});
+    const [reporter, setReporter] = React.useState({})  ;
+    const [isBlocked, setIsBlocked] = React.useState(report.status === 'Blocked' ? true : false);
 
     const tabList = [
         {
@@ -157,6 +159,7 @@ const ReportCard = ({ report, subgreddiitName }) => {
         )
             .then((response) => {
                 console.log(response.data);
+                setIsBlocked(true);
                 // window.location.reload();
             })
             .catch((err) => {
@@ -221,8 +224,12 @@ const ReportCard = ({ report, subgreddiitName }) => {
                 width: 300,
             }}
             extra={[
-                <BlockButton key="block" onClick={handleBlockUser} 
-                alreadyBlocked={report.status === "Blocked"}/>,
+                isBlocked ?
+                    <PersonOffIcon disable={true} />
+                    :
+                    <BlockButton key="block" handleBlockUser={handleBlockUser}/>,
+
+                
             ]}
 
             title={"Reported Post"}
