@@ -28,9 +28,10 @@ export default function AllSubgreddiits({ user }) {
         <Box className='mt-2' sx={{width:'100%'}}>
             <Space direction='vertical'>
                 <Space>
-                    <SortFilterDropdown sortFilter={sortFilter} setSortFilter={setSortFilter}/>
                     <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>   
+                    <SortFilterDropdown sortFilter={sortFilter} setSortFilter={setSortFilter}/>
                 </Space>
+                <button onClick={() => console.log(sortFilter)}>Check</button>
                 <SGTags tags={tags} setTags={setTags}/>
             </Space>
         </Box>
