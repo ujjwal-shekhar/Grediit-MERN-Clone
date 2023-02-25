@@ -119,16 +119,6 @@ export default function UserSubgreddiits({ user }) {
                         })  
                     }
             </MDBRow>
-            {/* <IconButton onClick={handleAddSG} sx={{
-                position: 'absolute',
-                bottom: 20,
-                right: 20,
-                // color: 'white',
-                // backgroundColor: 'primary',
-            }}>
-                <AddCircleOutlineIcon fontSize='large' color='primary' />
-
-            </IconButton> */}
             <Modal
                 open={showSGForm}
                 onClose={handleClose}
