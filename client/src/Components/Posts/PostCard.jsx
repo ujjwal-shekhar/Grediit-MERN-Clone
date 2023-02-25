@@ -181,9 +181,24 @@ export default function PostCard({ subgreddiitName, postID }) {
   }
 
   const handleFollowPoster = () => {
-    // axios.get(
-    //   `http://localhost:8080/add/follower/${post.posted_by}`,
-    // )
+    axios.post(
+      `http://localhost:8080/subgreddiits/SG/${subgreddiitName}/post/${postID}/follow`,
+      JSON.stringify({
+        "postCreator": post.posted_by
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      }
+    )
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   if (loading) {

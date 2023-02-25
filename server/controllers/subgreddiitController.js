@@ -873,3 +873,39 @@ exports.subgreddiit_unsave_post = function (req, res, next) {
         }
     })
 }
+
+// Follow the creator of the post
+exports.subgreddiit_follow_post = function (req, res, next) {
+    console.log('user follow post called');
+    User.findOne({ _id: req.user._id }, (err, user) => {
+        if (err) console.log(err);
+        else {
+            if (!user.following.includes(req.body.postCreator)
+                || user._id != req.body.postCreator) {
+                User.findOneAndUpdate(
+                    { _id: req.user._id },
+                    { $push: { following: req.body.postCreator } },
+                    (err, user) => {
+                        if (err) console.log(err);
+                        else {
+                            User.findOneAndUpdate(
+                                { _id: req.body.postCreator },
+                                { $push: { followers: req.user._id } },
+                                (err, user) => {
+                                    if (err) console.log(err);
+                                    else {
+                                        console.log('User added to followers list');
+                                        res.json({ isFollowed: true });
+                                    }
+                                }
+                            )
+                        }
+                    }
+                )
+            } else {
+                console.log('User is already followed');
+                res.json({ isFollowed: false });
+            }
+        }
+    })
+}

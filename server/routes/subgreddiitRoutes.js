@@ -50,8 +50,10 @@ router.post("/SG/:name/post/:postID/vote", verifyToken, subgreddiit_controller.s
 
 router.post("/SG/:name/post/:postID/save", verifyToken, subgreddiit_controller.subgreddiit_save_post)
 router.post("/SG/:name/post/:postID/unsave", verifyToken, subgreddiit_controller.subgreddiit_unsave_post)
+router.post("/SG/:name/post/:postID/follow", verifyToken, subgreddiit_controller.subgreddiit_follow_post)
 
 router.post("/SG/:name/check_blocked", verifyToken, subgreddiit_controller.subgreddiit_check_blocked);
+
 
 // router.put("/SG/:name/post/:postID/save", verifyToken, subgreddiit_controller.subgreddiit_save_post)
 

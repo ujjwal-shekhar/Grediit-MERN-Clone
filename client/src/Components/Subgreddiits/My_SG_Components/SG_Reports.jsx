@@ -39,7 +39,7 @@ export default function ReportContainer({ subgreddiitName }) {
                 console.log("Report yaha hai doston : ", report);
                 return (
                     <ReportCard
-                    key={index}
+                    key={report._id}
                     subgreddiitName={subgreddiitName}
                     report={report}
                     />

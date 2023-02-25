@@ -9,16 +9,18 @@ const BlockButton = ({ handleBlockUser }) => {
     const [countdown, setCountdown] = useState(3);
 
     useEffect(() => {
-
+        console.log("useEffect called")
         if (btnMode === 'block') {
-            // setCountdown(3);
+            setCountdown(3);
             return;
         }
+        console.log("useEffect called but aage ")
 
         let timer = null;
         if (countdown > 0) {
             timer = setTimeout(() => {
                 setCountdown(countdown - 1);
+                console.log(countdown);
             }, 1000);
         } else {
             handleBlockUser();
@@ -27,11 +29,11 @@ const BlockButton = ({ handleBlockUser }) => {
         return () => {
             clearTimeout(timer);
         };
-    }, [countdown, handleBlockUser]);
+    }, [countdown, btnMode]);
 
     const handleBlockClick = () => {
-        setCountdown(3);
         setBtnMode('cancel');
+        setCountdown(3);    
     }
 
     return (
