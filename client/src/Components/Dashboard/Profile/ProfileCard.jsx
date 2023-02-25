@@ -33,6 +33,7 @@ export default function ProfileCard({ user, setUser, perms }) {
   const [showEditForm, setShowEditForm] = React.useState(false);
   const [followersCount, setFollowersCount] = React.useState(null);
   const [followingCount, setFollowingCount] = React.useState(null);
+  const [diceBearImg, setDiceBearImg] = React.useState(null);
 
   React.useEffect(() => {
     axios.get(
@@ -48,6 +49,7 @@ export default function ProfileCard({ user, setUser, perms }) {
         console.log(response.data);
         setFollowersCount(response.data.followers);
         setFollowingCount(response.data.following);
+        setDiceBearImg(`https://api.dicebear.com/5.x/pixel-art/svg?seed=${response.data.username}`)
         setLoading(false);
       })
       .catch((err) => {
@@ -103,6 +105,8 @@ export default function ProfileCard({ user, setUser, perms }) {
       <Loading />
     )
   }
+
+
   
   return (
     <>
@@ -134,7 +138,7 @@ export default function ProfileCard({ user, setUser, perms }) {
             <MDBCard>
               <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                 <div className="ms-4 mt-5 md-5 d-flex flex-column" style={{ width: '150px' }}>
-                  <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                  <MDBCardImage src={diceBearImg}
                     alt="Generic placeholder image" className="mt-4 mb-2 img-thumbnail" fluid style={{ width: '150px', zIndex: '1' }} />
                     { perms == "AUTH" ? 
                         <MDBBtn outline className='mb-2' color="dark" style={{height: '36px', overflow: 'visible'}} onClick={handleEdit}>
