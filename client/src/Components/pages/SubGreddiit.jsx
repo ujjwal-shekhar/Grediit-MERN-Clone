@@ -18,7 +18,7 @@ import SubgreddiitPosts from "../Subgreddiits/SG_Page_Components/SubgreddiitPost
 import CreatePostForm from "../Subgreddiits/SG_Page_Components/SubgreddiitAddPost";
 import SG_Reports from "../Subgreddiits/My_SG_Components/SG_Reports";
 import SG_Stats from "../Subgreddiits/My_SG_Components/SG_Stats";
-import { Button } from "antd";
+import { Button, Avatar, Space } from "antd";
 
 const style = {
   position: 'absolute',
@@ -111,11 +111,16 @@ export default function SubGreddiit() {
     // <PostCard />
     <>
       <div className='p-5 text-center bg-light'>
-        <h1 className='mb-3'>Greddiit</h1>
-        {/* <h4 className='mb-3'>Not Reddit</h4> */}
-        <Button onClick={handleOpen} variant="contained" color="primary" size="large">
-          Create Post
-        </Button>
+        <Space direction="vertical">
+          <Space>
+            <Avatar size={64} src={`https://api.dicebear.com/5.x/identicon/svg/?seed=${subgreddiit.name}`} />
+            <h1 className='mb-3'>Greddiit</h1>
+          </Space>
+          {/* <h4 className='mb-3'>Not Reddit</h4> */}
+          <Button onClick={handleOpen} variant="contained" color="primary" size="large">
+            Create Post
+          </Button>
+        </Space>
         <Modal
         open={open}
         onClose={handleClose}
