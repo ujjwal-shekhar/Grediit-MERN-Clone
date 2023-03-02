@@ -30,3 +30,6 @@ networks:
     driver: bridge
 
 volumes:
+  mongo-data:
+    driver:
+      local

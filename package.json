@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "jsonwebtoken": "^9.0.0",
-    "mdb-react-ui-kit": "^5.1.0"
-  }
-}
