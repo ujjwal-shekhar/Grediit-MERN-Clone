@@ -45,28 +45,50 @@ exports.chat_details = function(req, res) {
 // Post a new chat message
 exports.chat_create = function(req, res) {
     console.log("req.body is : ", req.body)
-    User.findOne({username: req.body.recipient}, function(err, user) {
-        if (err || !user) {
-            res.status(500).json({message: 'Error fetching user'});
-            console.log("welp user nahi mila")
-        } else {
-            // Create a new chat
-            console.log("User that we found was : ", user)
-            let chat = new Chat({
-                chat_sender: req.user._id,
-                chat_recipient: user._id,
-                chat_content: req.body.content
-            });
-            
-            chat.save(function(err) {
-                if (err) {
-                    res.status(500).json({message: 'Error saving chat', err: err});
-                } else {
-                    res.status(200).json({message: 'Chat saved successfully'});
-                }
-            })
+    // Check if the req.body.recipient follows user.req._id
+    // However, followers and following are arrays of objects
+    // and req.body.recipient is the username of the recipient
+    // so we need to find the user with the username
+    // and then check if the user is in the array of objects
+
+    // Find the user with the username
+    User.findOne(
+        {username: req.body.recipient},
+        function(err, user) {
+            if (err || !user) {
+                res.status(500).json({message: 'Error fetching user'});
+            } else {
+                // Check if the user is in the array of objects
+                User.findOne(
+                    {
+                        _id: req.user._id,
+                        following: user._id,
+                        followers: user._id
+                    },
+                    function(err, user2) {
+                        if (err || !user2) {
+                            res.status(500).json({message: 'Error fetching user'});
+                        } else {
+                            // Create a new chat
+                            let chat = new Chat({
+                                chat_sender: req.user._id,
+                                chat_recipient: user._id,
+                                chat_content: req.body.content
+                            });
+
+                            chat.save(function(err) {
+                                if (err) {
+                                    res.status(500).json({message: 'Error saving chat', err: err});
+                                } else {
+                                    res.status(200).json({message: 'Chat saved successfully'});
+                                }
+                            })
+                        }
+                    }
+                )
+            }
         }
-    })
+    )
 }
 
 // Check if user is the sender

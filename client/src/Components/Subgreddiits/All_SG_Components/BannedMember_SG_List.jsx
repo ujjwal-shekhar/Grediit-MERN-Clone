@@ -9,7 +9,26 @@ import { MDBRow } from 'mdb-react-ui-kit';
 
 import axios from 'axios';
 
-export default function Member_SG_List({ user, tags, searchValue }) {
+
+const itemComp = (a, b, type) => {
+    if (type === 'AscendingName') {
+        return a.name.localeCompare(b.name);
+    }
+    else if (type === 'DescendingName') {
+        return b.name.localeCompare(a.name);
+    }
+    else if (type === 'Followers') {
+        return b.common_members.length - a.common_members.length;
+    }
+    else if (type === 'CreationDate') {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+    else {
+        return 0;
+    }
+}
+
+export default function Member_SG_List({ user, tags, searchValue, sortFilter }) {
     const [loading, setLoading] = useState(true);
     const [memberSG, setMemberSG] = useState([]);
     useEffect(() => {
@@ -31,6 +50,44 @@ export default function Member_SG_List({ user, tags, searchValue }) {
                 console.log(error);
             })
     }, []);
+    if (sortFilter.length === 1) {
+        console.log("Sorting by modSG")
+        memberSG.sort(
+            sortFilter
+            .map((item) => {
+                return (a, b) => itemComp(a, b, item);
+            }
+        )[0]);
+    } else if (sortFilter.length === 2) {
+        memberSG.sort(
+            sortFilter
+            .map((item) => {
+                return (a, b) => itemComp(a, b, item);
+            })[0])
+            .sort(
+                sortFilter
+                .map((item) => {
+                    return (a, b) => itemComp(a, b, item);
+                })[1]
+            );
+    } else if (sortFilter.length === 3) {
+        memberSG.sort(
+            sortFilter
+            .map((item) => {
+                return (a, b) => itemComp(a, b, item);
+            })[0])
+            .sort(
+                sortFilter
+                .map((item) => {
+                    return (a, b) => itemComp(a, b, item);
+                })[1])
+                .sort(
+                    sortFilter
+                    .map((item) => {
+                        return (a, b) => itemComp(a, b, item);
+                    })[2]
+                )
+    }
 
     if (loading) {
         return <Loading />

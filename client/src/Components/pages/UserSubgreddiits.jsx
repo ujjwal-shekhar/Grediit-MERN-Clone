@@ -1,15 +1,8 @@
 import * as React from 'react';
 
 import MiniSubgreddiitCard from '../Subgreddiits/SG_Page_Components/MiniSubgreddiitCard.jsx'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Item from '@mui/material/Stack';
-
-import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
@@ -19,13 +12,7 @@ import CreateSGForm from '../Subgreddiits/SG_Page_Components/SubgreddiitCreateFo
 import Loading from './Loading.jsx';
 import Button from 'antd/lib/button/button.js';
 
-
 import {
-    MDBCard,
-    MDBCardImage,
-    MDBCardBody,
-    MDBCardTitle,
-    MDBCardText,
     MDBRow,
     MDBCol
 } from 'mdb-react-ui-kit';
@@ -41,20 +28,7 @@ const style = {
     // border: '2px solid #000',
     // boxShadow: 24,
     p: 4,
-};
-
-function LinkTab(props) {
-    return (
-        <Tab
-            component="a"
-            onClick={(event) => {
-                event.preventDefault();
-            }}
-            {...props}
-        />
-    );
 }
-
 export default function UserSubgreddiits({ user }) {
     const [showSGForm, setShowSGForm] = React.useState(false);
     const [loading, setLoading] = React.useState(true);

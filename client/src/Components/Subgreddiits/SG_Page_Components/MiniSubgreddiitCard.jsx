@@ -37,7 +37,7 @@ const App = ({ subgreddiit, perms, tags, searchValue }) => {
     if (perms === "MOD_MY")
       navigate(`/subgreddiits/${subgreddiit.name}/mod/users`);
     else 
-      navigate(`/subgreddiits/${subgreddiit.name}/`);
+      navigate(`/subgreddiits/${subgreddiit.name}/posts`);
   }
 
   const handleJoin = () => {

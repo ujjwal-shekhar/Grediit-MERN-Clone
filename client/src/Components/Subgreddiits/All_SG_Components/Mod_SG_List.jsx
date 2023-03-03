@@ -30,6 +30,7 @@ const itemComp = (a, b, type) => {
 export default function Mod_SG_List({ user, tags, searchValue, sortFilter }) {
     const [loading, setLoading] = useState(true);
     const [modSG, setModSG] = useState([]);
+    // let modSG = [];
     useEffect(() => {
         console.log("Mod_sg mounted");
         axios.get(
@@ -42,7 +43,7 @@ export default function Mod_SG_List({ user, tags, searchValue, sortFilter }) {
             }
         )
             .then((response) => {
-                console.log("response received as : ", response.data);
+                console.log("response received as : ", response, " ", "http://localhost:8080/users/" + user.username + "/mod_subgreddiits");
                 
                 setModSG(response.data);
                 console.log("modSG : ", modSG);
@@ -73,14 +74,14 @@ export default function Mod_SG_List({ user, tags, searchValue, sortFilter }) {
     // Sort the modSG array
     if (sortFilter.length === 1) {
         console.log("Sorting by modSG")
-        modSG = modSG.sort(
+        modSG.sort(
             sortFilter
             .map((item) => {
                 return (a, b) => itemComp(a, b, item);
             }
         )[0]);
     } else if (sortFilter.length === 2) {
-        modSG = modSG.sort(
+        modSG.sort(
             sortFilter
             .map((item) => {
                 return (a, b) => itemComp(a, b, item);
@@ -92,7 +93,7 @@ export default function Mod_SG_List({ user, tags, searchValue, sortFilter }) {
                 })[1]
             );
     } else if (sortFilter.length === 3) {
-        modSG = modSG.sort(
+        modSG.sort(
             sortFilter
             .map((item) => {
                 return (a, b) => itemComp(a, b, item);
@@ -101,21 +102,22 @@ export default function Mod_SG_List({ user, tags, searchValue, sortFilter }) {
                 sortFilter
                 .map((item) => {
                     return (a, b) => itemComp(a, b, item);
-                })[1]
+                })[1])
                 .sort(
                     sortFilter
                     .map((item) => {
                         return (a, b) => itemComp(a, b, item);
                     })[2]
                 )
-        )
     }
 
+    // console.log("modSG : ", modSG);
 
     console.log("tags : ", tags);
 
     return (
         <Container>
+            <button onClick={() => console.log("modSG : ", modSG)}>Log modSG</button>
             <Box className='mt-2' sx={{width:'100%'}}>
                 <Space direction='vertical'>
                     <MDBRow className='row-cols-1 row-cols-md-3 g-100 mt-1'>

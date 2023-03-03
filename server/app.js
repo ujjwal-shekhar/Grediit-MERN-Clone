@@ -35,8 +35,8 @@ app.use("/chats", chatRoutes);
 /*MongoDB setup*/
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-// const mongoDB = process.env.ATLAS_URI;
-const mongoDB = 'mongodb://mongo:27017/subgreddiit'
+const mongoDB = process.env.ATLAS_URI;
+// const mongoDB = 'mongodb://mongo:27017/subgreddiit'
 
 async function main() {
   await mongoose.connect(mongoDB);
